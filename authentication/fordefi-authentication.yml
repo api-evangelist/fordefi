@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/fordefi-openapi-original.json
+docs: https://docs.fordefi.com/developers/authentication
+summary:
+  types:
+  - http
+  request_signing: ECDSA over NIST P-256 (x-signature/x-timestamp) for state-changing ops
+  transport: HTTPS only
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  header: 'Authorization: Bearer {api_access_token}'
+  note: >-
+    API access token (JWT) issued for an API User. Sensitive/state-changing
+    requests additionally require an ECDSA (NIST P-256) signature over
+    "${path}|${timestamp}|${body}" sent in x-signature with x-timestamp, produced
+    by the API Signer whose public key is registered with the API User.
+  sources:
+  - openapi/fordefi-openapi-original.json
