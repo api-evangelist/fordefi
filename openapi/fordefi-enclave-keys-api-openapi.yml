@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book Enclave Keys API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Enclave Keys
+paths:
+  /api/v1/enclave-keys:
+    get:
+      tags:
+      - Enclave Keys
+      summary: List Enclave Keys
+      description: Get the public keys of the enclave.
+      operationId: list_enclave_keys_api_v1_enclave_keys_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEnclaveKeysResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+components:
+  schemas:
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    TimestampedSignature:
+      properties:
+        signature:
+          type: string
+          title: Signature
+          example: SGVsbG8=
+        timestamp:
+          type: integer
+          title: Timestamp
+      type: object
+      required:
+      - signature
+      - timestamp
+      title: TimestampedSignature
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    SignedEncryptionKey:
+      properties:
+        public_key:
+          type: string
+          title: Public Key
+          description: Public key used for encryption.
+          example: SGVsbG8=
+        timestamped_signature:
+          $ref: '#/components/schemas/TimestampedSignature'
+          description: Signature of the public key.
+        certificate:
+          type: string
+          title: Certificate
+          description: Short-lived ECDSA-signed certificate for the encryption public key.
+          example: SGVsbG8=
+      type: object
+      required:
+      - public_key
+      - timestamped_signature
+      - certificate
+      title: SignedEncryptionKey
+      description: Encryption key signed by the enclave.
+    ListEnclaveKeysResponse:
+      properties:
+        sign_key:
+          deprecated: true
+          $ref: '#/components/schemas/AttestedSigningKey'
+        encryption_key:
+          $ref: '#/components/schemas/SignedEncryptionKey'
+        intent_signing_key:
+          $ref: '#/components/schemas/AttestedSigningKey'
+      type: object
+      required:
+      - encryption_key
+      - intent_signing_key
+      title: ListEnclaveKeysResponse
+    Attestation:
+      properties:
+        attestation:
+          type: string
+          title: Attestation
+          example: SGVsbG8=
+        certificate:
+          type: string
+          title: Certificate
+          example: SGVsbG8=
+      type: object
+      required:
+      - attestation
+      - certificate
+      title: Attestation
+      description: Attestation of a public key.
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    AttestedSigningKey:
+      properties:
+        public_key:
+          type: string
+          title: Public Key
+          description: Public key used for signing.
+          example: SGVsbG8=
+        attestation:
+          $ref: '#/components/schemas/Attestation'
+          description: Attestation of the public key.
+      type: object
+      required:
+      - public_key
+      - attestation
+      title: AttestedSigningKey
+      description: Signing key attested by the enclave.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

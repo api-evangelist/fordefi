@@ -1,0 +1,599 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book Authorization Tokens API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Authorization Tokens
+  description: These endpoints allow you to manage end-user authorization tokens used for Fordefi's WaaS solution.<br><br>Authorization tokens allow end users to authenticate with Fordefi. Each end user can have a maximum of ten active authorization tokens at any time.<br><br>More information on authenticating end users is provided in the <a href="https://docs.fordefi.com/waas/waas-authentication">WaaS developer guide</a>.
+paths:
+  /api/v1/authorization-tokens:
+    post:
+      tags:
+      - Authorization Tokens
+      summary: Issue Authorization Token
+      description: Issue authorization token for an end user.
+      operationId: issue_authorization_token_api_v1_authorization_tokens_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueAuthTokenRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueAuthTokenResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefinedPreconditionError_IssueEndUserAuthTokenErrorType_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+    get:
+      tags:
+      - Authorization Tokens
+      summary: List Authorization Tokens
+      description: List authorization tokens of end users.
+      operationId: list_authorization_tokens_api_v1_authorization_tokens_get
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: The page number to fetch.
+          default: 1
+          title: Page
+        description: The page number to fetch.
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          description: The number of items per page.
+          default: 50
+          title: Size
+        description: The number of items per page.
+      - name: skip_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to skip counting the total number of items.
+          default: false
+          title: Skip Count
+        description: Whether to skip counting the total number of items.
+      - name: user_ids
+        in: query
+        required: false
+        schema:
+          description: The unique identifiers of the users.
+          title: User Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: The unique identifiers of the users.
+      - name: user_types
+        in: query
+        required: false
+        schema:
+          description: User types to filter. Only end users are currently supported.
+          title: User Types
+          type: array
+          items:
+            const: end_user
+            type: string
+        description: User types to filter. Only end users are currently supported.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAuthTokensResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/authorization-tokens/{id}:
+    delete:
+      tags:
+      - Authorization Tokens
+      summary: Delete Authorization Token
+      description: Delete authorization token of an end user.
+      operationId: delete_authorization_token_api_v1_authorization_tokens__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the authorization token to delete.
+          title: Id
+        description: ID of the authorization token to delete.
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+components:
+  schemas:
+    IssueEndUserAuthTokenRequest:
+      properties:
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user to issue the authorization token for.
+        expiration:
+          type: integer
+          maximum: 315360000.0
+          minimum: 1.0
+          title: Expiration
+          description: 'Token expiration in seconds (default: 1 day).'
+          default: 86400
+      type: object
+      required:
+      - user_type
+      - user_id
+      title: IssueEndUserAuthTokenRequest
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    IssueAuthTokenResponse:
+      $ref: '#/components/schemas/IssueEndUserAuthTokenResponse'
+      title: IssueAuthTokenResponse
+    ListAuthTokensResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        auth_tokens:
+          items:
+            $ref: '#/components/schemas/AuthToken'
+          type: array
+          title: Auth Tokens
+          description: Authorization tokens list.
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - auth_tokens
+      title: ListAuthTokensResponse
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    DefinedPreconditionError_IssueEndUserAuthTokenErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/IssueEndUserAuthTokenErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[IssueEndUserAuthTokenErrorType]
+    IssueEndUserAuthTokenErrorType:
+      type: string
+      enum:
+      - cannot_issue_token_for_user_type
+      title: IssueEndUserAuthTokenErrorType
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    AuthToken:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user the authorization token is issued for.
+        expired_at:
+          type: string
+          format: date-time
+          title: Expired At
+          description: Token expiration time.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: Type of the user the authorization token is issued for.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - user_id
+      - expired_at
+      - user_type
+      title: AuthToken
+    IssueEndUserAuthTokenResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user the authorization token is issued for.
+        expired_at:
+          type: string
+          format: date-time
+          title: Expired At
+          description: Token expiration time.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        access_token:
+          type: string
+          title: Access Token
+          description: New access token for the user.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - user_id
+      - expired_at
+      - user_type
+      - access_token
+      title: IssueEndUserAuthTokenResponse
+    IssueAuthTokenRequest:
+      oneOf:
+      - $ref: '#/components/schemas/IssueEndUserAuthTokenRequest'
+      discriminator:
+        propertyName: user_type
+        mapping:
+          end_user: '#/components/schemas/IssueEndUserAuthTokenRequest'
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,1701 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book Blockchains API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Blockchains
+  description: These endpoints allow you to get information about blockchains supported by Fordefi.
+paths:
+  /api/v1/blockchains:
+    get:
+      tags:
+      - Blockchains
+      summary: List Chains
+      description: Get a list of supported blockchains.
+      operationId: list_chains_api_v1_blockchains_get
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: The page number to fetch.
+          default: 1
+          title: Page
+        description: The page number to fetch.
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          description: The number of items per page.
+          default: 50
+          title: Size
+        description: The number of items per page.
+      - name: skip_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to skip counting the total number of items.
+          default: false
+          title: Skip Count
+        description: Whether to skip counting the total number of items.
+      - name: chain_types
+        in: query
+        required: false
+        schema:
+          title: Chain Types
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainType'
+      - name: sources
+        in: query
+        required: false
+        schema:
+          description: 'The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi''s platform.<li>`custom`: User-added chains with support on Fordefi''s platform.</ul>'
+          title: Sources
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainSource'
+        description: 'The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi''s platform.<li>`custom`: User-added chains with support on Fordefi''s platform.</ul>'
+      - name: include_mainnets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Include Mainnets
+      - name: include_testnets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Include Testnets
+      - name: include_exchanges
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Exchanges
+      - name: show_all
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Include all chains in the response.
+          default: false
+          title: Show All
+        description: Include all chains in the response.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBlockchainsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/blockchains/suggested-fees:
+    get:
+      tags:
+      - Blockchains
+      summary: Get Suggested Fees
+      description: Get the suggested fees in a specific network.
+      operationId: get_suggested_fees_api_v1_blockchains_suggested_fees_get
+      parameters:
+      - name: chains
+        in: query
+        required: false
+        schema:
+          title: Chains
+          type: array
+          items:
+            type: string
+            minLength: 1
+            description: The unique chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric EVM chain ID `evm_<chain_id>` if one was added to your organization. <ul><li>`"aptos_mainnet"`</li><li>`"aptos_testnet"`</li><li>`"aptos_movement_mainnet"`</li><li>`"aptos_movement_testnet"`</li><li>`"arch_mainnet"`</li><li>`"arch_testnet"`</li><li>`"canton_mainnet"`</li><li>`"cosmos_agoric-3"`</li><li>`"cosmos_akashnet-2"`</li><li>`"cosmos_archway-1"`</li><li>`"cosmos_axelar-dojo-1"`</li><li>`"cosmos_bbn-1"`</li><li>`"cosmos_celestia"`</li><li>`"cosmos_cosmoshub-4"`</li><li>`"cosmos_dydx-mainnet-1"`</li><li>`"cosmos_dydx-testnet-4"`</li><li>`"cosmos_dymension_1100-1"`</li><li>`"cosmos_injective-1"`</li><li>`"cosmos_neutron-1"`</li><li>`"cosmos_nillion-1"`</li><li>`"cosmos_noble-1"`</li><li>`"cosmos_osmosis-1"`</li><li>`"cosmos_provider"`</li><li>`"cosmos_ssc-1"`</li><li>`"cosmos_pacific-1"`</li><li>`"cosmos_stride-1"`</li><li>`"cosmos_thorchain-1"`</li><li>`"cosmos_mantra-1"`</li><li>`"exchange_binance"`</li><li>`"exchange_bybit"`</li><li>`"exchange_coinbase_international"`</li><li>`"exchange_coinbase_us"`</li><li>`"exchange_okx"`</li><li>`"exchange_kraken"`</li><li>`"ripple_mainnet"`</li><li>`"solana_mainnet"`</li><li>`"solana_devnet"`</li><li>`"solana_eclipse_mainnet"`</li><li>`"solana_fogo_mainnet"`</li><li>`"solana_fogo_testnet"`</li><li>`"stacks_mainnet"`</li><li>`"starknet_mainnet"`</li><li>`"stellar_mainnet"`</li><li>`"sui_mainnet"`</li><li>`"sui_testnet"`</li><li>`"ton_mainnet"`</li><li>`"tron_mainnet"`</li><li>`"tron_shasta"`</li><li>`"bitcoin_mainnet"`</li><li>`"bitcoin_testnet"`</li><li>`"bitcoin_testnet_v4"`</li><li>`"dogecoin_mainnet"`</li><li>`"bitcoin_cash_mainnet"`</li><li>`"pearl_testnet"`</li><li>`"pearl_mainnet"`</li><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+            title: ChainUniqueId
+      - name: chain_types
+        in: query
+        required: false
+        schema:
+          title: Chain Types
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainType'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSuggestedFeesResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+components:
+  schemas:
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    EnrichedUtxoChain:
+      properties:
+        chain_type:
+          type: string
+          const: utxo
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The UTXO chain unique ID.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedUtxoChain
+    EnrichedStellarChain:
+      properties:
+        chain_type:
+          type: string
+          const: stellar
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The type of the Stellar chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStellarChain
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    StarknetSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: The type of the chain.
+        chain_unique_id:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The Starknet chain unique id.
+        gas_price:
+          type: string
+          pattern: ^\d+$
+          title: Gas Price
+          description: The Current L1 gas price in FRI.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - type
+      - chain_unique_id
+      - gas_price
+      title: StarknetSuggestedFees
+    DynamicGasFields:
+      properties:
+        max_priority_fee_per_gas:
+          type: string
+          pattern: ^\d+$
+          title: Max Priority Fee Per Gas
+          description: The maximum tip amount for mining the transaction.
+          example: '1000000000000000000'
+        max_fee_per_gas:
+          type: string
+          pattern: ^\d+$
+          title: Max Fee Per Gas
+          description: The maximum amount paid for the fee.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - max_priority_fee_per_gas
+      - max_fee_per_gas
+      title: DynamicGasFields
+    TronChainUniqueId:
+      type: string
+      enum:
+      - tron_mainnet
+      - tron_shasta
+      title: TronChainUniqueId
+    SuggestedFees:
+      oneOf:
+      - $ref: '#/components/schemas/AptosSuggestedFees'
+      - $ref: '#/components/schemas/CosmosSuggestedFees'
+      - $ref: '#/components/schemas/EvmSuggestedFees'
+      - $ref: '#/components/schemas/StarknetSuggestedFees'
+      - $ref: '#/components/schemas/SuiSuggestedFees'
+      - $ref: '#/components/schemas/TonSuggestedFees'
+      - $ref: '#/components/schemas/UtxoSuggestedFees'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/AptosSuggestedFees'
+          cosmos: '#/components/schemas/CosmosSuggestedFees'
+          evm: '#/components/schemas/EvmSuggestedFees'
+          starknet: '#/components/schemas/StarknetSuggestedFees'
+          sui: '#/components/schemas/SuiSuggestedFees'
+          ton: '#/components/schemas/TonSuggestedFees'
+          utxo: '#/components/schemas/UtxoSuggestedFees'
+    UtxoChainUniqueId:
+      type: string
+      enum:
+      - bitcoin_mainnet
+      - bitcoin_testnet
+      - bitcoin_testnet_v4
+      - dogecoin_mainnet
+      - bitcoin_cash_mainnet
+      - pearl_testnet
+      - pearl_mainnet
+      title: UtxoChainUniqueId
+    EnrichedSolanaChain:
+      properties:
+        chain_type:
+          type: string
+          const: solana
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/SolanaChainUniqueId'
+          description: The type of the Solana-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedSolanaChain
+    StarknetChainUniqueId:
+      type: string
+      enum:
+      - starknet_mainnet
+      title: StarknetChainUniqueId
+    CosmosChainUniqueId:
+      type: string
+      enum:
+      - cosmos_agoric-3
+      - cosmos_akashnet-2
+      - cosmos_archway-1
+      - cosmos_axelar-dojo-1
+      - cosmos_bbn-1
+      - cosmos_celestia
+      - cosmos_cosmoshub-4
+      - cosmos_dydx-mainnet-1
+      - cosmos_dydx-testnet-4
+      - cosmos_dymension_1100-1
+      - cosmos_injective-1
+      - cosmos_neutron-1
+      - cosmos_nillion-1
+      - cosmos_noble-1
+      - cosmos_osmosis-1
+      - cosmos_provider
+      - cosmos_ssc-1
+      - cosmos_pacific-1
+      - cosmos_stride-1
+      - cosmos_thorchain-1
+      - cosmos_mantra-1
+      title: CosmosChainUniqueId
+    UtxoSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: The type of the chain.
+        low:
+          type: string
+          pattern: ^\d+$
+          title: Low
+          description: The low suggested fee per byte.
+          example: '1000000000000000000'
+        medium:
+          type: string
+          pattern: ^\d+$
+          title: Medium
+          description: The medium suggested fee per byte.
+          example: '1000000000000000000'
+        high:
+          type: string
+          pattern: ^\d+$
+          title: High
+          description: The high suggested fee per byte.
+          example: '1000000000000000000'
+        chain_unique_id:
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The UTXO chain unique id.
+      type: object
+      required:
+      - type
+      - low
+      - medium
+      - high
+      - chain_unique_id
+      title: UtxoSuggestedFees
+    SolanaChainUniqueId:
+      type: string
+      enum:
+      - solana_mainnet
+      - solana_devnet
+      - solana_eclipse_mainnet
+      - solana_fogo_mainnet
+      - solana_fogo_testnet
+      title: SolanaChainUniqueId
+    EnrichedAptosChain:
+      properties:
+        chain_type:
+          type: string
+          const: aptos
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The type of the Aptos-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedAptosChain
+    CosmosBech32Prefix:
+      type: string
+      enum:
+      - agoric
+      - akash
+      - archway
+      - axelar
+      - bbn
+      - celestia
+      - cosmos
+      - dydx
+      - dym
+      - inj
+      - neutron
+      - nillion
+      - noble
+      - osmo
+      - saga
+      - sei
+      - stride
+      - thor
+      - mantra
+      title: CosmosBech32Prefix
+    EnrichedTronChain:
+      properties:
+        chain_type:
+          type: string
+          const: tron
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The type of the Tron-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedTronChain
+    EvmLegacySuggestedFees:
+      properties:
+        type:
+          type: string
+          const: legacy
+          title: Type
+        low:
+          $ref: '#/components/schemas/LegacyGasFields'
+          description: The low suggested gas fees.
+        medium:
+          $ref: '#/components/schemas/LegacyGasFields'
+          description: The medium suggested gas fees.
+        high:
+          $ref: '#/components/schemas/LegacyGasFields'
+          description: The high suggested gas fees.
+      type: object
+      required:
+      - type
+      - low
+      - medium
+      - high
+      title: EvmLegacySuggestedFees
+    ChainSource:
+      type: string
+      enum:
+      - default
+      - custom
+      title: ChainSource
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    AptosChainUniqueId:
+      type: string
+      enum:
+      - aptos_mainnet
+      - aptos_testnet
+      - aptos_movement_mainnet
+      - aptos_movement_testnet
+      title: AptosChainUniqueId
+    EnrichedEvmChain:
+      properties:
+        chain_type:
+          type: string
+          const: evm
+          title: Chain Type
+          description: The type of the chain.
+        named_chain_id:
+          title: EvmChainName
+          description: The EVM chain name can be either one of those supported by the default chains below or a custom chain name if one was added to your organization. <ul><li>`arbitrum_mainnet`</li><li>`arbitrum_sepolia`</li><li>`aster_mainnet`</li><li>`avalanche_chain`</li><li>`avalanche_fuji`</li><li>`base_mainnet`</li><li>`berachain_mainnet`</li><li>`blast_mainnet`</li><li>`bsc_mainnet`</li><li>`canto_mainnet`</li><li>`clink_mainnet`</li><li>`clink_testnet`</li><li>`conflux_mainnet`</li><li>`dymension_mainnet`</li><li>`ethereum_goerli`</li><li>`ethereum_holesky`</li><li>`ethereum_mainnet`</li><li>`ethereum_sepolia`</li><li>`fantom_mainnet`</li><li>`flare_mainnet`</li><li>`flare_testnet`</li><li>`gnosis_mainnet`</li><li>`hypercore_mainnet`</li><li>`hyperevm_mainnet`</li><li>`ink_mainnet`</li><li>`kava_mainnet`</li><li>`katana_mainnet`</li><li>`linea_mainnet`</li><li>`optimism_mainnet`</li><li>`pharos_mainnet`</li><li>`plasma_mainnet`</li><li>`manta_pacific_mainnet`</li><li>`mantle_mainnet`</li><li>`merlin_mainnet`</li><li>`monad_mainnet`</li><li>`polygon_mainnet`</li><li>`polygon_mumbai`</li><li>`polygon_zkevm_mainnet`</li><li>`reya_mainnet`</li><li>`robinhood_mainnet`</li><li>`rootstock_mainnet`</li><li>`scroll_mainnet`</li><li>`sei_mainnet`</li><li>`sonic_mainnet`</li><li>`tempo_mainnet`</li><li>`unichain_mainnet`</li><li>`xai_mainnet`</li><li>`x_layer_mainnet`</li><li>`zero_gravity_mainnet`</li><li>`zeta_mainnet`</li><li>`zklink_nova_mainnet`</li><li>`zksync_era_mainnet`</li></ul>
+          type: string
+          minLength: 1
+        chain_id:
+          type: integer
+          minimum: 1.0
+          title: EvmChainId
+          description: The EVM chain ID can be either one of those supported by the default chains below or a custom chain ID if one was added to your organization. <ul><li>1=`ethereum_mainnet`</li><li>5=`ethereum_goerli`</li><li>10=`optimism_mainnet`</li><li>14=`flare_mainnet`</li><li>16=`flare_testnet`</li><li>30=`rootstock_mainnet`</li><li>56=`bsc_mainnet`</li><li>100=`gnosis_mainnet`</li><li>130=`unichain_mainnet`</li><li>137=`polygon_mainnet`</li><li>143=`monad_mainnet`</li><li>146=`sonic_mainnet`</li><li>169=`manta_pacific_mainnet`</li><li>196=`x_layer_mainnet`</li><li>250=`fantom_mainnet`</li><li>324=`zksync_era_mainnet`</li><li>999=`hyperevm_mainnet`</li><li>1030=`conflux_mainnet`</li><li>1100=`dymension_mainnet`</li><li>1101=`polygon_zkevm_mainnet`</li><li>1329=`sei_mainnet`</li><li>1337=`hypercore_mainnet`</li><li>1666=`aster_mainnet`</li><li>1672=`pharos_mainnet`</li><li>1729=`reya_mainnet`</li><li>2222=`kava_mainnet`</li><li>4200=`merlin_mainnet`</li><li>4217=`tempo_mainnet`</li><li>4663=`robinhood_mainnet`</li><li>5000=`mantle_mainnet`</li><li>7000=`zeta_mainnet`</li><li>7700=`canto_mainnet`</li><li>8453=`base_mainnet`</li><li>8818=`clink_mainnet`</li><li>8819=`clink_testnet`</li><li>9745=`plasma_mainnet`</li><li>16661=`zero_gravity_mainnet`</li><li>17000=`ethereum_holesky`</li><li>80001=`polygon_mumbai`</li><li>80094=`berachain_mainnet`</li><li>42161=`arbitrum_mainnet`</li><li>43113=`avalanche_fuji`</li><li>43114=`avalanche_chain`</li><li>57073=`ink_mainnet`</li><li>59144=`linea_mainnet`</li><li>81457=`blast_mainnet`</li><li>421614=`arbitrum_sepolia`</li><li>534352=`scroll_mainnet`</li><li>660279=`xai_mainnet`</li><li>747474=`katana_mainnet`</li><li>810180=`zklink_nova_mainnet`</li><li>11155111=`ethereum_sepolia`</li></ul>
+        unique_id:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The unique EVM chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric chain ID `evm_<numeric_chain_id>` if one was added to your organization. <ul><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+        gas_type:
+          $ref: '#/components/schemas/GasType'
+          description: The type of gas used by the chain.
+        supports_secure_node:
+          title: Supports Secure Node
+          description: '`True` if the chain supports secure nodes, `False` otherwise.'
+          deprecated: true
+          type: boolean
+        supports_mev_protected_node:
+          type: boolean
+          title: Supports Mev Protected Node
+          description: '`True` if the chain supports MEV protected nodes, `False` otherwise.'
+          default: false
+        rpc_url:
+          title: Rpc Url
+          description: The URL of the chain's RPC. Exists only for custom chains.
+          type: string
+        source:
+          $ref: '#/components/schemas/ChainSource'
+          description: 'The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi''s platform.<li>`custom`: User-added chains with support on Fordefi''s platform.</ul>'
+        supports_7702:
+          type: boolean
+          title: Supports 7702
+          description: '`True` if the chain supports 7702, `False` otherwise.'
+          default: false
+      type: object
+      required:
+      - chain_type
+      - chain_id
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      - gas_type
+      - source
+      title: EnrichedEvmChain
+    ExchangeChainUniqueId:
+      type: string
+      enum:
+      - exchange_binance
+      - exchange_bybit
+      - exchange_coinbase_international
+      - exchange_coinbase_us
+      - exchange_okx
+      - exchange_kraken
+      title: ExchangeChainUniqueId
+    SuiSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: sui
+          title: Type
+          description: The type of the chain.
+        chain_unique_id:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The Sui chain unique id.
+      type: object
+      required:
+      - type
+      - chain_unique_id
+      title: SuiSuggestedFees
+    TonChainUniqueId:
+      type: string
+      enum:
+      - ton_mainnet
+      title: TonChainUniqueId
+    ArchChainUniqueId:
+      type: string
+      enum:
+      - arch_mainnet
+      - arch_testnet
+      title: ArchChainUniqueId
+    CantonChainUniqueId:
+      type: string
+      enum:
+      - canton_mainnet
+      title: CantonChainUniqueId
+    EvmDynamicSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: dynamic
+          title: Type
+        low:
+          $ref: '#/components/schemas/DynamicGasFields'
+          description: The low suggested gas fees.
+        medium:
+          $ref: '#/components/schemas/DynamicGasFields'
+          description: The medium suggested gas fees.
+        high:
+          $ref: '#/components/schemas/DynamicGasFields'
+          description: The high suggested gas fees.
+      type: object
+      required:
+      - type
+      - low
+      - medium
+      - high
+      title: EvmDynamicSuggestedFees
+    GasType:
+      type: string
+      enum:
+      - dynamic
+      - legacy
+      title: GasType
+    ListBlockchainsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedChain'
+          type: array
+          title: Chains
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - chains
+      title: ListBlockchainsResponse
+      description: A list of blockchains.
+    StellarChainUniqueId:
+      type: string
+      enum:
+      - stellar_mainnet
+      title: StellarChainUniqueId
+    CosmosSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: The type of the chain.
+        chain_unique_id:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The cosmos chain unique id.
+        fee_per_signature:
+          title: Fee Per Signature
+          description: The fee paid for each signature in the transaction.
+          type: number
+      type: object
+      required:
+      - type
+      - chain_unique_id
+      title: CosmosSuggestedFees
+    EvmSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: The type of the chain.
+        fees:
+          oneOf:
+          - $ref: '#/components/schemas/EvmLegacySuggestedFees'
+          - $ref: '#/components/schemas/EvmDynamicSuggestedFees'
+          description: The suggested gas fees.
+          discriminator:
+            propertyName: type
+            mapping:
+              dynamic: '#/components/schemas/EvmDynamicSuggestedFees'
+              legacy: '#/components/schemas/EvmLegacySuggestedFees'
+        chain_unique_id:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The EVM chain unique id.
+      type: object
+      required:
+      - type
+      - fees
+      - chain_unique_id
+      title: EvmSuggestedFees
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    EnrichedChain:
+      oneOf:
+      - $ref: '#/components/schemas/EnrichedAptosChain'
+      - $ref: '#/components/schemas/EnrichedArchChain'
+      - $ref: '#/components/schemas/EnrichedCantonChain'
+      - $ref: '#/components/schemas/EnrichedCosmosChain'
+      - $ref: '#/components/schemas/EnrichedEvmChain'
+      - $ref: '#/components/schemas/EnrichedExchangeChain'
+      - $ref: '#/components/schemas/EnrichedSolanaChain'
+      - $ref: '#/components/schemas/EnrichedStacksChain'
+      - $ref: '#/components/schemas/EnrichedStarknetChain'
+      - $ref: '#/components/schemas/EnrichedStellarChain'
+      - $ref: '#/components/schemas/EnrichedSuiChain'
+      - $ref: '#/components/schemas/EnrichedTonChain'
+      - $ref: '#/components/schemas/EnrichedTronChain'
+      - $ref: '#/components/schemas/EnrichedUtxoChain'
+      description: A blockchain with metadata.
+      discriminator:
+        propertyName: chain_type
+        mapping:
+          aptos: '#/components/schemas/EnrichedAptosChain'
+          arch: '#/components/schemas/EnrichedArchChain'
+          canton: '#/components/schemas/EnrichedCantonChain'
+          cosmos: '#/components/schemas/EnrichedCosmosChain'
+          evm: '#/components/schemas/EnrichedEvmChain'
+          exchange: '#/components/schemas/EnrichedExchangeChain'
+          solana: '#/components/schemas/EnrichedSolanaChain'
+          stacks: '#/components/schemas/EnrichedStacksChain'
+          starknet: '#/components/schemas/EnrichedStarknetChain'
+          stellar: '#/components/schemas/EnrichedStellarChain'
+          sui: '#/components/schemas/EnrichedSuiChain'
+          ton: '#/components/schemas/EnrichedTonChain'
+          tron: '#/components/schemas/EnrichedTronChain'
+          utxo: '#/components/schemas/EnrichedUtxoChain'
+    EnrichedStacksChain:
+      properties:
+        chain_type:
+          type: string
+          const: stacks
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The type of the Stacks-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStacksChain
+    LegacyGasFields:
+      properties:
+        price:
+          type: string
+          pattern: ^\d+$
+          title: Price
+          description: The price of a gas unit.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - price
+      title: LegacyGasFields
+    EnrichedExchangeChain:
+      properties:
+        chain_type:
+          type: string
+          const: exchange
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ExchangeChainUniqueId'
+          description: The type of the Exchange-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedExchangeChain
+    BlockchainExplorer:
+      properties:
+        transaction_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Transaction Url
+          example: https://etherscan.io/tx/
+        address_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Address Url
+          example: https://etherscan.io/address/
+        root_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Root Url
+          example: https://etherscan.io/
+        transaction_format_url:
+          title: Transaction Format Url
+          example: https://etherscan.io/tx/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+        address_format_url:
+          title: Address Format Url
+          example: https://etherscan.io/address/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+        asset_format_url:
+          title: Asset Format Url
+          example: https://etherscan.io/address/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+      type: object
+      required:
+      - transaction_url
+      - address_url
+      - root_url
+      title: BlockchainExplorer
+      description: A blockchain explorer entry point.
+    AptosSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: aptos
+          title: Type
+          description: The type of the chain.
+        low:
+          type: string
+          pattern: ^\d+$
+          title: Low
+          description: The low suggested fee price.
+          example: '1000000000000000000'
+        medium:
+          type: string
+          pattern: ^\d+$
+          title: Medium
+          description: The medium suggested fee price.
+          example: '1000000000000000000'
+        high:
+          type: string
+          pattern: ^\d+$
+          title: High
+          description: The high suggested fee price
+          example: '1000000000000000000'
+        chain_unique_id:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The APTOS chain unique id.
+      type: object
+      required:
+      - type
+      - low
+      - medium
+      - high
+      - chain_unique_id
+      title: AptosSuggestedFees
+    GetSuggestedFeesResponse:
+      properties:
+        suggested_fees:
+          additionalProperties:
+            $ref: '#/components/schemas/SuggestedFees'
+          type: object
+          title: Suggested Fees
+      type: object
+      required:
+      - suggested_fees
+      title: GetSuggestedFeesResponse
+    EnrichedCosmosChain:
+      properties:
+        chain_type:
+          type: string
+          const: cosmos
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The Cosmos chain unique id.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+        base_denom:
+          type: string
+          title: Base Denom
+          description: The base denom of the chain.
+        bech32_prefix:
+          $ref: '#/components/schemas/CosmosBech32Prefix'
+          description: The bech32 prefix for addresses on the chain.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      - base_denom
+      - bech32_prefix
+      title: EnrichedCosmosChain
+    EnrichedCantonChain:
+      properties:
+        chain_type:
+          type: string
+          const: canton
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The type of the Canton chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedCantonChain
+    TonSuggestedFees:
+      properties:
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: The type of the chain.
+        chain_unique_id:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The Ton chain unique id.
+        gas_price:
+          type: string
+          pattern: ^\d+$
+          title: Gas Price
+          description: The Current gas price in basechain in nanotons.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - type
+      - chain_unique_id
+      - gas_price
+      title: TonSuggestedFees
+    ChainType:
+      type: string
+      enum:
+      - aptos
+      - arch
+      - canton
+      - cosmos
+      - evm
+      - exchange
+      - solana
+      - stellar
+      - stacks
+      - starknet
+      - sui
+      - ton
+      - tron
+      - utxo
+      title: ChainType
+    EnrichedStarknetChain:
+      properties:
+        chain_type:
+          type: string
+          const: starknet
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The type of the Starknet-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStarknetChain
+    EnrichedSuiChain:
+      properties:
+        chain_type:
+          type: string
+          const: sui
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The type of the Sui-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedSuiChain
+    StacksChainUniqueId:
+      type: string
+      enum:
+      - stacks_mainnet
+      title: StacksChainUniqueId
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    EnrichedArchChain:
+      properties:
+        chain_type:
+          type: string
+          const: arch
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The type of the Arch-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedArchChain
+    EnrichedTonChain:
+      properties:
+        chain_type:
+          type: string
+          const: ton
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The type of the TON-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedTonChain
+    SuiChainUniqueId:
+      type: string
+      enum:
+      - sui_mainnet
+      - sui_testnet
+      title: SuiChainUniqueId
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

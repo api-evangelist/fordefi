@@ -1,0 +1,491 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book Exports API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Exports
+  description: These endpoints allow you to manage asynchronous actions such as data exports.
+paths:
+  /api/v1/exports/{id}:
+    get:
+      tags:
+      - Exports
+      summary: Get Export
+      description: Get an export by ID
+      operationId: get_export_api_v1_exports__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the export to retrieve.
+          title: Id
+        description: ID of the export to retrieve.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Export'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+  /api/v1/exports/{id}/abort:
+    post:
+      tags:
+      - Exports
+      summary: Abort Export
+      description: Abort an export by ID
+      operationId: abort_export_api_v1_exports__id__abort_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the export to abort.
+          title: Id
+        description: ID of the export to abort.
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefinedPreconditionError_CreateTransactionErrorType_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+components:
+  schemas:
+    ExportState:
+      type: string
+      enum:
+      - created
+      - in_progress
+      - aborted
+      - ready
+      - error
+      title: ExportState
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    Export:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: ID of the export.
+        creation_time:
+          type: string
+          format: date-time
+          title: Creation Time
+          description: The date and time when the object was created.
+        type:
+          $ref: '#/components/schemas/ExportType'
+          description: Type of the export.
+        state:
+          $ref: '#/components/schemas/ExportState'
+          description: The current state of the export.
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+          description: The id of the organization.
+        user_id:
+          type: string
+          title: User Id
+          description: The id of the user.
+        resource_type:
+          $ref: '#/components/schemas/ExportedResource'
+          description: The type of the resource being exported.
+        successful_items_count:
+          type: integer
+          title: Successful Items Count
+          description: The number of items that were successfully exported.
+        failed_items_count:
+          type: integer
+          title: Failed Items Count
+          description: The number of items that failed to be exported.
+        total_items_count:
+          type: integer
+          title: Total Items Count
+          description: The total number of items to be exported.
+        request_id:
+          type: string
+          title: Request Id
+          description: The request id of the export.
+        download_url:
+          type: string
+          title: Download Url
+          description: The download url of the export.
+        expiration_time:
+          type: string
+          format: date-time
+          title: Expiration Time
+          description: The date and time when the object will expire.
+      type: object
+      required:
+      - id
+      - creation_time
+      - type
+      - state
+      - organization_id
+      - user_id
+      - resource_type
+      - successful_items_count
+      - failed_items_count
+      - total_items_count
+      - request_id
+      - download_url
+      - expiration_time
+      title: Export
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    CreateTransactionErrorType:
+      type: string
+      enum:
+      - reverted_transaction
+      - partial_signed_raw_request
+      - blocked_by_policy
+      - transaction_contains_restricted_addresses
+      - vault_not_found
+      - missing_signed_raw_request
+      - redundant_signed_raw_request
+      - transaction_to_non_contract
+      - insecure_key_derivation
+      - invalid_signed_raw_request
+      - invalid_signer_type
+      - invalid_evm_message
+      - invalid_evm_transaction_data
+      - insufficient_funds
+      - vault_type_mismatch
+      - invalid_creator_type
+      - invalid_recipient
+      - dust_not_allowed
+      - invalid_gas_type
+      - insufficient_approvers
+      - funding_blocked_by_policy
+      - funder_not_allowed_for_transaction_type
+      - origin_vault_used_as_funder
+      - mixed_secure_and_non_secure_transactions
+      - invalid_push_mode
+      - chain_does_not_support_secure_node
+      - invalid_solana_secret_key
+      - invalid_solana_raw_transaction_accounts_field
+      - insufficient_gas_coins
+      - invalid_aptos_serialized_entry_point
+      - invalid_aptos_serialized_type
+      - invalid_aptos_rotate_key
+      - sui_package_address_not_found
+      - transaction_already_mined
+      - invalid_utxo_message_address_type
+      - invalid_starknet_vault_state
+      - missing_secret_key_or_recent_blockhash
+      - missing_secret_key_or_signature
+      - revoke_allowance_gas_limit_too_high
+      - chain_is_disabled
+      - priority_fee_already_set
+      - quote_not_found
+      - invalid_transaction_gas_config_field
+      - chain_is_not_supported
+      - gas_sponsor_not_enabled_for_organization
+      - chain_does_not_support_7702
+      - creating_user_operation_message_is_blocked
+      - transaction_fee_exceeds_limit
+      - transaction_not_pushable
+      - aml_not_configured
+      - transaction_not_frozen
+      - send_7702_transaction_to_self
+      - vault_is_not_smart_account
+      - invalid_canton_vault_registration_state
+      - failed_finding_wrapped_native_token
+      title: CreateTransactionErrorType
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    DefinedPreconditionError_CreateTransactionErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/CreateTransactionErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[CreateTransactionErrorType]
+    ExportedResource:
+      type: string
+      enum:
+      - transaction
+      - backup_snapshot
+      - vault
+      title: ExportedResource
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    ExportType:
+      type: string
+      enum:
+      - csv
+      - zip
+      title: ExportType
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

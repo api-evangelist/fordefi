@@ -1,0 +1,5482 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: Address Book
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+paths:
+  /api/v1/addressbook/contacts:
+    post:
+      tags:
+      - Address Book
+      summary: Create Contact
+      description: Create a new address book contact in an organization.
+      operationId: create_contact_api_v1_addressbook_contacts_post
+      parameters:
+      - name: x-signature
+        in: header
+        required: false
+        schema:
+          description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+          title: X-Signature
+          type: string
+          example: SGVsbG8=
+        description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+      - name: x-timestamp
+        in: header
+        required: false
+        schema:
+          description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+          title: X-Timestamp
+          type: integer
+        description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressBookContact'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+    get:
+      tags:
+      - Address Book
+      summary: List Contacts
+      description: Get a list of all contacts in an organization.
+      operationId: list_contacts_api_v1_addressbook_contacts_get
+      parameters:
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactSortableFields'
+          title: Sort By
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: The page number to fetch.
+          default: 1
+          title: Page
+        description: The page number to fetch.
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          description: The number of items per page.
+          default: 50
+          title: Size
+        description: The number of items per page.
+      - name: skip_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to skip counting the total number of items.
+          default: false
+          title: Skip Count
+        description: Whether to skip counting the total number of items.
+      - name: contact_ids
+        in: query
+        required: false
+        schema:
+          description: The contact IDs to filter by.
+          title: Contact Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: The contact IDs to filter by.
+      - name: names
+        in: query
+        required: false
+        schema:
+          description: The names to filter by.
+          title: Names
+          type: array
+          items:
+            type: string
+        description: The names to filter by.
+      - name: states
+        in: query
+        required: false
+        schema:
+          description: The states to filter by.
+          title: States
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBookContactState'
+        description: The states to filter by.
+      - name: chain_types
+        in: query
+        required: false
+        schema:
+          description: The chain types to filter by.
+          title: Chain Types
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainType'
+        description: The chain types to filter by.
+      - name: chains
+        in: query
+        required: false
+        schema:
+          description: The chain unique ids to filter by.
+          title: Chains
+          type: array
+          items:
+            type: string
+            minLength: 1
+            description: The unique chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric EVM chain ID `evm_<chain_id>` if one was added to your organization. <ul><li>`"aptos_mainnet"`</li><li>`"aptos_testnet"`</li><li>`"aptos_movement_mainnet"`</li><li>`"aptos_movement_testnet"`</li><li>`"arch_mainnet"`</li><li>`"arch_testnet"`</li><li>`"canton_mainnet"`</li><li>`"cosmos_agoric-3"`</li><li>`"cosmos_akashnet-2"`</li><li>`"cosmos_archway-1"`</li><li>`"cosmos_axelar-dojo-1"`</li><li>`"cosmos_bbn-1"`</li><li>`"cosmos_celestia"`</li><li>`"cosmos_cosmoshub-4"`</li><li>`"cosmos_dydx-mainnet-1"`</li><li>`"cosmos_dydx-testnet-4"`</li><li>`"cosmos_dymension_1100-1"`</li><li>`"cosmos_injective-1"`</li><li>`"cosmos_neutron-1"`</li><li>`"cosmos_nillion-1"`</li><li>`"cosmos_noble-1"`</li><li>`"cosmos_osmosis-1"`</li><li>`"cosmos_provider"`</li><li>`"cosmos_ssc-1"`</li><li>`"cosmos_pacific-1"`</li><li>`"cosmos_stride-1"`</li><li>`"cosmos_thorchain-1"`</li><li>`"cosmos_mantra-1"`</li><li>`"exchange_binance"`</li><li>`"exchange_bybit"`</li><li>`"exchange_coinbase_international"`</li><li>`"exchange_coinbase_us"`</li><li>`"exchange_okx"`</li><li>`"exchange_kraken"`</li><li>`"ripple_mainnet"`</li><li>`"solana_mainnet"`</li><li>`"solana_devnet"`</li><li>`"solana_eclipse_mainnet"`</li><li>`"solana_fogo_mainnet"`</li><li>`"solana_fogo_testnet"`</li><li>`"stacks_mainnet"`</li><li>`"starknet_mainnet"`</li><li>`"stellar_mainnet"`</li><li>`"sui_mainnet"`</li><li>`"sui_testnet"`</li><li>`"ton_mainnet"`</li><li>`"tron_mainnet"`</li><li>`"tron_shasta"`</li><li>`"bitcoin_mainnet"`</li><li>`"bitcoin_testnet"`</li><li>`"bitcoin_testnet_v4"`</li><li>`"dogecoin_mainnet"`</li><li>`"bitcoin_cash_mainnet"`</li><li>`"pearl_testnet"`</li><li>`"pearl_mainnet"`</li><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+            title: ChainUniqueId
+        description: The chain unique ids to filter by.
+      - name: asset_ids
+        in: query
+        required: false
+        schema:
+          description: List of asset identifiers to filter on.
+          title: Asset Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: List of asset identifiers to filter on.
+      - name: address_group_ids
+        in: query
+        required: false
+        schema:
+          description: The address group IDs to filter by.
+          title: Address Group Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: The address group IDs to filter by.
+      - name: exclude_address_group_ids
+        in: query
+        required: false
+        schema:
+          description: List of address group IDs to exclude.
+          title: Exclude Address Group Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: List of address group IDs to exclude.
+      - name: exclude_contact_ids
+        in: query
+        required: false
+        schema:
+          description: List of contact IDs to exclude.
+          title: Exclude Contact Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: List of contact IDs to exclude.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAddressBookContactResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/addressbook/contacts/batch:
+    post:
+      tags:
+      - Address Book
+      summary: Create Batch Contacts
+      description: Create multiple new address book contacts in an organization.
+      operationId: create_batch_contacts_api_v1_addressbook_contacts_batch_post
+      parameters:
+      - name: x-signature
+        in: header
+        required: false
+        schema:
+          description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+          title: X-Signature
+          type: string
+          example: SGVsbG8=
+        description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+      - name: x-timestamp
+        in: header
+        required: false
+        schema:
+          description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+          title: X-Timestamp
+          type: integer
+        description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchContactsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBatchContactsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/addressbook/contacts/proposals/{proposal_id}/abort:
+    post:
+      tags:
+      - Address Book
+      summary: Abort Contact Change Proposal
+      description: Abort a contact change proposal.
+      operationId: abort_contact_change_proposal_api_v1_addressbook_contacts_proposals__proposal_id__abort_post
+      parameters:
+      - name: proposal_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the address book contact proposal to abort.
+          title: Proposal Id
+        description: ID of the address book contact proposal to abort.
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/addressbook/contacts/{id}/proposals:
+    post:
+      tags:
+      - Address Book
+      summary: Edit Contact
+      description: Edit address book contact.
+      operationId: edit_contact_api_v1_addressbook_contacts__id__proposals_post
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the address book contact.
+          title: Id
+        description: ID of the address book contact.
+      - name: x-signature
+        in: header
+        required: false
+        schema:
+          description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+          title: X-Signature
+          type: string
+          example: SGVsbG8=
+        description: Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.
+      - name: x-timestamp
+        in: header
+        required: false
+        schema:
+          description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+          title: X-Timestamp
+          type: integer
+        description: Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditContactRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+components:
+  schemas:
+    StacksAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: stacks
+          title: Type
+          description: Stacks asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StacksNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StacksSip10AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/StacksNativeAssetIdentifierRequest'
+              sip10: '#/components/schemas/StacksSip10AssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedStacksChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: StacksAssetIdentifier
+    EnrichedUtxoChain:
+      properties:
+        chain_type:
+          type: string
+          const: utxo
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The UTXO chain unique ID.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedUtxoChain
+    ListAddressBookContactResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        contacts:
+          items:
+            $ref: '#/components/schemas/AddressBookContact'
+          type: array
+          title: Contacts
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - contacts
+      title: ListAddressBookContactResponse
+    SolanaAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: solana
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the solana chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedSolanaChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: SolanaAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    CreateBatchContactsRequest:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/CreateContactRequest'
+          type: array
+          maxItems: 1000
+          minItems: 1
+          title: Contacts
+          description: The contacts to create.
+      type: object
+      required:
+      - contacts
+      title: CreateBatchContactsRequest
+    TronChainUniqueId:
+      type: string
+      enum:
+      - tron_mainnet
+      - tron_shasta
+      title: TronChainUniqueId
+    AptosAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: aptos
+          title: Type
+          description: Aptos asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: AptosAssetIdentifierRequest
+    StarknetChainUniqueId:
+      type: string
+      enum:
+      - starknet_mainnet
+      title: StarknetChainUniqueId
+    TonNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: TON asset identifier type.
+        chain:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: TonNativeAssetIdentifierRequest
+    CreateContactRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateAptosContactRequest'
+      - $ref: '#/components/schemas/CreateArchContactRequest'
+      - $ref: '#/components/schemas/CreateCantonContactRequest'
+      - $ref: '#/components/schemas/CreateCosmosContactRequest'
+      - $ref: '#/components/schemas/CreateEVMContactRequest'
+      - $ref: '#/components/schemas/CreateSolanaContactRequest'
+      - $ref: '#/components/schemas/CreateStacksContactRequest'
+      - $ref: '#/components/schemas/CreateStarknetContactRequest'
+      - $ref: '#/components/schemas/CreateStellarContactRequest'
+      - $ref: '#/components/schemas/CreateSuiContactRequest'
+      - $ref: '#/components/schemas/CreateTonContactRequest'
+      - $ref: '#/components/schemas/CreateTronContactRequest'
+      - $ref: '#/components/schemas/CreateUtxoContactRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/CreateAptosContactRequest'
+          arch: '#/components/schemas/CreateArchContactRequest'
+          canton: '#/components/schemas/CreateCantonContactRequest'
+          cosmos: '#/components/schemas/CreateCosmosContactRequest'
+          evm: '#/components/schemas/CreateEVMContactRequest'
+          solana: '#/components/schemas/CreateSolanaContactRequest'
+          stacks: '#/components/schemas/CreateStacksContactRequest'
+          starknet: '#/components/schemas/CreateStarknetContactRequest'
+          stellar: '#/components/schemas/CreateStellarContactRequest'
+          sui: '#/components/schemas/CreateSuiContactRequest'
+          ton: '#/components/schemas/CreateTonContactRequest'
+          tron: '#/components/schemas/CreateTronContactRequest'
+          utxo: '#/components/schemas/CreateUtxoContactRequest'
+    StarknetErc20AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: erc20
+          title: Type
+          description: Erc20 asset identifier type.
+        erc20:
+          $ref: '#/components/schemas/StarknetAddressRequest'
+          description: The Erc20 details.
+      type: object
+      required:
+      - type
+      - erc20
+      title: StarknetErc20AssetIdentifierRequest
+    TronTrc20AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: trc20
+          title: Type
+          description: Trc20 asset identifier type.
+        trc20:
+          $ref: '#/components/schemas/TronAddressRequest'
+          description: The Trc20 details.
+      type: object
+      required:
+      - type
+      - trc20
+      title: TronTrc20AssetIdentifierRequest
+    CreateEVMContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 42
+          minLength: 42
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address of the contact.
+          example: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            type: string
+            minLength: 1
+            title: EvmChainUniqueId
+            description: The unique EVM chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric chain ID `evm_<numeric_chain_id>` if one was added to your organization. <ul><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/EvmAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateEVMContactRequest
+    CosmosAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: cosmos
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          title: Address
+          description: The address on the cosmos chain.
+        chain:
+          $ref: '#/components/schemas/EnrichedCosmosChain'
+          description: The chain the contact belongs to.
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chain
+      title: CosmosAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    TonAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: ton
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          title: Address
+          description: The address on the TON chain.
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedTonChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+        comment:
+          title: Comment
+          description: Comment is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: TonAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    ExchangeChainUniqueId:
+      type: string
+      enum:
+      - exchange_binance
+      - exchange_bybit
+      - exchange_coinbase_international
+      - exchange_coinbase_us
+      - exchange_okx
+      - exchange_kraken
+      title: ExchangeChainUniqueId
+    CreateArchContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the arch chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/ArchChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/ArchAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateArchContactRequest
+    EditContactRequest:
+      oneOf:
+      - $ref: '#/components/schemas/EditAptosContactRequest'
+      - $ref: '#/components/schemas/EditArchContactRequest'
+      - $ref: '#/components/schemas/EditCantonContactRequest'
+      - $ref: '#/components/schemas/EditCosmosContactRequest'
+      - $ref: '#/components/schemas/EditEvmContactRequest'
+      - $ref: '#/components/schemas/EditSolanaContactRequest'
+      - $ref: '#/components/schemas/EditStacksContactRequest'
+      - $ref: '#/components/schemas/EditStarknetContactRequest'
+      - $ref: '#/components/schemas/EditStellarContactRequest'
+      - $ref: '#/components/schemas/EditSuiContactRequest'
+      - $ref: '#/components/schemas/EditTonContactRequest'
+      - $ref: '#/components/schemas/EditTronContactRequest'
+      - $ref: '#/components/schemas/EditUtxoContactRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/EditAptosContactRequest'
+          arch: '#/components/schemas/EditArchContactRequest'
+          canton: '#/components/schemas/EditCantonContactRequest'
+          cosmos: '#/components/schemas/EditCosmosContactRequest'
+          evm: '#/components/schemas/EditEvmContactRequest'
+          solana: '#/components/schemas/EditSolanaContactRequest'
+          stacks: '#/components/schemas/EditStacksContactRequest'
+          starknet: '#/components/schemas/EditStarknetContactRequest'
+          stellar: '#/components/schemas/EditStellarContactRequest'
+          sui: '#/components/schemas/EditSuiContactRequest'
+          ton: '#/components/schemas/EditTonContactRequest'
+          tron: '#/components/schemas/EditTronContactRequest'
+          utxo: '#/components/schemas/EditUtxoContactRequest'
+    SolanaSplTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: spl_token
+          title: Type
+          description: SPL token asset identifier type.
+        token:
+          $ref: '#/components/schemas/SolanaAddressRequest'
+          description: The SPL token details.
+      type: object
+      required:
+      - type
+      - token
+      title: SolanaSplTokenAssetIdentifierRequest
+    CantonAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: Canton asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: CantonAssetIdentifierRequest
+    AddressBookContactChangeReason:
+      type: string
+      enum:
+      - creation
+      - modification
+      title: AddressBookContactChangeReason
+    EditTonContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/TonChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/TonAssetIdentifierRequest'
+          type: array
+        comment:
+          title: Comment
+          description: Comment is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditTonContactRequest
+    TronAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 34
+          minLength: 34
+          pattern: ^T[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+      type: object
+      required:
+      - chain
+      - base58_repr
+      title: TronAddressRequest
+      description: Address represents a blockchain address.
+    TonAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: TON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
+              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: TonAssetIdentifierRequest
+    SuiAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: sui
+          title: Type
+          description: Sui asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedSuiChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: SuiAssetIdentifier
+    CreateSolanaContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the solana chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/SolanaChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/SolanaAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateSolanaContactRequest
+    TronAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: tron
+          title: Type
+          description: TRON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
+              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedTronChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: TronAssetIdentifier
+    SolanaNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Solana asset identifier type.
+        chain:
+          $ref: '#/components/schemas/SolanaChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: SolanaNativeAssetIdentifierRequest
+    CantonNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Canton asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: CantonNativeAssetIdentifierRequest
+    CreateStacksContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: stacks
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 171
+          pattern: ^S[0-9A-Za-z._-]+$
+          title: Address
+          description: The address on the Stacks chain.
+          example: SP3J4NWQXC312DK0GXVRZKSRFBZG8S5FG1D2160E9
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StacksChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StacksAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateStacksContactRequest
+    ChainType:
+      type: string
+      enum:
+      - aptos
+      - arch
+      - canton
+      - cosmos
+      - evm
+      - exchange
+      - solana
+      - stellar
+      - stacks
+      - starknet
+      - sui
+      - ton
+      - tron
+      - utxo
+      title: ChainType
+    EnrichedStarknetChain:
+      properties:
+        chain_type:
+          type: string
+          const: starknet
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The type of the Starknet-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStarknetChain
+    PersonRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: person
+          title: User Type
+          description: The type of user. Can be a person, or (in programmatic scenarios) an API user or API Signer.
+        name:
+          title: Name
+          description: The name of the user.
+          example: John Doe
+          type: string
+        email:
+          type: string
+          title: Email
+          description: The email of the user.
+        state:
+          $ref: '#/components/schemas/UserState'
+          description: The state of the user in the organization.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - email
+      - state
+      - role
+      title: PersonRef
+    EditUtxoContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: The type of the chain.
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/UtxoAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditUtxoContactRequest
+    AptosAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: aptos
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the aptos chain.
+          example: '0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a'
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedAptosChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: AptosAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    SuiChainUniqueId:
+      type: string
+      enum:
+      - sui_mainnet
+      - sui_testnet
+      title: SuiChainUniqueId
+    StarknetAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: Starknet asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedStarknetChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: StarknetAssetIdentifier
+    CreateTronContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: tron
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 34
+          minLength: 34
+          pattern: ^T[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the TRON chain.
+          example: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/TronChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/TronAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateTronContactRequest
+    EvmNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: EVM asset identifier type.
+        chain:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: EvmNativeAssetIdentifierRequest
+    UtxoNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Utxo asset identifier type.
+        chain:
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The unique id of the chain of the asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: UtxoNativeAssetIdentifierRequest
+    ArchAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: Arch asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedArchChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: ArchAssetIdentifier
+    CosmosNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Cosmos asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The unique id of the chain of the asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: CosmosNativeAssetIdentifierRequest
+    TronAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: tron
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 34
+          minLength: 34
+          pattern: ^T[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the TRON chain.
+          example: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedTronChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: TronAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    EvmAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: Asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedEvmChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: EvmAssetIdentifier
+    EndUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        external_id:
+          type: string
+          title: External Id
+          description: External id of the user.
+          example: user|1234
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - external_id
+      - state
+      title: EndUserRef
+    StacksAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: stacks
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 171
+          pattern: ^S[0-9A-Za-z._-]+$
+          title: Address
+          description: The address on the stacks chain.
+          example: SP3J4NWQXC312DK0GXVRZKSRFBZG8S5FG1D2160E9
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedStacksChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: StacksAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    AptosCoinAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: coin
+          title: Type
+          description: Legacy coin asset identifier type.
+        coin_type:
+          $ref: '#/components/schemas/AptosCoinTypeRequest'
+          description: The legacy coin details.
+      type: object
+      required:
+      - type
+      - coin_type
+      title: AptosCoinAssetIdentifierRequest
+    AddressBookContactChanges:
+      properties:
+        is_being_edited:
+          title: Is Being Edited
+          description: '`True` if the contact is being edited, `False` otherwise.'
+          deprecated: true
+          type: boolean
+        change_request_id:
+          title: Change Request Id
+          description: The change request ID of the contact.
+          type: string
+          format: uuid
+        change_request_reason:
+          $ref: '#/components/schemas/AddressBookContactChangeReason'
+          description: The reason for the change request.
+        batch_size:
+          type: integer
+          minimum: 1.0
+          title: Batch Size
+          description: The number of contacts in the change request.
+      type: object
+      required:
+      - change_request_reason
+      - batch_size
+      title: AddressBookContactChanges
+      description: Represents pending changes for a contact in the Fordefi platform
+    EditStellarContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StellarChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StellarAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditStellarContactRequest
+    UtxoAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: Utxo asset identifier type.
+        details:
+          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: UtxoAssetIdentifierRequest
+    EnrichedSolanaChain:
+      properties:
+        chain_type:
+          type: string
+          const: solana
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/SolanaChainUniqueId'
+          description: The type of the Solana-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedSolanaChain
+    TonJettonAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: jetton
+          title: Type
+          description: Jetton asset identifier type.
+        jetton:
+          $ref: '#/components/schemas/TonAddressRequest'
+          description: The Jetton details.
+      type: object
+      required:
+      - type
+      - jetton
+      title: TonJettonAssetIdentifierRequest
+    EditAptosContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: aptos
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/AptosChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/AptosAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditAptosContactRequest
+    SolanaChainUniqueId:
+      type: string
+      enum:
+      - solana_mainnet
+      - solana_devnet
+      - solana_eclipse_mainnet
+      - solana_fogo_mainnet
+      - solana_fogo_testnet
+      title: SolanaChainUniqueId
+    EditArchContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/ArchChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/ArchAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditArchContactRequest
+    ChainSource:
+      type: string
+      enum:
+      - default
+      - custom
+      title: ChainSource
+    CosmosAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: Cosmos asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+              token: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedCosmosChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: CosmosAssetIdentifier
+    CreateTonContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          title: Address
+          description: The address TON contract in any format.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/TonChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/TonAssetIdentifierRequest'
+          type: array
+        comment:
+          title: Comment
+          description: Comment is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateTonContactRequest
+    EnrichedEvmChain:
+      properties:
+        chain_type:
+          type: string
+          const: evm
+          title: Chain Type
+          description: The type of the chain.
+        named_chain_id:
+          title: EvmChainName
+          description: The EVM chain name can be either one of those supported by the default chains below or a custom chain name if one was added to your organization. <ul><li>`arbitrum_mainnet`</li><li>`arbitrum_sepolia`</li><li>`aster_mainnet`</li><li>`avalanche_chain`</li><li>`avalanche_fuji`</li><li>`base_mainnet`</li><li>`berachain_mainnet`</li><li>`blast_mainnet`</li><li>`bsc_mainnet`</li><li>`canto_mainnet`</li><li>`clink_mainnet`</li><li>`clink_testnet`</li><li>`conflux_mainnet`</li><li>`dymension_mainnet`</li><li>`ethereum_goerli`</li><li>`ethereum_holesky`</li><li>`ethereum_mainnet`</li><li>`ethereum_sepolia`</li><li>`fantom_mainnet`</li><li>`flare_mainnet`</li><li>`flare_testnet`</li><li>`gnosis_mainnet`</li><li>`hypercore_mainnet`</li><li>`hyperevm_mainnet`</li><li>`ink_mainnet`</li><li>`kava_mainnet`</li><li>`katana_mainnet`</li><li>`linea_mainnet`</li><li>`optimism_mainnet`</li><li>`pharos_mainnet`</li><li>`plasma_mainnet`</li><li>`manta_pacific_mainnet`</li><li>`mantle_mainnet`</li><li>`merlin_mainnet`</li><li>`monad_mainnet`</li><li>`polygon_mainnet`</li><li>`polygon_mumbai`</li><li>`polygon_zkevm_mainnet`</li><li>`reya_mainnet`</li><li>`robinhood_mainnet`</li><li>`rootstock_mainnet`</li><li>`scroll_mainnet`</li><li>`sei_mainnet`</li><li>`sonic_mainnet`</li><li>`tempo_mainnet`</li><li>`unichain_mainnet`</li><li>`xai_mainnet`</li><li>`x_layer_mainnet`</li><li>`zero_gravity_mainnet`</li><li>`zeta_mainnet`</li><li>`zklink_nova_mainnet`</li><li>`zksync_era_mainnet`</li></ul>
+          type: string
+          minLength: 1
+        chain_id:
+          type: integer
+          minimum: 1.0
+          title: EvmChainId
+          description: The EVM chain ID can be either one of those supported by the default chains below or a custom chain ID if one was added to your organization. <ul><li>1=`ethereum_mainnet`</li><li>5=`ethereum_goerli`</li><li>10=`optimism_mainnet`</li><li>14=`flare_mainnet`</li><li>16=`flare_testnet`</li><li>30=`rootstock_mainnet`</li><li>56=`bsc_mainnet`</li><li>100=`gnosis_mainnet`</li><li>130=`unichain_mainnet`</li><li>137=`polygon_mainnet`</li><li>143=`monad_mainnet`</li><li>146=`sonic_mainnet`</li><li>169=`manta_pacific_mainnet`</li><li>196=`x_layer_mainnet`</li><li>250=`fantom_mainnet`</li><li>324=`zksync_era_mainnet`</li><li>999=`hyperevm_mainnet`</li><li>1030=`conflux_mainnet`</li><li>1100=`dymension_mainnet`</li><li>1101=`polygon_zkevm_mainnet`</li><li>1329=`sei_mainnet`</li><li>1337=`hypercore_mainnet`</li><li>1666=`aster_mainnet`</li><li>1672=`pharos_mainnet`</li><li>1729=`reya_mainnet`</li><li>2222=`kava_mainnet`</li><li>4200=`merlin_mainnet`</li><li>4217=`tempo_mainnet`</li><li>4663=`robinhood_mainnet`</li><li>5000=`mantle_mainnet`</li><li>7000=`zeta_mainnet`</li><li>7700=`canto_mainnet`</li><li>8453=`base_mainnet`</li><li>8818=`clink_mainnet`</li><li>8819=`clink_testnet`</li><li>9745=`plasma_mainnet`</li><li>16661=`zero_gravity_mainnet`</li><li>17000=`ethereum_holesky`</li><li>80001=`polygon_mumbai`</li><li>80094=`berachain_mainnet`</li><li>42161=`arbitrum_mainnet`</li><li>43113=`avalanche_fuji`</li><li>43114=`avalanche_chain`</li><li>57073=`ink_mainnet`</li><li>59144=`linea_mainnet`</li><li>81457=`blast_mainnet`</li><li>421614=`arbitrum_sepolia`</li><li>534352=`scroll_mainnet`</li><li>660279=`xai_mainnet`</li><li>747474=`katana_mainnet`</li><li>810180=`zklink_nova_mainnet`</li><li>11155111=`ethereum_sepolia`</li></ul>
+        unique_id:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The unique EVM chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric chain ID `evm_<numeric_chain_id>` if one was added to your organization. <ul><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+        gas_type:
+          $ref: '#/components/schemas/GasType'
+          description: The type of gas used by the chain.
+        supports_secure_node:
+          title: Supports Secure Node
+          description: '`True` if the chain supports secure nodes, `False` otherwise.'
+          deprecated: true
+          type: boolean
+        supports_mev_protected_node:
+          type: boolean
+          title: Supports Mev Protected Node
+          description: '`True` if the chain supports MEV protected nodes, `False` otherwise.'
+          default: false
+        rpc_url:
+          title: Rpc Url
+          description: The URL of the chain's RPC. Exists only for custom chains.
+          type: string
+        source:
+          $ref: '#/components/schemas/ChainSource'
+          description: 'The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi''s platform.<li>`custom`: User-added chains with support on Fordefi''s platform.</ul>'
+        supports_7702:
+          type: boolean
+          title: Supports 7702
+          description: '`True` if the chain supports 7702, `False` otherwise.'
+          default: false
+      type: object
+      required:
+      - chain_type
+      - chain_id
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      - gas_type
+      - source
+      title: EnrichedEvmChain
+    CantonAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: canton
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 251
+          minLength: 70
+          title: Address
+          description: The party id on the Canton chain.
+          example: 45b72ac2a9742204e6e5f521781b0648::122028536bd166988ebbb422c7f483bb32d4134127e8c171c9666ce9b518e1dd27cf
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedCantonChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: CantonAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    SuiNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Sui asset identifier type.
+        chain:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: SuiNativeAssetIdentifierRequest
+    UserState:
+      type: string
+      enum:
+      - active
+      - onboarding_pending_code_generation
+      - onboarding_pending_activation
+      - reset_device_pending_code_generation
+      - reset_device_pending_activation
+      - pending_approval
+      - deleted
+      title: UserState
+    CreateAptosContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: aptos
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the Aptos chain.
+          example: '0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a'
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/AptosChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/AptosAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateAptosContactRequest
+    ArchAplTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: apl_token
+          title: Type
+          description: APL token asset identifier type.
+        token:
+          $ref: '#/components/schemas/ArchAddressRequest'
+          description: The APL token details.
+      type: object
+      required:
+      - type
+      - token
+      title: ArchAplTokenAssetIdentifierRequest
+    StellarAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: stellar
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Address
+          description: The address on the Stellar chain.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedStellarChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: StellarAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    ArchChainUniqueId:
+      type: string
+      enum:
+      - arch_mainnet
+      - arch_testnet
+      title: ArchChainUniqueId
+    CantonChainUniqueId:
+      type: string
+      enum:
+      - canton_mainnet
+      title: CantonChainUniqueId
+    StellarClassicAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: classic_asset
+          title: Type
+          description: Stellar asset identifier type.
+        code:
+          type: string
+          maxLength: 12
+          minLength: 1
+          pattern: ^[A-Za-z0-9]{1,12}$
+          title: Code
+          description: The 1-4 character asset code.
+        issuer:
+          $ref: '#/components/schemas/StellarAddressRequest'
+          description: The issuer address.
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the Classic Asset.
+      type: object
+      required:
+      - type
+      - code
+      - issuer
+      - chain
+      title: StellarClassicAssetIdentifierRequest
+    StellarSorobanAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: soroban_asset
+          title: Type
+          description: Stellar asset identifier type.
+        address:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Address
+          description: The Soroban asset address.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the Soroban asset.
+      type: object
+      required:
+      - type
+      - address
+      - chain
+      title: StellarSorobanAssetIdentifierRequest
+    CreateUtxoContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 74
+          minLength: 14
+          title: Address
+          description: The address on the utxo chain.
+          example: bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq
+        chain:
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The chain the contact belongs to.
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/UtxoAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      - chain
+      title: CreateUtxoContactRequest
+    TronNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: TRON asset identifier type.
+        chain:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: TronNativeAssetIdentifierRequest
+    SystemUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name is Fordefi CARE
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      title: SystemUserRef
+    EditSolanaContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/SolanaChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/SolanaAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditSolanaContactRequest
+    StellarAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: Stellar asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedStellarChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: StellarAssetIdentifier
+    CreateCantonContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 251
+          minLength: 70
+          title: Address
+          description: The party id on the Canton chain.
+          example: 45b72ac2a9742204e6e5f521781b0648::122028536bd166988ebbb422c7f483bb32d4134127e8c171c9666ce9b518e1dd27cf
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/CantonChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/CantonAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateCantonContactRequest
+    BlockchainExplorer:
+      properties:
+        transaction_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Transaction Url
+          example: https://etherscan.io/tx/
+        address_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Address Url
+          example: https://etherscan.io/address/
+        root_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Root Url
+          example: https://etherscan.io/
+        transaction_format_url:
+          title: Transaction Format Url
+          example: https://etherscan.io/tx/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+        address_format_url:
+          title: Address Format Url
+          example: https://etherscan.io/address/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+        asset_format_url:
+          title: Asset Format Url
+          example: https://etherscan.io/address/%s
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+      type: object
+      required:
+      - transaction_url
+      - address_url
+      - root_url
+      title: BlockchainExplorer
+      description: A blockchain explorer entry point.
+    SuiAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: sui
+          title: Type
+          description: Sui asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: SuiAssetIdentifierRequest
+    AssetInfo:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The asset ID.
+        asset_identifier:
+          $ref: '#/components/schemas/AssetIdentifier'
+          description: The asset identifier.
+        name:
+          type: string
+          title: Name
+          description: The name of the asset.
+        symbol:
+          type: string
+          title: Symbol
+          description: The symbol (ticker) of the asset.
+        decimals:
+          type: integer
+          minimum: 0.0
+          title: Decimals
+        verified:
+          type: boolean
+          title: Verified
+          description: '`True` if this asset is verified by Fordefi, `False` otherwise.'
+        metadata_uri:
+          title: Metadata Uri
+          description: The URI of the asset metadata.
+          type: string
+        is_spam:
+          type: boolean
+          title: Is Spam
+          description: '`True` if this asset is spam, `False` otherwise.'
+        logo_url:
+          title: Logo Url
+          description: The URL of the asset logo.
+          type: string
+          minLength: 1
+          format: uri
+        explorer_url:
+          title: Explorer Url
+          description: The URL of a blockchain explorer that provides real-time information about the asset.
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+      type: object
+      required:
+      - id
+      - asset_identifier
+      - name
+      - symbol
+      - decimals
+      - verified
+      - is_spam
+      title: AssetInfo
+    CantonCip56TokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: cip56_token
+          title: Type
+          description: CIP56 token asset identifier type.
+        token:
+          $ref: '#/components/schemas/CantonInstrumentIdRequest'
+          description: The CIP56 token details.
+      type: object
+      required:
+      - type
+      - token
+      title: CantonCip56TokenAssetIdentifierRequest
+    AptosAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: aptos
+          title: Type
+          description: Aptos asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedAptosChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: AptosAssetIdentifier
+    EvmErc20AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: erc20
+          title: Type
+          description: EVM asset identifier type.
+        token:
+          $ref: '#/components/schemas/EvmAddressRequest'
+          description: The ERC-20 token contract.
+      type: object
+      required:
+      - type
+      - token
+      title: EvmErc20AssetIdentifierRequest
+    EvmErc1155AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: erc1155
+          title: Type
+          description: EVM asset identifier type.
+        token:
+          $ref: '#/components/schemas/EvmAddressRequest'
+          description: The ERC-1155 token contract.
+        token_id:
+          type: string
+          pattern: ^\d+$
+          title: Token Id
+          description: The token id of the ERC-1155 token.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - type
+      - token
+      - token_id
+      title: EvmErc1155AssetIdentifierRequest
+    EnrichedCosmosChain:
+      properties:
+        chain_type:
+          type: string
+          const: cosmos
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The Cosmos chain unique id.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+        base_denom:
+          type: string
+          title: Base Denom
+          description: The base denom of the chain.
+        bech32_prefix:
+          $ref: '#/components/schemas/CosmosBech32Prefix'
+          description: The bech32 prefix for addresses on the chain.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      - base_denom
+      - bech32_prefix
+      title: EnrichedCosmosChain
+    CantonInstrumentIdRequest:
+      properties:
+        address:
+          $ref: '#/components/schemas/CantonAddressRequest'
+          description: The address of the instrument provider.
+        id:
+          type: string
+          title: Id
+          description: The instrument ID within the provider's namespace.
+      type: object
+      required:
+      - address
+      - id
+      title: CantonInstrumentIdRequest
+      description: Instrument ID represents a Canton instrument identifier (address + id).
+    TronAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: tron
+          title: Type
+          description: TRON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
+              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: TronAssetIdentifierRequest
+    SolanaAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/SolanaChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+      type: object
+      required:
+      - chain
+      - base58_repr
+      title: SolanaAddressRequest
+      description: Address represents a blockchain address.
+    EnrichedArchChain:
+      properties:
+        chain_type:
+          type: string
+          const: arch
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The type of the Arch-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedArchChain
+    EnrichedTonChain:
+      properties:
+        chain_type:
+          type: string
+          const: ton
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The type of the TON-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedTonChain
+    EditEvmContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: evm
+          title: Type
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            type: string
+            minLength: 1
+            title: EvmChainUniqueId
+            description: The unique EVM chain ID. </br>Can be either one of those supported by the default chains below or a custom numeric chain ID `evm_<numeric_chain_id>` if one was added to your organization. <ul><li>`"evm_1"`</li><li>`"evm_5"`</li><li>`"evm_10"`</li><li>`"evm_14"`</li><li>`"evm_16"`</li><li>`"evm_30"`</li><li>`"evm_56"`</li><li>`"evm_100"`</li><li>`"evm_130"`</li><li>`"evm_137"`</li><li>`"evm_143"`</li><li>`"evm_146"`</li><li>`"evm_169"`</li><li>`"evm_196"`</li><li>`"evm_250"`</li><li>`"evm_324"`</li><li>`"evm_999"`</li><li>`"evm_1030"`</li><li>`"evm_1100"`</li><li>`"evm_1101"`</li><li>`"evm_1329"`</li><li>`"evm_1337"`</li><li>`"evm_1666"`</li><li>`"evm_1672"`</li><li>`"evm_1729"`</li><li>`"evm_2222"`</li><li>`"evm_4200"`</li><li>`"evm_4217"`</li><li>`"evm_4663"`</li><li>`"evm_5000"`</li><li>`"evm_7000"`</li><li>`"evm_7700"`</li><li>`"evm_8453"`</li><li>`"evm_8818"`</li><li>`"evm_8819"`</li><li>`"evm_9745"`</li><li>`"evm_16661"`</li><li>`"evm_17000"`</li><li>`"evm_80001"`</li><li>`"evm_80094"`</li><li>`"evm_42161"`</li><li>`"evm_43113"`</li><li>`"evm_43114"`</li><li>`"evm_57073"`</li><li>`"evm_59144"`</li><li>`"evm_81457"`</li><li>`"evm_421614"`</li><li>`"evm_534352"`</li><li>`"evm_660279"`</li><li>`"evm_747474"`</li><li>`"evm_810180"`</li><li>`"evm_11155111"`</li><li>`"evm_ethereum_mainnet"`</li><li>`"evm_ethereum_goerli"`</li><li>`"evm_optimism_mainnet"`</li><li>`"evm_flare_mainnet"`</li><li>`"evm_flare_testnet"`</li><li>`"evm_rootstock_mainnet"`</li><li>`"evm_bsc_mainnet"`</li><li>`"evm_gnosis_mainnet"`</li><li>`"evm_unichain_mainnet"`</li><li>`"evm_polygon_mainnet"`</li><li>`"evm_monad_mainnet"`</li><li>`"evm_sonic_mainnet"`</li><li>`"evm_manta_pacific_mainnet"`</li><li>`"evm_x_layer_mainnet"`</li><li>`"evm_fantom_mainnet"`</li><li>`"evm_zksync_era_mainnet"`</li><li>`"evm_hyperevm_mainnet"`</li><li>`"evm_conflux_mainnet"`</li><li>`"evm_dymension_mainnet"`</li><li>`"evm_polygon_zkevm_mainnet"`</li><li>`"evm_sei_mainnet"`</li><li>`"evm_hypercore_mainnet"`</li><li>`"evm_aster_mainnet"`</li><li>`"evm_pharos_mainnet"`</li><li>`"evm_reya_mainnet"`</li><li>`"evm_kava_mainnet"`</li><li>`"evm_merlin_mainnet"`</li><li>`"evm_tempo_mainnet"`</li><li>`"evm_robinhood_mainnet"`</li><li>`"evm_mantle_mainnet"`</li><li>`"evm_zeta_mainnet"`</li><li>`"evm_canto_mainnet"`</li><li>`"evm_base_mainnet"`</li><li>`"evm_clink_mainnet"`</li><li>`"evm_clink_testnet"`</li><li>`"evm_plasma_mainnet"`</li><li>`"evm_zero_gravity_mainnet"`</li><li>`"evm_ethereum_holesky"`</li><li>`"evm_polygon_mumbai"`</li><li>`"evm_berachain_mainnet"`</li><li>`"evm_arbitrum_mainnet"`</li><li>`"evm_avalanche_fuji"`</li><li>`"evm_avalanche_chain"`</li><li>`"evm_ink_mainnet"`</li><li>`"evm_linea_mainnet"`</li><li>`"evm_blast_mainnet"`</li><li>`"evm_arbitrum_sepolia"`</li><li>`"evm_scroll_mainnet"`</li><li>`"evm_xai_mainnet"`</li><li>`"evm_katana_mainnet"`</li><li>`"evm_zklink_nova_mainnet"`</li><li>`"evm_ethereum_sepolia"`</li></ul>
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/EvmAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditEvmContactRequest
+    StellarAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: Stellar asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: StellarAssetIdentifierRequest
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    StacksSip10AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: sip10
+          title: Type
+          description: Sip10 asset identifier type.
+        sip10:
+          $ref: '#/components/schemas/StacksAddressRequest'
+          description: The Sip10 details.
+      type: object
+      required:
+      - type
+      - sip10
+      title: StacksSip10AssetIdentifierRequest
+    CreateSuiContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: sui
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the sui chain.
+          example: '0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a'
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/SuiChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/SuiAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateSuiContactRequest
+    CreateCosmosContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          title: Address
+          description: The address on the cosmos chain in bech32 representation.
+        chain:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The chain the contact belongs to.
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/CosmosAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      - chain
+      title: CreateCosmosContactRequest
+    SolanaAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: Solana asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedSolanaChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: SolanaAssetIdentifier
+    EvmAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: Asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: EvmAssetIdentifierRequest
+    UtxoAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: utxo
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 74
+          minLength: 14
+          title: Address
+          description: The address on the utxo chain.
+          example: bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq
+        chain:
+          $ref: '#/components/schemas/EnrichedUtxoChain'
+          description: The chain the contact belongs to.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chain
+      title: UtxoAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    CantonAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The chain details this address is of.
+        account:
+          type: string
+          maxLength: 251
+          minLength: 70
+          title: Account
+          description: Party representation of the address in the chain.
+          example: 45b72ac2a9742204e6e5f521781b0648::122028536bd166988ebbb422c7f483bb32d4134127e8c171c9666ce9b518e1dd27cf
+      type: object
+      required:
+      - chain
+      - account
+      title: CantonAddressRequest
+      description: Address represents a blockchain address.
+    CosmosAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: Cosmos asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+              token: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: CosmosAssetIdentifierRequest
+    StellarAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain details this address is of.
+        base32_repr:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Base32 Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+      type: object
+      required:
+      - chain
+      - base32_repr
+      title: StellarAddressRequest
+      description: Address represents a blockchain address.
+    EvmErc721AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: erc721
+          title: Type
+          description: EVM asset identifier type.
+        token:
+          $ref: '#/components/schemas/EvmAddressRequest'
+          description: The ERC-721 token contract.
+        token_id:
+          type: string
+          pattern: ^\d+$
+          title: Token Id
+          description: The token id of the ERC-721 token.
+          example: '1000000000000000000'
+      type: object
+      required:
+      - type
+      - token
+      - token_id
+      title: EvmErc721AssetIdentifierRequest
+    CosmosChainUniqueId:
+      type: string
+      enum:
+      - cosmos_agoric-3
+      - cosmos_akashnet-2
+      - cosmos_archway-1
+      - cosmos_axelar-dojo-1
+      - cosmos_bbn-1
+      - cosmos_celestia
+      - cosmos_cosmoshub-4
+      - cosmos_dydx-mainnet-1
+      - cosmos_dydx-testnet-4
+      - cosmos_dymension_1100-1
+      - cosmos_injective-1
+      - cosmos_neutron-1
+      - cosmos_nillion-1
+      - cosmos_noble-1
+      - cosmos_osmosis-1
+      - cosmos_provider
+      - cosmos_ssc-1
+      - cosmos_pacific-1
+      - cosmos_stride-1
+      - cosmos_thorchain-1
+      - cosmos_mantra-1
+      title: CosmosChainUniqueId
+    UserRef:
+      oneOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - $ref: '#/components/schemas/ApiUserRef'
+      - $ref: '#/components/schemas/ApiSignerRef'
+      - $ref: '#/components/schemas/EndUserRef'
+      - $ref: '#/components/schemas/SystemUserRef'
+      description: Represents a reference to a user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSignerRef'
+          api_user: '#/components/schemas/ApiUserRef'
+          end_user: '#/components/schemas/EndUserRef'
+          person: '#/components/schemas/PersonRef'
+          system: '#/components/schemas/SystemUserRef'
+    ApiUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: api_user
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      - state
+      - role
+      title: ApiUserRef
+    SuiCoinTypeRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The chain details this address is of.
+        coin_type_str:
+          type: string
+          title: Coin Type Str
+          description: Coin type string representation.
+      type: object
+      required:
+      - chain
+      - coin_type_str
+      title: SuiCoinTypeRequest
+      description: Coin type represents a blockchain coin type.
+    EnrichedTronChain:
+      properties:
+        chain_type:
+          type: string
+          const: tron
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The type of the Tron-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedTronChain
+    AptosNewCoinTypeRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The chain details this address is of.
+        metadata_address:
+          type: string
+          title: Metadata Address
+          description: New coin's metadata address.
+      type: object
+      required:
+      - chain
+      - metadata_address
+      title: AptosNewCoinTypeRequest
+      description: New coin type represents a blockchain new coin type.
+    EditCosmosContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: The type of the chain.
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/CosmosAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditCosmosContactRequest
+    TonAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: TON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
+              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedTonChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: TonAssetIdentifier
+    ApiSignerRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: api_signer
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+        state:
+          type: string
+          enum:
+          - active
+          - onboarding_pending_code_generation
+          - onboarding_pending_activation
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      - state
+      title: ApiSignerRef
+    StarknetNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Starknet asset identifier type.
+        chain:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: StarknetNativeAssetIdentifierRequest
+    ContactSortableFields:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - modified_at_asc
+      - modified_at_desc
+      - name_asc
+      - name_desc
+      title: ContactSortableFields
+    EditSuiContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: sui
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/SuiChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/SuiAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditSuiContactRequest
+    CreateStarknetContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the Starknet chain.
+          example: '0x0448f450e64B50dDF49e9F95C5b63a15cD21E21a39cA2D45628d9E5B27e5e1D8'
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StarknetChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StarknetAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateStarknetContactRequest
+    EnrichedExchangeChain:
+      properties:
+        chain_type:
+          type: string
+          const: exchange
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ExchangeChainUniqueId'
+          description: The type of the Exchange-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedExchangeChain
+    AddressBookContact:
+      oneOf:
+      - $ref: '#/components/schemas/AptosAddressBookContact'
+      - $ref: '#/components/schemas/ArchAddressBookContact'
+      - $ref: '#/components/schemas/CantonAddressBookContact'
+      - $ref: '#/components/schemas/CosmosAddressBookContact'
+      - $ref: '#/components/schemas/EVMAddressBookContact'
+      - $ref: '#/components/schemas/SolanaAddressBookContact'
+      - $ref: '#/components/schemas/StacksAddressBookContact'
+      - $ref: '#/components/schemas/StarknetAddressBookContact'
+      - $ref: '#/components/schemas/StellarAddressBookContact'
+      - $ref: '#/components/schemas/SuiAddressBookContact'
+      - $ref: '#/components/schemas/TonAddressBookContact'
+      - $ref: '#/components/schemas/TronAddressBookContact'
+      - $ref: '#/components/schemas/UtxoAddressBookContact'
+      description: Represents a contact in the Fordefi platform
+      discriminator:
+        propertyName: chain_type
+        mapping:
+          aptos: '#/components/schemas/AptosAddressBookContact'
+          arch: '#/components/schemas/ArchAddressBookContact'
+          canton: '#/components/schemas/CantonAddressBookContact'
+          cosmos: '#/components/schemas/CosmosAddressBookContact'
+          evm: '#/components/schemas/EVMAddressBookContact'
+          solana: '#/components/schemas/SolanaAddressBookContact'
+          stacks: '#/components/schemas/StacksAddressBookContact'
+          starknet: '#/components/schemas/StarknetAddressBookContact'
+          stellar: '#/components/schemas/StellarAddressBookContact'
+          sui: '#/components/schemas/SuiAddressBookContact'
+          ton: '#/components/schemas/TonAddressBookContact'
+          tron: '#/components/schemas/TronAddressBookContact'
+          utxo: '#/components/schemas/UtxoAddressBookContact'
+    SuiCoinAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: coin
+          title: Type
+          description: Coin asset identifier type.
+        coin_type:
+          $ref: '#/components/schemas/SuiCoinTypeRequest'
+          description: The Coin details.
+      type: object
+      required:
+      - type
+      - coin_type
+      title: SuiCoinAssetIdentifierRequest
+    StacksChainUniqueId:
+      type: string
+      enum:
+      - stacks_mainnet
+      title: StacksChainUniqueId
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ArchNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Arch asset identifier type.
+        chain:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: ArchNativeAssetIdentifierRequest
+    TonAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The chain details this address is of.
+        address:
+          type: string
+          maxLength: 67
+          pattern: ^[-0-9]+:[A-Fa-f0-9]{64}$
+          title: Address
+          description: Contract address in a raw format.
+      type: object
+      required:
+      - chain
+      - address
+      title: TonAddressRequest
+      description: Address represents a blockchain address.
+    EnrichedStellarChain:
+      properties:
+        chain_type:
+          type: string
+          const: stellar
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The type of the Stellar chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStellarChain
+    CreateStellarContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        group_ids:
+          title: Group Ids
+          description: The unique identifiers of the address groups.
+          items:
+            type: string
+            format: uuid
+          type: array
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Address
+          description: The address on the Stellar chain.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StellarChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StellarAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      - address
+      title: CreateStellarContactRequest
+    StarknetAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: '0x0448f450e64B50dDF49e9F95C5b63a15cD21E21a39cA2D45628d9E5B27e5e1D8'
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: StarknetAddressRequest
+      description: Address represents a blockchain address.
+    EvmAddressRequest:
+      properties:
+        chain:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 42
+          minLength: 42
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: EvmAddressRequest
+      description: Address represents a blockchain address.
+    ArchAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: arch
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Address
+          description: The address on the Arch chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedArchChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: ArchAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    AddressBookContactState:
+      type: string
+      enum:
+      - pending
+      - active
+      - deleted
+      title: AddressBookContactState
+    StacksAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 171
+          pattern: ^S[0-9A-Za-z._-]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: SP3J4NWQXC312DK0GXVRZKSRFBZG8S5FG1D2160E9
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: StacksAddressRequest
+      description: Address represents a blockchain address.
+    GroupRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the address book group in the Fordefi platform.
+        name:
+          type: string
+          title: Name
+          description: The name of the group.
+        contacts_count:
+          type: integer
+          title: Contacts Count
+          description: The number of contacts in the group.
+      type: object
+      required:
+      - id
+      - name
+      - contacts_count
+      title: GroupRef
+      description: Represents a reference to an address book group in the Fordefi platform.
+    AptosNewCoinAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: new_coin
+          title: Type
+          description: New coin asset identifier type.
+        new_coin_type:
+          $ref: '#/components/schemas/AptosNewCoinTypeRequest'
+          description: The new coin details.
+      type: object
+      required:
+      - type
+      - new_coin_type
+      title: AptosNewCoinAssetIdentifierRequest
+    UtxoChainUniqueId:
+      type: string
+      enum:
+      - bitcoin_mainnet
+      - bitcoin_testnet
+      - bitcoin_testnet_v4
+      - dogecoin_mainnet
+      - bitcoin_cash_mainnet
+      - pearl_testnet
+      - pearl_mainnet
+      title: UtxoChainUniqueId
+    CreateBatchContactsResponse:
+      properties:
+        contacts:
+          items:
+            $ref: '#/components/schemas/AddressBookContact'
+          type: array
+          title: Contacts
+          description: The created contacts.
+      type: object
+      required:
+      - contacts
+      title: CreateBatchContactsResponse
+    EditStarknetContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StarknetChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StarknetAssetIdentifierRequest'
+          type: array
+      type: object
+      required:
+      - name
+      - type
+      title: EditStarknetContactRequest
+    EnrichedAptosChain:
+      properties:
+        chain_type:
+          type: string
+          const: aptos
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The type of the Aptos-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedAptosChain
+    ArchAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+      type: object
+      required:
+      - chain
+      - base58_repr
+      title: ArchAddressRequest
+      description: Address represents a blockchain address.
+    CosmosBech32Prefix:
+      type: string
+      enum:
+      - agoric
+      - akash
+      - archway
+      - axelar
+      - bbn
+      - celestia
+      - cosmos
+      - dydx
+      - dym
+      - inj
+      - neutron
+      - nillion
+      - noble
+      - osmo
+      - saga
+      - sei
+      - stride
+      - thor
+      - mantra
+      title: CosmosBech32Prefix
+    AptosCoinTypeRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The chain details this address is of.
+        coin_type_str:
+          type: string
+          title: Coin Type Str
+          description: Coin type string representation.
+      type: object
+      required:
+      - chain
+      - coin_type_str
+      title: AptosCoinTypeRequest
+      description: Coin type represents a blockchain legacy coin type.
+    ArchAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: Arch asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: ArchAssetIdentifierRequest
+    AptosChainUniqueId:
+      type: string
+      enum:
+      - aptos_mainnet
+      - aptos_testnet
+      - aptos_movement_mainnet
+      - aptos_movement_testnet
+      title: AptosChainUniqueId
+    CantonAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: Canton asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedCantonChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: CantonAssetIdentifier
+    StarknetAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: starknet
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the starknet chain.
+          example: '0x0448f450e64B50dDF49e9F95C5b63a15cD21E21a39cA2D45628d9E5B27e5e1D8'
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedStarknetChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: StarknetAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    SolanaAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: Solana asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: SolanaAssetIdentifierRequest
+    EVMAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: evm
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 42
+          minLength: 42
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: TThe address of the contact.
+          example: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedEvmChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: EVMAddressBookContact
+    EditCantonContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/CantonChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/CantonAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditCantonContactRequest
+    TonChainUniqueId:
+      type: string
+      enum:
+      - ton_mainnet
+      title: TonChainUniqueId
+    StacksNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Stacks asset identifier type.
+        chain:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: StacksNativeAssetIdentifierRequest
+    CosmosTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: token
+          title: Type
+          description: Token asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The unique id of the chain of the asset.
+        denom:
+          type: string
+          title: Denom
+          description: The denom of the asset.
+      type: object
+      required:
+      - type
+      - chain
+      - denom
+      title: CosmosTokenAssetIdentifierRequest
+    GasType:
+      type: string
+      enum:
+      - dynamic
+      - legacy
+      title: GasType
+    StellarChainUniqueId:
+      type: string
+      enum:
+      - stellar_mainnet
+      title: StellarChainUniqueId
+    StellarNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Stellar asset identifier type.
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: StellarNativeAssetIdentifierRequest
+    StacksAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: stacks
+          title: Type
+          description: Stacks asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StacksNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StacksSip10AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/StacksNativeAssetIdentifierRequest'
+              sip10: '#/components/schemas/StacksSip10AssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: StacksAssetIdentifierRequest
+    EnrichedStacksChain:
+      properties:
+        chain_type:
+          type: string
+          const: stacks
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The type of the Stacks-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStacksChain
+    AssetIdentifier:
+      oneOf:
+      - $ref: '#/components/schemas/AptosAssetIdentifier'
+      - $ref: '#/components/schemas/ArchAssetIdentifier'
+      - $ref: '#/components/schemas/CantonAssetIdentifier'
+      - $ref: '#/components/schemas/CosmosAssetIdentifier'
+      - $ref: '#/components/schemas/EvmAssetIdentifier'
+      - $ref: '#/components/schemas/ExchangeAssetIdentifier'
+      - $ref: '#/components/schemas/SolanaAssetIdentifier'
+      - $ref: '#/components/schemas/StacksAssetIdentifier'
+      - $ref: '#/components/schemas/StellarAssetIdentifier'
+      - $ref: '#/components/schemas/StarknetAssetIdentifier'
+      - $ref: '#/components/schemas/SuiAssetIdentifier'
+      - $ref: '#/components/schemas/TonAssetIdentifier'
+      - $ref: '#/components/schemas/TronAssetIdentifier'
+      - $ref: '#/components/schemas/UtxoAssetIdentifier'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/AptosAssetIdentifier'
+          arch: '#/components/schemas/ArchAssetIdentifier'
+          canton: '#/components/schemas/CantonAssetIdentifier'
+          cosmos: '#/components/schemas/CosmosAssetIdentifier'
+          evm: '#/components/schemas/EvmAssetIdentifier'
+          exchange: '#/components/schemas/ExchangeAssetIdentifier'
+          solana: '#/components/schemas/SolanaAssetIdentifier'
+          stacks: '#/components/schemas/StacksAssetIdentifier'
+          starknet: '#/components/schemas/StarknetAssetIdentifier'
+          stellar: '#/components/schemas/StellarAssetIdentifier'
+          sui: '#/components/schemas/SuiAssetIdentifier'
+          ton: '#/components/schemas/TonAssetIdentifier'
+          tron: '#/components/schemas/TronAssetIdentifier'
+          utxo: '#/components/schemas/UtxoAssetIdentifier'
+    EditStacksContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: stacks
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/StacksChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/StacksAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditStacksContactRequest
+    ExchangeType:
+      type: string
+      enum:
+      - binance
+      - bybit
+      - coinbase_international
+      - coinbase_us
+      - okx
+      - kraken
+      title: ExchangeType
+    UserRole:
+      type: string
+      enum:
+      - admin
+      - trader
+      - viewer
+      title: UserRole
+    SuiAddressBookContact:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          title: Name
+          description: The name of the contact.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Address last modifier.
+        state:
+          $ref: '#/components/schemas/AddressBookContactState'
+          description: The state of the contact.
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupRef'
+          type: array
+          title: Groups
+          description: List of contact's groups.
+        pending_changes:
+          description: Pending changes for the contact.
+          $ref: '#/components/schemas/AddressBookContactChanges'
+        asset_infos:
+          items:
+            $ref: '#/components/schemas/AssetInfo'
+          type: array
+          title: Asset Infos
+          description: A list of asset infos for the contact. Can be used to enforce trading of specific assets intransfers to this address
+        chain_type:
+          type: string
+          const: sui
+          title: Chain Type
+          description: The type of the chain.
+        address:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Address
+          description: The address on the sui chain.
+          example: '0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a'
+        chains:
+          items:
+            $ref: '#/components/schemas/EnrichedSuiChain'
+          type: array
+          title: Chains
+          description: The chains the contact belongs to. If empty, the contact is associated with all chains.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - modified_by
+      - state
+      - groups
+      - asset_infos
+      - chain_type
+      - address
+      - chains
+      title: SuiAddressBookContact
+      description: Represents a contact in the Fordefi platform
+    UtxoAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: Utxo asset identifier type.
+        details:
+          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedUtxoChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: UtxoAssetIdentifier
+    AptosNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Aptos asset identifier type.
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: AptosNativeAssetIdentifierRequest
+    EditTronContactRequest:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the contact.
+        type:
+          type: string
+          const: tron
+          title: Type
+          description: The type of the chain.
+        chains:
+          title: Chains
+          description: The chains the contact belongs to. If not provided, the contact will be associated with all chains.
+          items:
+            $ref: '#/components/schemas/TronChainUniqueId'
+          type: array
+        assets_identifiers:
+          title: Assets Identifiers
+          description: The assets identifiers of the contact.
+          items:
+            $ref: '#/components/schemas/TronAssetIdentifierRequest'
+          type: array
+        memo:
+          title: Memo
+          description: Memo is an additional address feature used for identifying a recipient.
+          type: string
+      type: object
+      required:
+      - name
+      - type
+      title: EditTronContactRequest
+    EnrichedCantonChain:
+      properties:
+        chain_type:
+          type: string
+          const: canton
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The type of the Canton chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedCantonChain
+    EvmHyperLiquidAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: hyperliquid
+          title: Type
+          description: EVM asset identifier type.
+        chain:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: Currently artificially set to Arbitrum.
+        token_id:
+          type: string
+          title: Token Id
+          description: The token id of the asset on Hyperliquid.
+        index:
+          type: integer
+          title: Index
+          description: The index of the asset on Hyperliquid.
+      type: object
+      required:
+      - type
+      - chain
+      - token_id
+      - index
+      title: EvmHyperLiquidAssetIdentifierRequest
+    StarknetAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: Starknet asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: StarknetAssetIdentifierRequest
+    EnrichedSuiChain:
+      properties:
+        chain_type:
+          type: string
+          const: sui
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The type of the Sui-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedSuiChain
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    ExchangeAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: exchange
+          title: Type
+          description: Asset identifier type.
+        exchange_type:
+          $ref: '#/components/schemas/ExchangeType'
+          description: exchange type.
+        asset_symbol:
+          type: string
+          title: Asset Symbol
+          description: The symbol of the asset on the exchange.
+        chain:
+          $ref: '#/components/schemas/EnrichedExchangeChain'
+      type: object
+      required:
+      - type
+      - exchange_type
+      - asset_symbol
+      - chain
+      title: ExchangeAssetIdentifier
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

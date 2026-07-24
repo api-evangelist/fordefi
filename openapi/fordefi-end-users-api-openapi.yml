@@ -1,0 +1,1128 @@
+openapi: 3.1.0
+info:
+  title: Fordefi Address Book End Users API
+  version: 0.2.0
+  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+servers:
+- url: https://api.fordefi.com/
+  description: Production
+security:
+- bearerAuth: []
+tags:
+- name: End Users
+  description: "These endpoints allow you to manage WaaS end-users.\n        <br><br>\n        End users correspond to users of the platform who has integrated the Fordefi WaaS solution.\n        For example, in the case of a retail platform, these would be the retail consumers of the platform."
+paths:
+  /api/v1/end-users:
+    get:
+      tags:
+      - End Users
+      summary: List End Users
+      description: Get a list of end users in the organization.
+      operationId: list_end_users_api_v1_end_users_get
+      parameters:
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndUserSortableFields'
+          title: Sort By
+      - name: include_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Count
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: The page number to fetch.
+          default: 1
+          title: Page
+        description: The page number to fetch.
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          description: The number of items per page.
+          default: 50
+          title: Size
+        description: The number of items per page.
+      - name: skip_count
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to skip counting the total number of items.
+          default: false
+          title: Skip Count
+        description: Whether to skip counting the total number of items.
+      - name: user_ids
+        in: query
+        required: false
+        schema:
+          description: The unique identifiers of the users.
+          title: User Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        description: The unique identifiers of the users.
+      - name: external_ids
+        in: query
+        required: false
+        schema:
+          description: The external IDs of the users.
+          title: External Ids
+          type: array
+          items:
+            type: string
+        description: The external IDs of the users.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEndUsersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+    post:
+      tags:
+      - End Users
+      summary: Create End User
+      description: Create a new end user.
+      operationId: create_end_user_api_v1_end_users_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEndUserRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEndUserResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefinedPreconditionError_CreateEndUserErrorType_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '409':
+          description: Already Exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+  /api/v1/end-users/current:
+    get:
+      tags:
+      - End Users
+      summary: Get Current End User
+      description: Gets the current end user.
+      operationId: get_current_end_user_api_v1_end_users_current_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCurrentEndUserResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+  /api/v1/end-users/{id}:
+    get:
+      tags:
+      - End Users
+      summary: Get End User
+      description: Gets the end user that corresponds to the given ID.
+      operationId: get_end_user_api_v1_end_users__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the end user to retrieve.
+          title: Id
+        description: ID of the end user to retrieve.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEndUserResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+    delete:
+      tags:
+      - End Users
+      summary: Delete End User
+      description: Delete an end user.
+      operationId: delete_end_user_api_v1_end_users__id__delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the end user to delete.
+          title: Id
+        description: ID of the end user to delete.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+  /api/v1/end-users/{id}/set-export-end-user-keys-permissions:
+    put:
+      tags:
+      - End Users
+      summary: Set Export End User Keys Permissions
+      description: Allow or disable export of a keyset for an end user.
+      operationId: set_export_end_user_keys_permissions_api_v1_end_users__id__set_export_end_user_keys_permissions_put
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the end user to allow export.
+          title: Id
+        description: ID of the end user to allow export.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetExportEndUserKeysPermissionsRequest'
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreconditionFailedError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '403':
+          description: Forbidden User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '408':
+          description: Request Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseError'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceError'
+components:
+  schemas:
+    CreateEndUserRequest:
+      properties:
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assign to an end user.
+      type: object
+      required:
+      - external_id
+      title: CreateEndUserRequest
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    SetExportEndUserKeysPermissionsRequest:
+      properties:
+        allow:
+          type: boolean
+          title: Allow
+          description: Allow or disable export
+      type: object
+      required:
+      - allow
+      title: SetExportEndUserKeysPermissionsRequest
+    CreateEndUserErrorType:
+      type: string
+      enum:
+      - unsupported_organization
+      - backup_not_ready
+      title: CreateEndUserErrorType
+    EncryptedDeviceSharesBackup:
+      properties:
+        id:
+          title: Id
+          description: The ID of the backup. Not provided for organization keysets.
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The time the backup was created.
+        ecdsa:
+          title: Ecdsa
+          description: Device ECDSA encrypted share
+          type: string
+          example: SGVsbG8=
+        eddsa:
+          title: Eddsa
+          description: Device EdDSA encrypted share
+          type: string
+          example: SGVsbG8=
+        ecdsa_stark:
+          title: Ecdsa Stark
+          description: Device ECDSA stark encrypted share
+          type: string
+          example: SGVsbG8=
+        schnorr_secp256k1:
+          title: Schnorr Secp256K1
+          description: Device Schnorr secp256k1 encrypted share
+          type: string
+          example: SGVsbG8=
+        auth_key:
+          title: Auth Key
+          description: An encrypted backup of the user's auth-key.
+          type: string
+          example: SGVsbG8=
+      type: object
+      required:
+      - created_at
+      title: EncryptedDeviceSharesBackup
+    EndUserSortableFields:
+      type: string
+      enum:
+      - created_asc
+      - created_desc
+      - end_user_last_login_asc
+      - end_user_last_login_desc
+      title: EndUserSortableFields
+    DefinedPreconditionError_CreateEndUserErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/CreateEndUserErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[CreateEndUserErrorType]
+    CreateEndUserResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assigned to the end user.
+          example: user|1234
+        last_login_at:
+          type: string
+          format: date-time
+          title: Last Login At
+          description: The timestamp when the end user last logged into the mobile SDK.
+        desired_key_types:
+          title: Desired Key Types
+          description: Desired key types. This field is populated by the user during keyset generation.
+          items:
+            $ref: '#/components/schemas/KeyType'
+          type: array
+        keyset_id:
+          type: string
+          format: uuid
+          title: Keyset Id
+          description: The unique identifier of the keyset.
+        ecdsa:
+          description: ECDSA key. The key is used to generate ECDSA-based vaults (for example, EVM vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        eddsa:
+          description: EdDSA key. The key is used to generate EdDSA-based vaults (for example, Solana vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        ecdsa_stark:
+          description: ECDSA-Stark key. The key is used to generate ECDSA-Stark-based vaults (for example, Stark Blackbox vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        schnorr_secp256k1:
+          description: Schnorr Secp256k1 key. The key is used to generate Schnorr-Secp256k1-based vaults.
+          $ref: '#/components/schemas/KeysetKey'
+        auth_public_key:
+          title: Auth Public Key
+          description: The public key of the user's auth-key.
+          type: string
+          example: SGVsbG8=
+        encrypted_device_auth_key:
+          title: Encrypted Device Auth Key
+          description: An encrypted backup of the user's auth-key.
+          deprecated: true
+          type: string
+          example: SGVsbG8=
+        encrypted_device_shares_backups:
+          title: Encrypted Device Shares Backups
+          description: Encrypted device shares backups.
+          items:
+            $ref: '#/components/schemas/EncryptedDeviceSharesBackup'
+          type: array
+        last_backup_at:
+          type: string
+          format: date-time
+          title: Last Backup At
+          description: The last time backup was intitated.
+        export_allowed:
+          type: boolean
+          title: Export Allowed
+          description: Whether the user is allowed to export the keyset.
+        last_export_at:
+          type: string
+          format: date-time
+          title: Last Export At
+          description: The last time the keyset was exported.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - external_id
+      - last_login_at
+      - keyset_id
+      - last_backup_at
+      - export_allowed
+      - last_export_at
+      title: CreateEndUserResponse
+    KeyType:
+      type: string
+      enum:
+      - ecdsa_secp256k1
+      - eddsa_ed25519
+      - ecdsa_stark
+      - schnorr_secp256k1
+      title: KeyType
+    KeysetKey:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The ID of the key.
+        xpub:
+          type: string
+          title: Xpub
+          description: The xpub encoding of the key. For more details, see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+        encrypted_shares:
+          $ref: '#/components/schemas/KeyShares'
+          description: Encrypted shares for the key.
+        chain_code:
+          type: string
+          title: Chain Code
+          description: The chain code of the key. It is used to derive child keys.
+          example: SGVsbG8=
+      type: object
+      required:
+      - id
+      - xpub
+      - encrypted_shares
+      - chain_code
+      title: KeysetKey
+    GetCurrentEndUserResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assigned to the end user.
+          example: user|1234
+        last_login_at:
+          type: string
+          format: date-time
+          title: Last Login At
+          description: The timestamp when the end user last logged into the mobile SDK.
+        desired_key_types:
+          title: Desired Key Types
+          description: Desired key types. This field is populated by the user during keyset generation.
+          items:
+            $ref: '#/components/schemas/KeyType'
+          type: array
+        keyset_id:
+          type: string
+          format: uuid
+          title: Keyset Id
+          description: The unique identifier of the keyset.
+        ecdsa:
+          description: ECDSA key. The key is used to generate ECDSA-based vaults (for example, EVM vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        eddsa:
+          description: EdDSA key. The key is used to generate EdDSA-based vaults (for example, Solana vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        ecdsa_stark:
+          description: ECDSA-Stark key. The key is used to generate ECDSA-Stark-based vaults (for example, Stark Blackbox vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        schnorr_secp256k1:
+          description: Schnorr Secp256k1 key. The key is used to generate Schnorr-Secp256k1-based vaults.
+          $ref: '#/components/schemas/KeysetKey'
+        auth_public_key:
+          title: Auth Public Key
+          description: The public key of the user's auth-key.
+          type: string
+          example: SGVsbG8=
+        encrypted_device_auth_key:
+          title: Encrypted Device Auth Key
+          description: An encrypted backup of the user's auth-key.
+          deprecated: true
+          type: string
+          example: SGVsbG8=
+        encrypted_device_shares_backups:
+          title: Encrypted Device Shares Backups
+          description: Encrypted device shares backups.
+          items:
+            $ref: '#/components/schemas/EncryptedDeviceSharesBackup'
+          type: array
+        last_backup_at:
+          type: string
+          format: date-time
+          title: Last Backup At
+          description: The last time backup was intitated.
+        export_allowed:
+          type: boolean
+          title: Export Allowed
+          description: Whether the user is allowed to export the keyset.
+        last_export_at:
+          type: string
+          format: date-time
+          title: Last Export At
+          description: The last time the keyset was exported.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - external_id
+      - last_login_at
+      - keyset_id
+      - last_backup_at
+      - export_allowed
+      - last_export_at
+      title: GetCurrentEndUserResponse
+    GetEndUserResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assigned to the end user.
+          example: user|1234
+        last_login_at:
+          type: string
+          format: date-time
+          title: Last Login At
+          description: The timestamp when the end user last logged into the mobile SDK.
+        desired_key_types:
+          title: Desired Key Types
+          description: Desired key types. This field is populated by the user during keyset generation.
+          items:
+            $ref: '#/components/schemas/KeyType'
+          type: array
+        keyset_id:
+          type: string
+          format: uuid
+          title: Keyset Id
+          description: The unique identifier of the keyset.
+        ecdsa:
+          description: ECDSA key. The key is used to generate ECDSA-based vaults (for example, EVM vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        eddsa:
+          description: EdDSA key. The key is used to generate EdDSA-based vaults (for example, Solana vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        ecdsa_stark:
+          description: ECDSA-Stark key. The key is used to generate ECDSA-Stark-based vaults (for example, Stark Blackbox vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        schnorr_secp256k1:
+          description: Schnorr Secp256k1 key. The key is used to generate Schnorr-Secp256k1-based vaults.
+          $ref: '#/components/schemas/KeysetKey'
+        auth_public_key:
+          title: Auth Public Key
+          description: The public key of the user's auth-key.
+          type: string
+          example: SGVsbG8=
+        encrypted_device_auth_key:
+          title: Encrypted Device Auth Key
+          description: An encrypted backup of the user's auth-key.
+          deprecated: true
+          type: string
+          example: SGVsbG8=
+        encrypted_device_shares_backups:
+          title: Encrypted Device Shares Backups
+          description: Encrypted device shares backups.
+          items:
+            $ref: '#/components/schemas/EncryptedDeviceSharesBackup'
+          type: array
+        last_backup_at:
+          type: string
+          format: date-time
+          title: Last Backup At
+          description: The last time backup was intitated.
+        export_allowed:
+          type: boolean
+          title: Export Allowed
+          description: Whether the user is allowed to export the keyset.
+        last_export_at:
+          type: string
+          format: date-time
+          title: Last Export At
+          description: The last time the keyset was exported.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - external_id
+      - last_login_at
+      - keyset_id
+      - last_backup_at
+      - export_allowed
+      - last_export_at
+      title: GetEndUserResponse
+    ListEndUsersResponse:
+      properties:
+        total:
+          title: Total
+          type: integer
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        end_users:
+          items:
+            $ref: '#/components/schemas/EndUser'
+          type: array
+          title: End Users
+      type: object
+      required:
+      - page
+      - size
+      - end_users
+      title: ListEndUsersResponse
+    EndUser:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assigned to the end user.
+          example: user|1234
+        last_login_at:
+          type: string
+          format: date-time
+          title: Last Login At
+          description: The timestamp when the end user last logged into the mobile SDK.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - external_id
+      - last_login_at
+      title: EndUser
+      description: Represents an end user in the Fordefi platform.
+    KeyShares:
+      properties:
+        device:
+          title: Device
+          description: Device latest encrypted share for the key.
+          type: string
+          example: SGVsbG8=
+        platform:
+          title: Platform
+          description: Platform encrypted shares for the key. Whether it contains one or two shares depends on the backup type.
+          items:
+            type: string
+            example: SGVsbG8=
+          type: array
+      type: object
+      title: KeyShares
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
