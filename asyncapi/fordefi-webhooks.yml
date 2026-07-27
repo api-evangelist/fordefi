@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.fordefi.com/developers/webhooks
+spec_type: Webhooks
+note: >-
+  Fordefi documents a webhook event surface but does not publish an AsyncAPI
+  document. This captures the webhook catalog, envelope, and signature scheme.
+delivery:
+  ack_window_seconds: 5
+  ack_status: 2xx
+  retry: exponential backoff up to 12h intervals for up to 3 days
+  suspend_on: [401, 403, 404, 410]
+  resend_endpoints:
+    - Trigger Transaction Webhook (resends first and final state events)
+    - Trigger Audit Log Webhook
+signature:
+  header: X-Signature
+  algorithm: ECDSA with SHA-256 over NIST P-256
+  encoding: base64-encoded DER over the raw request body
+  public_key: |
+    -----BEGIN PUBLIC KEY-----
+    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEQJ0NeDYQqqeCvgDofFsgtgaxk+dx
+    ybi63YGJwHz8Ebx7YQrmwNWnW3bG65E8wGHqZECjuaK2GKHbZx1EV2ws9A==
+    -----END PUBLIC KEY-----
+envelope:
+  fields: [webhook_id, created_at, event_id, attempt, sent_at, event, event_type]
+events:
+  - event_type: enriched_transaction_state_update
+    category: Transaction
+    description: >-
+      Emitted on incoming transactions and outgoing transaction state changes
+      (e.g. MINED, COMPLETED); payload includes state, gas, signatures and
+      simulation data.
+  - event_type: audit_log
+    category: Audit Log
+    description: Emitted on platform audit-log activity (real-time audit streaming).

@@ -1,0 +1,57 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/fordefi-openapi-original.json
+docs: https://docs.fordefi.com/developers/errors
+format: json
+note: >-
+  Fordefi returns a JSON error envelope (not RFC 9457 problem+json). Fields:
+  title (human-readable message), detail, full_detail, request_id, and for
+  domain errors an ApiError with api_error_enum. Derived from OpenAPI 4xx/5xx
+  responses and the docs error reference.
+envelope:
+  fields: [title, detail, full_detail, request_id]
+  api_error: {api_error_enum: string, description: string}
+problems:
+  - status: 400
+    schema: PreconditionFailedError
+    title: "Bad Request"
+    meaning: "Bad Request — the request is invalid."
+  - status: 401
+    schema: BaseError
+    title: "Unauthorized User"
+    meaning: "Unauthorized — the request is not authenticated; supply a valid API access token."
+  - status: 403
+    schema: BaseError
+    title: "Forbidden User"
+    meaning: "Forbidden — the user is not allowed to execute this action."
+  - status: 404
+    schema: ResourceError
+    title: "Not Found"
+    meaning: "Not Found — the requested resource does not exist."
+  - status: 408
+    schema: BaseError
+    title: "Request Timeout"
+    meaning: "Request Timeout — timed out while processing the request."
+  - status: 409
+    schema: ResourceError
+    title: "Already Exists"
+    meaning: "Already Exists — the resource already exists."
+  - status: 422
+    schema: ValidationError
+    title: "Validation Error"
+    meaning: "Validation Error — semantic errors in the request."
+  - status: 429
+    schema: RateLimitError
+    title: "Rate Limit Exceeded"
+    meaning: "Rate Limit Exceeded — too many requests in a given amount of time."
+  - status: 500
+    schema: BaseError
+    title: "Unexpected Error"
+    meaning: "Unexpected Error — internal server error."
+api_error_enum:
+  - no_route_found
+  - high_slippage
+  - rate_limit_exceeded
+  - unsupported_chain
+  - custom_error
+  - consent_not_approved

@@ -1,0 +1,55 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.fordefi.com/changelog/platform
+upcoming: https://docs.fordefi.com/changelog/upcoming
+scheme: dated-versioned
+current_version: '113'
+entries:
+  - version: '113'
+    date: '2026-07-12'
+    highlights:
+      - Full integration with the Canton blockchain ecosystem
+      - Stacks release-transaction support
+      - Enhanced authentication settings and ABI policy improvements
+  - version: '112'
+    date: '2026-06-28'
+    breaking: true
+    highlights:
+      - Safe wallet integration with clearer approval workflows
+      - DApp Groups for policy management
+      - Discontinuation of Sei Cosmos support
+  - version: '111'
+    date: '2026-06-11'
+    highlights:
+      - Login-method enforcement for MFA-mandated organizations
+      - Exchange IP whitelisting preferences
+      - Upgraded periodic-amount conditions in policies
+  - version: '110'
+    date: '2026-05-31'
+    highlights:
+      - Real-time audit-log streaming via webhooks
+      - Productized backup reset flows
+      - Refined asset matching in policy rules
+  - version: '109'
+    date: '2026-05-17'
+    highlights:
+      - Transaction Feed for unified activity monitoring
+      - ABI 2.0 supporting additional parameter types
+      - Cross-chain USDC transfers via Circle CCTP
+  - version: '108'
+    date: '2026-05-03'
+    breaking: true
+    highlights:
+      - Full integration with the Stellar blockchain ecosystem
+      - v1 webhook discontinuation
+  - version: '107'
+    date: '2026-04-19'
+    highlights:
+      - Freeze/Unfreeze transaction endpoints for institutional clients
+      - Hyperliquid message enrichment
+      - AML compliance for Tron
+  - version: '106'
+    date: '2026-04-05'
+    highlights:
+      - Tempo EVM support
+      - Silent-verification option for backup recovery

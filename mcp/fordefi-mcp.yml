@@ -1,0 +1,463 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/fordefi-openapi-original.json
+status: candidate
+server:
+  name: fordefi
+  transport: http
+  note: >-
+    No official hosted Fordefi MCP server was found as of this run. This is a
+    candidate tool list derived one-per-operation from the Fordefi OpenAPI so an
+    MCP server can be generated. Fordefi API calls require a Bearer JWT plus, for
+    state-changing operations, an ECDSA (NIST P-256) request signature.
+tools:
+  - name: list_chains_api_v1_blockchains_get
+    description: "List Chains"
+    method: GET
+    path: /api/v1/blockchains
+    tag: Blockchains
+    source_operation: openapi/fordefi-openapi-original.json#list_chains_api_v1_blockchains_get
+  - name: get_suggested_fees_api_v1_blockchains_suggested_fees_get
+    description: "Get Suggested Fees"
+    method: GET
+    path: /api/v1/blockchains/suggested-fees
+    tag: Blockchains
+    source_operation: openapi/fordefi-openapi-original.json#get_suggested_fees_api_v1_blockchains_suggested_fees_get
+  - name: list_users_api_v1_users_get
+    description: "List Users"
+    method: GET
+    path: /api/v1/users
+    tag: Users
+    source_operation: openapi/fordefi-openapi-original.json#list_users_api_v1_users_get
+  - name: get_user_api_v1_users__id__get
+    description: "Get User"
+    method: GET
+    path: /api/v1/users/{id}
+    tag: Users
+    source_operation: openapi/fordefi-openapi-original.json#get_user_api_v1_users__id__get
+  - name: list_user_groups_api_v1_user_groups_get
+    description: "List User Groups"
+    method: GET
+    path: /api/v1/user-groups
+    tag: User Groups
+    source_operation: openapi/fordefi-openapi-original.json#list_user_groups_api_v1_user_groups_get
+  - name: get_user_group_api_v1_user_groups__id__get
+    description: "Get User Group"
+    method: GET
+    path: /api/v1/user-groups/{id}
+    tag: User Groups
+    source_operation: openapi/fordefi-openapi-original.json#get_user_group_api_v1_user_groups__id__get
+  - name: list_vaults_api_v1_vaults_get
+    description: "List Vaults"
+    method: GET
+    path: /api/v1/vaults
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#list_vaults_api_v1_vaults_get
+  - name: create_vault_api_v1_vaults_post
+    description: "Create Vault"
+    method: POST
+    path: /api/v1/vaults
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#create_vault_api_v1_vaults_post
+  - name: export_vaults_with_assets_async_api_v1_vaults_export_async_get
+    description: "Export Vaults With Assets Async"
+    method: GET
+    path: /api/v1/vaults/export_async
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#export_vaults_with_assets_async_api_v1_vaults_export_async_get
+  - name: get_vault_api_v1_vaults__id__get
+    description: "Get Vault"
+    method: GET
+    path: /api/v1/vaults/{id}
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#get_vault_api_v1_vaults__id__get
+  - name: get_vault_asset_api_v1_vaults__id__assets__asset_id__get
+    description: "Get Vault Asset"
+    method: GET
+    path: /api/v1/vaults/{id}/assets/{asset_id}
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#get_vault_asset_api_v1_vaults__id__assets__asset_id__get
+  - name: get_vault_assets_api_v1_vaults__id__assets_get
+    description: "Get Vault Assets"
+    method: GET
+    path: /api/v1/vaults/{id}/assets
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#get_vault_assets_api_v1_vaults__id__assets_get
+  - name: submit_update_vault_change_proposal_api_v1_vaults__id__proposals_post
+    description: "Submit Update Vault Change Proposal"
+    method: POST
+    path: /api/v1/vaults/{id}/proposals
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#submit_update_vault_change_proposal_api_v1_vaults__id__proposals_post
+  - name: archive_vault_api_v1_vaults__id__archive_post
+    description: "Archive Vault"
+    method: POST
+    path: /api/v1/vaults/{id}/archive
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#archive_vault_api_v1_vaults__id__archive_post
+  - name: restore_vault_api_v1_vaults__id__restore_post
+    description: "Restore Vault"
+    method: POST
+    path: /api/v1/vaults/{id}/restore
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#restore_vault_api_v1_vaults__id__restore_post
+  - name: rename_vault_api_v1_vaults__id__name_put
+    description: "Rename Vault"
+    method: PUT
+    path: /api/v1/vaults/{id}/name
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#rename_vault_api_v1_vaults__id__name_put
+  - name: create_address_api_v1_vaults__id__addresses_post
+    description: "Create Address"
+    method: POST
+    path: /api/v1/vaults/{id}/addresses
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#create_address_api_v1_vaults__id__addresses_post
+  - name: list_vault_addresses_api_v1_vaults__id__addresses_get
+    description: "List Vault Addresses"
+    method: GET
+    path: /api/v1/vaults/{id}/addresses
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#list_vault_addresses_api_v1_vaults__id__addresses_get
+  - name: rename_vault_address_api_v1_vaults_addresses__id__name_put
+    description: "Rename Vault Address"
+    method: PUT
+    path: /api/v1/vaults/addresses/{id}/name
+    tag: Vaults
+    source_operation: openapi/fordefi-openapi-original.json#rename_vault_address_api_v1_vaults_addresses__id__name_put
+  - name: list_vault_groups_api_v1_vault_groups_get
+    description: "List Vault Groups"
+    method: GET
+    path: /api/v1/vault-groups
+    tag: Vault Groups
+    source_operation: openapi/fordefi-openapi-original.json#list_vault_groups_api_v1_vault_groups_get
+  - name: get_owned_asset_api_v1_assets_owned_assets__id__get
+    description: "Get Owned Asset"
+    method: GET
+    path: /api/v1/assets/owned-assets/{id}
+    tag: Assets
+    source_operation: openapi/fordefi-openapi-original.json#get_owned_asset_api_v1_assets_owned_assets__id__get
+  - name: list_owned_assets_api_v1_assets_owned_assets_get
+    description: "List Owned Assets"
+    method: GET
+    path: /api/v1/assets/owned-assets
+    tag: Assets
+    source_operation: openapi/fordefi-openapi-original.json#list_owned_assets_api_v1_assets_owned_assets_get
+  - name: update_asset_configuration_api_v1_assets_put
+    description: "Update Asset Configuration"
+    method: PUT
+    path: /api/v1/assets
+    tag: Assets
+    source_operation: openapi/fordefi-openapi-original.json#update_asset_configuration_api_v1_assets_put
+  - name: fetch_asset_prices_api_v1_assets_prices_post
+    description: "Fetch Asset Prices"
+    method: POST
+    path: /api/v1/assets/prices
+    tag: Assets
+    source_operation: openapi/fordefi-openapi-original.json#fetch_asset_prices_api_v1_assets_prices_post
+  - name: create_asset_info_api_v1_assets_asset_infos_post
+    description: "Create Asset Info"
+    method: POST
+    path: /api/v1/assets/asset-infos
+    tag: Assets
+    source_operation: openapi/fordefi-openapi-original.json#create_asset_info_api_v1_assets_asset_infos_post
+  - name: export_transactions_api_v1_transactions_export_get
+    description: "Export Transactions"
+    method: GET
+    path: /api/v1/transactions/export
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#export_transactions_api_v1_transactions_export_get
+  - name: index_transaction_by_hash_api_v1_transactions_index_by_hash_post
+    description: "Index Transaction By Hash"
+    method: POST
+    path: /api/v1/transactions/index-by-hash
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#index_transaction_by_hash_api_v1_transactions_index_by_hash_post
+  - name: get_transaction_api_v1_transactions__id__get
+    description: "Get Transaction"
+    method: GET
+    path: /api/v1/transactions/{id}
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#get_transaction_api_v1_transactions__id__get
+  - name: list_transactions_api_v1_transactions_get
+    description: "List Transactions"
+    method: GET
+    path: /api/v1/transactions
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#list_transactions_api_v1_transactions_get
+  - name: create_transaction_api_v1_transactions_post
+    description: "Create Transaction"
+    method: POST
+    path: /api/v1/transactions
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#create_transaction_api_v1_transactions_post
+  - name: create_transfer_api_v1_transactions_transfer_post
+    description: "Create Transfer"
+    method: POST
+    path: /api/v1/transactions/transfer
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#create_transfer_api_v1_transactions_transfer_post
+  - name: create_transaction_and_wait_api_v1_transactions_create_and_wait_post
+    description: "Create Transaction And Wait"
+    method: POST
+    path: /api/v1/transactions/create-and-wait
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#create_transaction_and_wait_api_v1_transactions_create_and_wait_post
+  - name: approve_transaction_api_v1_transactions__id__approve_post
+    description: "Approve Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/approve
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#approve_transaction_api_v1_transactions__id__approve_post
+  - name: abort_transaction_api_v1_transactions__id__abort_post
+    description: "Abort Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/abort
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#abort_transaction_api_v1_transactions__id__abort_post
+  - name: release_transaction_api_v1_transactions__id__release_post
+    description: "Release Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/release
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#release_transaction_api_v1_transactions__id__release_post
+  - name: predict_transaction_api_v1_transactions_predict_post
+    description: "Predict Transaction"
+    method: POST
+    path: /api/v1/transactions/predict
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#predict_transaction_api_v1_transactions_predict_post
+  - name: push_transaction_api_v1_transactions__id__push_post
+    description: "Push Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/push
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#push_transaction_api_v1_transactions__id__push_post
+  - name: update_transaction_spam_state_api_v1_transactions__id__update_spam_state_put
+    description: "Update Transaction Spam State"
+    method: PUT
+    path: /api/v1/transactions/{id}/update-spam-state
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#update_transaction_spam_state_api_v1_transactions__id__update_spam_state_put
+  - name: trigger_transaction_signing_api_v1_transactions__id__trigger_signing_post
+    description: "Trigger Transaction Signing"
+    method: POST
+    path: /api/v1/transactions/{id}/trigger-signing
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#trigger_transaction_signing_api_v1_transactions__id__trigger_signing_post
+  - name: unfreeze_transaction_api_v1_transactions__id__unfreeze_post
+    description: "Unfreeze Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/unfreeze
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#unfreeze_transaction_api_v1_transactions__id__unfreeze_post
+  - name: freeze_transaction_api_v1_transactions__id__freeze_post
+    description: "Freeze Transaction"
+    method: POST
+    path: /api/v1/transactions/{id}/freeze
+    tag: Transactions
+    source_operation: openapi/fordefi-openapi-original.json#freeze_transaction_api_v1_transactions__id__freeze_post
+  - name: create_batch_transaction_api_v1_batch_transactions_post
+    description: "Create Batch Transaction"
+    method: POST
+    path: /api/v1/batch-transactions
+    tag: Batch Transactions
+    source_operation: openapi/fordefi-openapi-original.json#create_batch_transaction_api_v1_batch_transactions_post
+  - name: predict_batch_transaction_api_v1_batch_transactions_predict_post
+    description: "Predict Batch Transaction"
+    method: POST
+    path: /api/v1/batch-transactions/predict
+    tag: Batch Transactions
+    source_operation: openapi/fordefi-openapi-original.json#predict_batch_transaction_api_v1_batch_transactions_predict_post
+  - name: abort_batch_transaction_api_v1_batch_transactions__batch_id__abort_post
+    description: "Abort Batch Transaction"
+    method: POST
+    path: /api/v1/batch-transactions/{batch_id}/abort
+    tag: Batch Transactions
+    source_operation: openapi/fordefi-openapi-original.json#abort_batch_transaction_api_v1_batch_transactions__batch_id__abort_post
+  - name: approve_batch_transaction_api_v1_batch_transactions__batch_id__approve_post
+    description: "Approve Batch Transaction"
+    method: POST
+    path: /api/v1/batch-transactions/{batch_id}/approve
+    tag: Batch Transactions
+    source_operation: openapi/fordefi-openapi-original.json#approve_batch_transaction_api_v1_batch_transactions__batch_id__approve_post
+  - name: create_contact_api_v1_addressbook_contacts_post
+    description: "Create Contact"
+    method: POST
+    path: /api/v1/addressbook/contacts
+    tag: Address Book
+    source_operation: openapi/fordefi-openapi-original.json#create_contact_api_v1_addressbook_contacts_post
+  - name: list_contacts_api_v1_addressbook_contacts_get
+    description: "List Contacts"
+    method: GET
+    path: /api/v1/addressbook/contacts
+    tag: Address Book
+    source_operation: openapi/fordefi-openapi-original.json#list_contacts_api_v1_addressbook_contacts_get
+  - name: create_batch_contacts_api_v1_addressbook_contacts_batch_post
+    description: "Create Batch Contacts"
+    method: POST
+    path: /api/v1/addressbook/contacts/batch
+    tag: Address Book
+    source_operation: openapi/fordefi-openapi-original.json#create_batch_contacts_api_v1_addressbook_contacts_batch_post
+  - name: abort_contact_change_proposal_api_v1_addressbook_contacts_proposals__proposal_id__abort_post
+    description: "Abort Contact Change Proposal"
+    method: POST
+    path: /api/v1/addressbook/contacts/proposals/{proposal_id}/abort
+    tag: Address Book
+    source_operation: openapi/fordefi-openapi-original.json#abort_contact_change_proposal_api_v1_addressbook_contacts_proposals__proposal_id__abort_post
+  - name: edit_contact_api_v1_addressbook_contacts__id__proposals_post
+    description: "Edit Contact"
+    method: POST
+    path: /api/v1/addressbook/contacts/{id}/proposals
+    tag: Address Book
+    source_operation: openapi/fordefi-openapi-original.json#edit_contact_api_v1_addressbook_contacts__id__proposals_post
+  - name: test_webhook_api_v1_webhooks_test_post
+    description: "Test Webhook"
+    method: POST
+    path: /api/v1/webhooks/test
+    tag: Webhooks
+    source_operation: openapi/fordefi-openapi-original.json#test_webhook_api_v1_webhooks_test_post
+  - name: trigger_transaction_webhook_api_v1_webhooks_trigger_transaction__id__post
+    description: "Trigger Transaction Webhook"
+    method: POST
+    path: /api/v1/webhooks/trigger/transaction/{id}
+    tag: Webhooks
+    source_operation: openapi/fordefi-openapi-original.json#trigger_transaction_webhook_api_v1_webhooks_trigger_transaction__id__post
+  - name: trigger_audit_log_webhook_api_v1_webhooks_trigger_audit_log__id__post
+    description: "Trigger Audit Log Webhook"
+    method: POST
+    path: /api/v1/webhooks/trigger/audit-log/{id}
+    tag: Webhooks
+    source_operation: openapi/fordefi-openapi-original.json#trigger_audit_log_webhook_api_v1_webhooks_trigger_audit_log__id__post
+  - name: import_keys_api_v1_organizations_import_keys_post
+    description: "Import Keys"
+    method: POST
+    path: /api/v1/organizations/import-keys
+    tag: Organizations
+    source_operation: openapi/fordefi-openapi-original.json#import_keys_api_v1_organizations_import_keys_post
+  - name: abort_import_keys_api_v1_organizations_abort_import_keys_post
+    description: "Abort Import Keys"
+    method: POST
+    path: /api/v1/organizations/abort-import-keys
+    tag: Organizations
+    source_operation: openapi/fordefi-openapi-original.json#abort_import_keys_api_v1_organizations_abort_import_keys_post
+  - name: get_import_keys_status_api_v1_organizations_import_keys_status_get
+    description: "Get Import Keys Status"
+    method: GET
+    path: /api/v1/organizations/import-keys-status
+    tag: Organizations
+    source_operation: openapi/fordefi-openapi-original.json#get_import_keys_status_api_v1_organizations_import_keys_status_get
+  - name: list_keys_api_v1_organizations_list_keys_get
+    description: "List Keys"
+    method: GET
+    path: /api/v1/organizations/list-keys
+    tag: Organizations
+    source_operation: openapi/fordefi-openapi-original.json#list_keys_api_v1_organizations_list_keys_get
+  - name: list_end_users_api_v1_end_users_get
+    description: "List End Users"
+    method: GET
+    path: /api/v1/end-users
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#list_end_users_api_v1_end_users_get
+  - name: create_end_user_api_v1_end_users_post
+    description: "Create End User"
+    method: POST
+    path: /api/v1/end-users
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#create_end_user_api_v1_end_users_post
+  - name: get_current_end_user_api_v1_end_users_current_get
+    description: "Get Current End User"
+    method: GET
+    path: /api/v1/end-users/current
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#get_current_end_user_api_v1_end_users_current_get
+  - name: get_end_user_api_v1_end_users__id__get
+    description: "Get End User"
+    method: GET
+    path: /api/v1/end-users/{id}
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#get_end_user_api_v1_end_users__id__get
+  - name: delete_end_user_api_v1_end_users__id__delete
+    description: "Delete End User"
+    method: DELETE
+    path: /api/v1/end-users/{id}
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#delete_end_user_api_v1_end_users__id__delete
+  - name: set_export_end_user_keys_permissions_api_v1_end_users__id__set_export_end_user_keys_permissions_put
+    description: "Set Export End User Keys Permissions"
+    method: PUT
+    path: /api/v1/end-users/{id}/set-export-end-user-keys-permissions
+    tag: End Users
+    source_operation: openapi/fordefi-openapi-original.json#set_export_end_user_keys_permissions_api_v1_end_users__id__set_export_end_user_keys_permissions_put
+  - name: issue_authorization_token_api_v1_authorization_tokens_post
+    description: "Issue Authorization Token"
+    method: POST
+    path: /api/v1/authorization-tokens
+    tag: Authorization Tokens
+    source_operation: openapi/fordefi-openapi-original.json#issue_authorization_token_api_v1_authorization_tokens_post
+  - name: list_authorization_tokens_api_v1_authorization_tokens_get
+    description: "List Authorization Tokens"
+    method: GET
+    path: /api/v1/authorization-tokens
+    tag: Authorization Tokens
+    source_operation: openapi/fordefi-openapi-original.json#list_authorization_tokens_api_v1_authorization_tokens_get
+  - name: delete_authorization_token_api_v1_authorization_tokens__id__delete
+    description: "Delete Authorization Token"
+    method: DELETE
+    path: /api/v1/authorization-tokens/{id}
+    tag: Authorization Tokens
+    source_operation: openapi/fordefi-openapi-original.json#delete_authorization_token_api_v1_authorization_tokens__id__delete
+  - name: list_audit_log_records_api_v1_audit_log_get
+    description: "List Audit Log Records"
+    method: GET
+    path: /api/v1/audit-log
+    tag: Audit Log
+    source_operation: openapi/fordefi-openapi-original.json#list_audit_log_records_api_v1_audit_log_get
+  - name: export_audit_log_api_v1_audit_log_export_get
+    description: "Export Audit Log"
+    method: GET
+    path: /api/v1/audit-log/export
+    tag: Audit Log
+    source_operation: openapi/fordefi-openapi-original.json#export_audit_log_api_v1_audit_log_export_get
+  - name: get_export_api_v1_exports__id__get
+    description: "Get Export"
+    method: GET
+    path: /api/v1/exports/{id}
+    tag: Exports
+    source_operation: openapi/fordefi-openapi-original.json#get_export_api_v1_exports__id__get
+  - name: abort_export_api_v1_exports__id__abort_post
+    description: "Abort Export"
+    method: POST
+    path: /api/v1/exports/{id}/abort
+    tag: Exports
+    source_operation: openapi/fordefi-openapi-original.json#abort_export_api_v1_exports__id__abort_post
+  - name: get_providers_api_v1_swaps_providers__chain_type__get
+    description: "Get Providers"
+    method: GET
+    path: /api/v1/swaps/providers/{chain_type}
+    tag: Swaps
+    source_operation: openapi/fordefi-openapi-original.json#get_providers_api_v1_swaps_providers__chain_type__get
+  - name: get_quotes_api_v1_swaps_quotes_post
+    description: "Get Quotes"
+    method: POST
+    path: /api/v1/swaps/quotes
+    tag: Swaps
+    source_operation: openapi/fordefi-openapi-original.json#get_quotes_api_v1_swaps_quotes_post
+  - name: create_transaction_api_v1_swaps_post
+    description: "Create Transaction"
+    method: POST
+    path: /api/v1/swaps
+    tag: Swaps
+    source_operation: openapi/fordefi-openapi-original.json#create_transaction_api_v1_swaps_post
+  - name: predict_transaction_api_v1_swaps_predict_post
+    description: "Predict Transaction"
+    method: POST
+    path: /api/v1/swaps/predict
+    tag: Swaps
+    source_operation: openapi/fordefi-openapi-original.json#predict_transaction_api_v1_swaps_predict_post
+  - name: list_enclave_keys_api_v1_enclave_keys_get
+    description: "List Enclave Keys"
+    method: GET
+    path: /api/v1/enclave-keys
+    tag: Enclave Keys
+    source_operation: openapi/fordefi-openapi-original.json#list_enclave_keys_api_v1_enclave_keys_get

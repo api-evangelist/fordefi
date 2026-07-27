@@ -1,0 +1,37 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/org/fordefi
+note: >-
+  First-party Fordefi client libraries are published to npm under the @fordefi
+  scope. No first-party PyPI, Maven, NuGet, Go, RubyGems, Packagist or crates.io
+  package was found; Python/other-language usage is via the documented REST API
+  and the FordefiHQ/api-examples repository (multi-language request-signing
+  samples), which is source code rather than a published package.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@fordefi/web3-provider"
+    url: https://www.npmjs.com/package/@fordefi/web3-provider
+    install: npm install @fordefi/web3-provider
+    repository: https://github.com/FordefiHQ/web3-provider
+    description: Web3 Provider and signer compatible with EIP-1193.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@fordefi/web-sdk"
+    url: https://www.npmjs.com/package/@fordefi/web-sdk
+    install: npm install @fordefi/web-sdk
+    description: Fordefi MPC Web SDK.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@fordefi/crypto-address-validator-ts"
+    url: https://www.npmjs.com/package/@fordefi/crypto-address-validator-ts
+    install: npm install @fordefi/crypto-address-validator-ts
+    description: Crypto address validator for Bitcoin and other altcoins (Fordefi fork).
+    official: true
+examples_repo:
+  url: https://github.com/FordefiHQ/api-examples
+  description: >-
+    Official multi-language (Python, TypeScript, Solidity) examples showing API
+    access-token auth and ECDSA request signing. Reference source, not a package.

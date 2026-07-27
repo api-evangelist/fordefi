@@ -1,8 +1,16 @@
 aid: fordefi
 name: Fordefi
-description: 'Fordefi is a company surfaced as a portfolio company of electric-capital, lightspeed-venture-partners,
-  pantera-capital and added to the API Evangelist network as a stub for enrichment. Sector: security.
-  This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Fordefi is an institutional MPC (multi-party computation) wallet and digital-asset
+  security platform for DeFi, trading, and on-chain payments. Its developer API lets
+  teams programmatically create vaults across 10+ blockchain families (EVM, Bitcoin,
+  Solana, Cosmos and more), manage addresses and assets, and build, approve, sign,
+  and broadcast transactions under a policy engine with built-in AML screening and
+  audit logging. Authentication combines a Bearer JWT access token with ECDSA
+  (NIST P-256) request signing by a registered API Signer; state-changing calls
+  support idempotency and a signed webhook event surface for real-time monitoring.
+  Fordefi is SOC 2 Type II certified. This profile was enriched by the API
+  Evangelist pipeline from Fordefi's public OpenAPI and developer documentation.
 url: https://raw.githubusercontent.com/api-evangelist/fordefi/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,13 +20,325 @@ x-backed-by:
 - pantera-capital
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/634ff29071ccb50e6fb7f68e/6368e19b2728473fafde3adb_fordefi.jpeg
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Security
-apis: []
+- Cryptocurrency
+- Digital Assets
+- Wallet
+- Custody
+- Blockchain
+- DeFi
+- MPC
+- Payments
+apis:
+- aid: fordefi:fordefi-address-book-api
+  name: Fordefi Address Book API
+  description: >-
+    These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts,
+    visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user
+    guide</a> for more info.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Address Book
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-address-book-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-assets-api
+  name: Fordefi Assets API
+  description: >-
+    These endpoints allow you to get information about the assets in your organization,
+            including metadata, balances, and prices.
+            <br><br>
+            Fordefi supports native assets and fungible tokens on each of the supported blockchains,
+            and on many chains also non-fungible tokens.
+            <br><br>
+            Assets are chain-specific, meaning that USDC on Ethereum is different from USDC on Polygon.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-assets-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-audit-log-api
+  name: Fordefi Audit Log API
+  description: >-
+    These endpoints allow you to manage audit logs.
+            <br><br>
+            Audit logs are used to track the actions of users in your organization.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Audit Log
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-audit-log-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-authorization-tokens-api
+  name: Fordefi Authorization Tokens API
+  description: >-
+    These endpoints allow you to manage end-user authorization tokens used for Fordefi's WaaS solution.<br><br>Authorization
+    tokens allow end users to authenticate with Fordefi. Each end user can have a maximum of ten active
+    authorization tokens at any time.<br><br>More information on authenticating end users is provided
+    in the <a href="https://docs.fordefi.com/waas/waas-authentication">WaaS developer guide</a>.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Authorization Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-authorization-tokens-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-batch-transactions-api
+  name: Fordefi Batch Transactions API
+  description: >-
+    These endpoints allow you to manage batch transactions on the Fordefi platform.
+            <br><br>
+            Batch transactions are currently supported only on Solana, for the purpose
+            of supporting the `signAllTransactions` flow used by certain Solana DApps.
+            Batch transactions undergo policy evaluation as a whole:  the policy is
+            applied to a “virtual transaction” whose list of instructions is the union
+            of the instructions of the individual transactions in the batch, and whose balance
+            changes are the aggregation of balance changes of the individual transactions.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Batch Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-batch-transactions-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-blockchains-api
+  name: Fordefi Blockchains API
+  description: These endpoints allow you to get information about blockchains supported by Fordefi.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Blockchains
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-blockchains-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-enclave-keys-api
+  name: Fordefi Enclave Keys API
+  description: The Enclave Keys API from Fordefi — 1 operation(s) for enclave keys.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Enclave Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-enclave-keys-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-end-users-api
+  name: Fordefi End Users API
+  description: >-
+    These endpoints allow you to manage WaaS end-users.
+            <br><br>
+            End users correspond to users of the platform who has integrated the Fordefi WaaS solution.
+            For example, in the case of a retail platform, these would be the retail consumers of the
+    platform.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - End Users
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-end-users-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-exports-api
+  name: Fordefi Exports API
+  description: These endpoints allow you to manage asynchronous actions such as data exports.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-exports-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-organizations-api
+  name: Fordefi Organizations API
+  description: The Organizations API from Fordefi — 4 operation(s) for organizations.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-organizations-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-swaps-api
+  name: Fordefi Swaps API
+  description: These endpoints allow you to manage swaps.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Swaps
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-swaps-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-transactions-api
+  name: Fordefi Transactions API
+  description: >-
+    These endpoints allow you to manage transactions on the Fordefi platform.
+            <br><br>
+            A transaction represents an operation that can be one of the following:
+            <ul>
+            <li>An on-chain action that modifies blockchain state</li>
+            <li>An off-chain cryptographically signed message or data</li>
+            </ul>
+            Consult the developer guide for more information on
+            <a href='https://docs.fordefi.com/developers/getting-started/create-and-authenticate-transactions'>creating</a>,
+            <a href='https://docs.fordefi.com/developers/monitor-transactions'>monitoring</a>,
+            and <a href='https://docs.fordefi.com/developers/simulate-transactions'>simulating</a> tranasctions.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-transactions-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-user-groups-api
+  name: Fordefi User Groups API
+  description: >-
+    These endpoints allow you to view your user groups.
+            <br><br>
+            User Groups are used to collectively manage policies and view permissions for a group of users.
+           <br><br>
+           The API is read-only. To manage user groups, visit the Fordefi web console. See more info in
+    the
+           <a href='https://docs.fordefi.com/user-guide/organization-management/manage-user-groups'>user</a>
+    guide.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - User Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-user-groups-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-users-api
+  name: Fordefi Users API
+  description: >-
+    These endpoints allow you to get information about users in your Fordefi organization.
+
+
+    There are several types of users in the Fordefi platform:
+     - **Person**: A human user of the platform.
+     - **API User**, also commonly known as a service account.
+       See [Create an API user](https://docs.fordefi.com/developers/getting-started/create-an-api-user).
+     - **API Signer**: Used to auto-sign transactions.
+       See [Automate Signing with API Signer](https://docs.fordefi.com/developers/getting-started/set-up-an-api-signer).
+
+    Users can have one of three possible roles, which define the permissions that the user is given:
+     - **Admin**: A user with high privileges in the organization.
+       Only admins have permission to manage the policy, set up the backup, manage the address book,
+       and add or remove users in the organization.
+       Only a person can have an admin role.
+     - **Trader**: A user who can create vaults and transactions.
+     - **Viewer**: A user who has full view of the organization's users, addresses, and policies,
+       as well as of the vaults and transactions, but does not have permissions to create or modify them.
+
+    The Users API is currently read-only. To add/remove users, visit the Fordefi web console.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-users-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-vault-groups-api
+  name: Fordefi Vault Groups API
+  description: >-
+    These endpoints allow you to view your vault groups.
+            <br><br>
+            Vault Groups are used to collectively manage policies and view permissions for a group of
+    vaults.
+           <br><br>
+           The API is read-only. To manage vault groups, visit the Fordefi web console. See more info
+    in the
+           <a href='https://docs.fordefi.com/user-guide/vaults/handle-vault-groups'>user</a> guide.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Vault Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-vault-groups-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-vaults-api
+  name: Fordefi Vaults API
+  description: >-
+    These endpoints allow you to manage vaults.
+            <br><br>
+            A vault is the basic unit to manage funds.
+            Each vault supports a single "chain family", such as EVM, Bitcoin, Solana, Cosmos, etc.,
+            determined by the vault's type. A vault supports all the chains within the chain family
+            (e.g., an EVM vault supports all EVM chains).
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Vaults
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-vaults-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
+- aid: fordefi:fordefi-webhooks-api
+  name: Fordefi Webhooks API
+  description: >-
+    These endpoints allow you to manually trigger your pre-configured webhooks.<br><br><a href='https://docs.fordefi.com/reference/webhooks'>Use
+    Webhooks</a> describes how to configure webhooks, validate them, and resend them. <br><br>Webhooks
+    deliver the full set of details about the transaction as retrieved by a call to the <a href='https://docs.fordefi.com/api/latest/openapi/transactions/get_transaction_api_v1_transactions__id__get'>Get
+    Transaction</a> endpoint.
+  humanURL: https://docs.fordefi.com/developers/api-overview
+  baseURL: https://api.fordefi.com/
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/fordefi-webhooks-api-openapi.yml
+  - type: APIReference
+    url: https://docs.fordefi.com/api/openapi
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -27,3 +347,68 @@ maintainers:
 common:
 - type: Website
   url: https://fordefi.com/
+- type: DeveloperPortal
+  url: https://fordefi.com/developers
+- type: Documentation
+  url: https://docs.fordefi.com/developers/api-overview
+- type: APIReference
+  url: https://docs.fordefi.com/api/openapi
+- type: GettingStarted
+  url: https://docs.fordefi.com/developers/getting-started/create-an-api-user
+- type: GitHubOrganization
+  url: https://github.com/FordefiHQ
+- type: Blog
+  url: https://blog.fordefi.com/
+- type: StatusPage
+  url: https://status.fordefi.com/
+- type: SignUp
+  url: https://app.fordefi.com/
+- type: TermsOfService
+  url: https://fordefi.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://fordefi.com/privacy-policy
+- type: Deprecation
+  url: https://docs.fordefi.com/changelog/upcoming
+- type: Compliance
+  url: https://fordefi.com/solutions/mpc-security
+- type: ChangeLog
+  url: changelog/fordefi-changelog.yml
+- type: Lifecycle
+  url: lifecycle/fordefi-lifecycle.yml
+- type: Authentication
+  url: authentication/fordefi-authentication.yml
+- type: Conventions
+  url: conventions/fordefi-conventions.yml
+- type: Idempotency
+  url: conventions/fordefi-conventions.yml
+- type: ErrorCatalog
+  url: errors/fordefi-problem-types.yml
+- type: DataModel
+  url: data-model/fordefi-data-model.yml
+- type: Webhooks
+  url: asyncapi/fordefi-webhooks.yml
+- type: Packages
+  url: packages/fordefi-packages.yml
+- type: SDKs
+  url: packages/fordefi-packages.yml
+- type: MCPServer
+  url: mcp/fordefi-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/fordefi-llms.txt
+- type: Overlay
+  url: overlays/fordefi-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/fordefi-conformance.yml
+- type: TrustCenter
+  url: security/fordefi-trust-center.yml
+- type: DomainSecurity
+  url: security/fordefi-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/fordefi-agentic-access.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

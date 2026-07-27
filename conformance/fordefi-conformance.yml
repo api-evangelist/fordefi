@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.fordefi.com/developers/authentication
+compliance_source: https://www.prnewswire.com/news-releases/fordefi-becomes-first-institutional-defi-wallet-to-earn-soc-2-type-ii-certification-301772191.html
+note: >-
+  Cross-cutting standards conformance for the Fordefi API, derived from the
+  OpenAPI and searched from the docs. Fordefi is SOC 2 Type II certified
+  (audited by EY) — the first institutional DeFi wallet to earn it.
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: Fordefi publishes an OpenAPI 3.1.0 document at api.fordefi.com/openapi.json
+  - id: oauth2
+    conforms: false
+    evidence: Auth is Bearer JWT access token, not an OAuth2 authorization flow
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a JSON envelope (title/detail/request_id), not application/problem+json
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: Deprecations announced via changelog/upcoming pages, not Sunset headers
+  - id: request-signing-ecdsa-p256
+    conforms: true
+    evidence: State-changing requests signed with ECDSA over NIST P-256 (x-signature/x-timestamp)
+  - id: idempotency
+    conforms: true
+    evidence: x-idempotence-id header on state-changing operations
+  - id: aml-screening
+    conforms: true
+    evidence: Built-in AML screening via Chainalysis partnership
+  - id: soc2-type-ii
+    conforms: true
+    evidence: SOC 2 Type II certified (EY), announced March 2023

@@ -1,0 +1,54 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.fordefi.com/developers/authentication
+docs: https://docs.fordefi.com/developers/api-overview
+note: >-
+  Cross-cutting request/response semantics for the Fordefi API, captured from the
+  developer docs and derived from the OpenAPI. Cross-links authentication/,
+  errors/, lifecycle/.
+authentication:
+  style: bearer-jwt-plus-request-signing
+  header: 'Authorization: Bearer {api_access_token}'
+  request_signing:
+    required_for: state-changing operations (e.g. create transaction)
+    algorithm: ECDSA over NIST P-256 (secp256r1)
+    signed_payload: "${path}|${timestamp}|${request_body}"
+    headers:
+      - x-signature
+      - x-timestamp
+    signer: API Signer private key (public key registered with the API User)
+  transport: HTTPS only
+idempotency:
+  supported: true
+  header: x-idempotence-id
+  scope: per state-changing request (e.g. create_transaction, create_transfer)
+  source: openapi/fordefi-openapi-original.json (x-idempotence-id header parameter)
+  note: >-
+    Supplying a stable x-idempotence-id lets clients safely retry transaction
+    creation without double-submitting.
+pagination:
+  style: page-and-filter
+  params:
+    - page
+    - limit
+    - created_after
+    - created_before
+    - modified_after
+  source: openapi/fordefi-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /api/v1
+  spec_version: 0.2.0
+request_tracing:
+  field: request_id
+  location: error envelope
+  note: Every error response carries a request_id for support correlation.
+error_envelope:
+  format: json
+  fields: [title, detail, full_detail, request_id]
+  domain_error: {api_error_enum: string, description: string}
+  reference: errors/fordefi-problem-types.yml
+rate_limiting:
+  signal: HTTP 429 (rate_limit_exceeded)
+  note: 429 is documented; explicit RateLimit response headers are not published.

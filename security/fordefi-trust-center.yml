@@ -1,0 +1,17 @@
+generated: '2026-07-19'
+method: searched
+probe: false
+url: https://fordefi.com/solutions/mpc-security
+certifications:
+  - SOC 2 Type II
+note: >-
+  Fordefi is the first institutional DeFi wallet to earn SOC 2 Type II
+  certification (audited by Ernst & Young against AICPA criteria), announced
+  March 2023. Security architecture is MPC-based with an on-chain policy engine
+  and built-in AML screening (Chainalysis). No public trust.fordefi.com portal or
+  security.txt was found; ISO 27001 / PCI / HIPAA / FedRAMP are not published.
+evidence:
+  - source: https://www.prnewswire.com/news-releases/fordefi-becomes-first-institutional-defi-wallet-to-earn-soc-2-type-ii-certification-301772191.html
+    keywords: [soc 2 type ii, ernst young]
+  - source: https://fordefi.com/solutions/mpc-security
+    keywords: [mpc, security]

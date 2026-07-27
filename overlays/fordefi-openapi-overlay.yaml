@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Fordefi API
+  version: 1.0.0
+extends: openapi/fordefi-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-notes: >-
+        Rich OpenAPI 3.1.0 (75 operations, 1166 schemas). Bearer JWT + ECDSA
+        P-256 request signing; idempotency via x-idempotence-id; webhook event
+        surface documented (no AsyncAPI). SOC 2 Type II.
+      x-authentication: authentication/fordefi-authentication.yml
+      x-conventions: conventions/fordefi-conventions.yml
+      x-errors: errors/fordefi-problem-types.yml
+      x-webhooks: asyncapi/fordefi-webhooks.yml
+  - target: $.info
+    update:
+      x-idempotency:
+        supported: true
+        header: x-idempotence-id

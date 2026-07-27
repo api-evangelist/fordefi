@@ -1,0 +1,73 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/fordefi-openapi-original.json
+docs: https://docs.fordefi.com/developers/main-objects
+note: >-
+  Entity-relationship graph derived from the Fordefi OpenAPI: core resources and
+  the id-reference fields that link them. A Vault holds assets and belongs to a
+  Vault Group; Transactions reference the Vault they move funds from.
+entities:
+  - name: Vault
+    description: "A wallet holding funds for a single chain family (EVM, Bitcoin, Solana, Cosmos, ...)."
+  - name: VaultGroup
+    description: "A logical grouping of vaults sharing configuration/policy."
+  - name: Transaction
+    description: "An on-chain or off-chain signed transaction/message moving or signing data."
+  - name: Asset
+    description: "A token/coin configuration and owned-asset balance within a vault."
+  - name: AddressBookContact
+    description: "A saved counterparty address with policy relevance."
+  - name: User
+    description: "A console/human user of the organization."
+  - name: UserGroup
+    description: "A group of users for quorum/policy."
+  - name: ApiUser
+    description: "A programmatic API identity (bearer JWT subject)."
+  - name: ApiSigner
+    description: "The registered public key that verifies request signatures."
+  - name: Webhook
+    description: "A registered endpoint receiving transaction/audit-log events."
+  - name: Blockchain
+    description: "A supported chain and its fee/parameters."
+  - name: Organization
+    description: "The tenant that owns vaults, users, and policies."
+  - name: Export
+    description: "An async export job for vaults/transactions."
+  - name: AuthorizationToken
+    description: "Token grants for API access."
+  - name: EndUser
+    description: "An embedded/WaaS end-user identity."
+relationships:
+  - from: Vault
+    belongs_to: VaultGroup
+    via: vault_group_id
+  - from: Vault
+    has_many: Asset
+    via: vault_id
+  - from: Transaction
+    belongs_to: Vault
+    via: vault_id
+  - from: Transaction
+    has_many: Asset
+    via: asset_id
+  - from: Asset
+    belongs_to: Blockchain
+    via: chain
+  - from: Vault
+    belongs_to: Blockchain
+    via: chain
+  - from: ApiUser
+    belongs_to: Organization
+    via: organization_id
+  - from: ApiSigner
+    belongs_to: ApiUser
+    via: api_user_id
+  - from: User
+    has_many: UserGroup
+    via: user_group_id
+  - from: Vault
+    has_many: Transaction
+    via: vault_id
+  - from: AddressBookContact
+    belongs_to: Organization
+    via: organization_id

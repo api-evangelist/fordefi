@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/fordefi-openapi-original.json
+note: >-
+  Packaged Agent Skills for marquee Fordefi flows. Every step is grounded in a
+  real operationId verified against the OpenAPI. No provider-published skills or
+  AGENTS.md were found.
+skills:
+  - file: fordefi-create-vault-and-address.md
+    name: Create a vault and generate a receiving address
+    api: openapi/fordefi-openapi-original.json
+    operations: [create_vault_api_v1_vaults_post, create_address_api_v1_vaults__id__addresses_post, get_vault_assets_api_v1_vaults__id__assets_get]
+  - file: fordefi-create-and-approve-transaction.md
+    name: Create, sign and monitor a transaction
+    api: openapi/fordefi-openapi-original.json
+    operations: [create_transaction_api_v1_transactions_post, approve_transaction_api_v1_transactions__id__approve_post, get_transaction_api_v1_transactions__id__get]
+  - file: fordefi-transfer-and-track.md
+    name: Transfer assets and track to completion
+    api: openapi/fordefi-openapi-original.json
+    operations: [create_transfer_api_v1_transactions_transfer_post, create_transaction_and_wait_api_v1_transactions_create_and_wait_post, list_transactions_api_v1_transactions_get]

@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.fordefi.com/changelog/platform
+note: >-
+  Versioning, deprecation and operational-transparency posture for the Fordefi
+  API, from the platform changelog and API reference.
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: 0.2.0
+  docs: https://docs.fordefi.com/developers/api-overview
+deprecation:
+  observed: true
+  examples:
+    - Discontinuation of v1 webhooks (changelog Version 108, May 3 2026)
+    - Discontinuation of Sei Cosmos support (changelog Version 112, Jun 28 2026)
+  upcoming_changes: https://docs.fordefi.com/changelog/upcoming
+  note: >-
+    Fordefi announces breaking changes and discontinuations through the dated
+    platform changelog and an "Upcoming Changes" page rather than a formal
+    RFC 8594 Sunset-header policy.
+status_page: https://status.fordefi.com/
+changelog: https://docs.fordefi.com/changelog/platform
