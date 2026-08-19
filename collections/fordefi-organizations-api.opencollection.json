@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Organizations API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Import Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/organizations/import-keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports keys for an organization."
+        },
+        {
+          "info": {
+            "name": "Abort Import Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/organizations/abort-import-keys"
+          },
+          "docs": "Aborts the import keys process for an organization."
+        },
+        {
+          "info": {
+            "name": "Get Import Keys Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/organizations/import-keys-status"
+          },
+          "docs": "Gets the import keys status for an organization."
+        },
+        {
+          "info": {
+            "name": "List Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/organizations/list-keys"
+          },
+          "docs": "Lists the imported keys for an organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

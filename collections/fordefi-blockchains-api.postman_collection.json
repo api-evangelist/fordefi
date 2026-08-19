@@ -1,0 +1,1423 @@
+{
+  "item": [
+    {
+      "id": "a87be75b-2b9c-4377-9023-feb9743163a7",
+      "name": "Blockchains",
+      "description": {
+        "content": "These endpoints allow you to get information about blockchains supported by Fordefi.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60801dfe-216f-4124-962a-c6e14f1d09de",
+          "name": "List Chains",
+          "request": {
+            "name": "List Chains",
+            "description": {
+              "content": "Get a list of supported blockchains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blockchains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number to fetch."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip_count",
+                  "value": "false",
+                  "description": "Whether to skip counting the total number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sources",
+                  "value": "<string>",
+                  "description": "The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi's platform.<li>`custom`: User-added chains with support on Fordefi's platform.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sources",
+                  "value": "<string>",
+                  "description": "The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi's platform.<li>`custom`: User-added chains with support on Fordefi's platform.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_mainnets",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_testnets",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_exchanges",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "show_all",
+                  "value": "false",
+                  "description": "Include all chains in the response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3dbb42a4-9faa-4aef-a697-8df83e057c8f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3864,\n  \"page\": 5388,\n  \"size\": 1545,\n  \"chains\": [\n    {\n      \"chain_type\": \"string\",\n      \"unique_id\": \"aptos_mainnet\",\n      \"name\": \"string\",\n      \"native_currency_symbol\": \"ETH\",\n      \"native_currency_name\": \"Ether\",\n      \"logo_url\": \"http://mtcVRHgPzaQ.mjyBwlbAF,KklHKmrb+mYKmQMugwdmzxEUhEKKV\",\n      \"is_testnet\": true,\n      \"is_enabled\": true,\n      \"blockchain_explorer\": {\n        \"transaction_url\": \"https://etherscan.io/tx/\",\n        \"address_url\": \"https://etherscan.io/address/\",\n        \"root_url\": \"https://etherscan.io/\",\n        \"transaction_format_url\": \"http://tPYkBnhYSTpj.lyvzyyIVge,O-gjUMSrxkklm2JmdO2W1Z\",\n        \"address_format_url\": \"https://rptFFyLwjJWOF.ecxutEJj5t+kpQVyPze6VzDq5FFyBT4ue\",\n        \"asset_format_url\": \"https://CkZyCFlXaBFmEwfORvGlOwEIzcRCqWzMe.rjrtHXUnFVR0J3ny\"\n      }\n    },\n    {\n      \"chain_type\": \"string\",\n      \"unique_id\": \"aptos_movement_testnet\",\n      \"name\": \"string\",\n      \"native_currency_symbol\": \"ETH\",\n      \"native_currency_name\": \"Ether\",\n      \"logo_url\": \"https://qU.lyxCxhwMo8p-Ypd3gPuwpX3,avVMzs\",\n      \"is_testnet\": false,\n      \"is_enabled\": false,\n      \"blockchain_explorer\": {\n        \"transaction_url\": \"https://etherscan.io/tx/\",\n        \"address_url\": \"https://etherscan.io/address/\",\n        \"root_url\": \"https://etherscan.io/\",\n        \"transaction_format_url\": \"https://xdLqlhNlBCHTGrIdIgqqDLupngwr.akhGLpmcSs\",\n        \"address_format_url\": \"https://lignjlRvskMRRjQqWlFWYvgPCAQQMNVZ.hosaORplvseTT7trFTf3naBrISKGPmgKg6ZpYZQwv.lqDem5ldFO5VijQ5v2p2nSHsm2dl-J\",\n        \"asset_format_url\": \"http://AJcoeQxlynYrf.qbxCR,4FaoAeC.hAnEW4av5DxDjeZgNiGED4ww\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d580f297-59e0-4a62-beec-11184d584ebc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b74a3f00-4681-47ae-96b2-a0648097e6ac",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7e275bf-f9e0-41f6-91a4-959748265c98",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94cf991a-356f-45f5-a32d-fd7c65a8504a",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29753d9d-11c4-4987-b255-f0ddfe655740",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        4620,\n        8284\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        153,\n        4127\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "185292b4-cfe8-487e-a724-10971863fc6e",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04397df8-ea9b-4a4d-8175-115e8448186e",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "default"
+                    },
+                    {
+                      "key": "include_mainnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_testnets",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_exchanges",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_all",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b534d7bd-00b5-4d53-95f9-c2ea9f204d7b",
+          "name": "Get Suggested Fees",
+          "request": {
+            "name": "Get Suggested Fees",
+            "description": {
+              "content": "Get the suggested fees in a specific network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blockchains",
+                "suggested-fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5db09fba-ddff-4dc3-96f7-523f5225bc1f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"suggested_fees\": {\n    \"key_0\": {\n      \"type\": \"string\",\n      \"low\": \"1000000000000000000\",\n      \"medium\": \"1000000000000000000\",\n      \"high\": \"1000000000000000000\",\n      \"chain_unique_id\": \"aptos_movement_mainnet\"\n    },\n    \"key_1\": {\n      \"type\": \"string\",\n      \"low\": \"1000000000000000000\",\n      \"medium\": \"1000000000000000000\",\n      \"high\": \"1000000000000000000\",\n      \"chain_unique_id\": \"aptos_movement_mainnet\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a21efef2-eac9-47eb-90a1-181de63eee52",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faf62bd5-8393-470a-9d78-5a821fcbacb7",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "054b0f80-509d-42ff-b9d5-f24de27d62ab",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa591aee-4411-4a67-a7a1-613b3f70c927",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f957c6f1-5163-4143-b756-8821839e82f4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        4620,\n        8284\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        153,\n        4127\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9aa9ead8-87ab-4a82-a753-d84aaf624cb3",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "548b8e8d-f9f9-4179-bbcf-748a2c793f98",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blockchains",
+                    "suggested-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "stacks"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "cosmos"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dfa7ac9d-073f-4e07-8557-166c153ea065",
+    "name": "Fordefi Address Book Blockchains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

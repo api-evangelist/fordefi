@@ -1,0 +1,937 @@
+{
+  "item": [
+    {
+      "id": "88a4adbd-4328-4daf-b6af-f1a79507a812",
+      "name": "Vault Groups",
+      "description": {
+        "content": "These endpoints allow you to view your vault groups.\n        <br><br>\n        Vault Groups are used to collectively manage policies and view permissions for a group of vaults.\n       <br><br>\n       The API is read-only. To manage vault groups, visit the Fordefi web console. See more info in the\n       <a href='https://docs.fordefi.com/user-guide/vaults/handle-vault-groups'>user</a> guide.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "650430ba-24f2-4cb8-8278-b995c6636bcb",
+          "name": "List Vault Groups",
+          "request": {
+            "name": "List Vault Groups",
+            "description": {
+              "content": "Get a list of vault groups in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "vault-groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number to fetch."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip_count",
+                  "value": "false",
+                  "description": "Whether to skip counting the total number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "vault_group_ids",
+                  "value": "<uuid>",
+                  "description": "Vault group IDs to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "vault_group_ids",
+                  "value": "<uuid>",
+                  "description": "Vault group IDs to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "access_level",
+                  "value": "view"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_vault_group_ids",
+                  "value": "<uuid>",
+                  "description": "Vault group IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_vault_group_ids",
+                  "value": "<uuid>",
+                  "description": "Vault group IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "Vault group states to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "Vault group states to filter on."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4bb9246d-d092-4def-b9c6-7491d0fd4f2f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3078,\n  \"page\": 6779,\n  \"size\": 3576,\n  \"vault_groups\": [\n    {\n      \"id\": \"d0974b29-fd8c-6f4d-4a78-e9d8d8e2d7a5\",\n      \"created_at\": \"2000-01-28T20:48:59.495Z\",\n      \"modified_at\": \"1992-08-17T02:42:53.358Z\",\n      \"name\": \"string\",\n      \"vaults_count\": {\n        \"count\": 518,\n        \"has_more\": false\n      },\n      \"permissions\": {\n        \"access_permissions\": {\n          \"access_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"can_non_admins_create_or_edit_vaults\": true,\n        \"can_current_user_create_or_edit_vaults\": true\n      },\n      \"owner\": \"user\",\n      \"state\": \"deleted\",\n      \"created_by\": {\n        \"id\": \"1f8be2d5-e9d4-e9dd-6e6a-2e1e5bd79ed6\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"reset_device_pending_code_generation\",\n        \"role\": \"viewer\",\n        \"name\": \"John Doe\"\n      },\n      \"modified_by\": {\n        \"id\": \"9d5e9a6a-03a0-7607-1035-48bf8796429e\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"onboarding_pending_activation\",\n        \"role\": \"trader\",\n        \"name\": \"John Doe\"\n      },\n      \"pending_change_request\": {\n        \"id\": \"babb1361-c83e-b2cb-cdd9-ebae9db4cac5\",\n        \"new_name\": \"strin\",\n        \"created_by\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"role\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"created_at\": \"2003-11-20T00:03:46.453Z\"\n      }\n    },\n    {\n      \"id\": \"a3e47bde-a7ac-d7ff-3edd-59bbb8a75da4\",\n      \"created_at\": \"1989-12-29T14:05:36.857Z\",\n      \"modified_at\": \"2001-02-26T20:04:59.033Z\",\n      \"name\": \"string\",\n      \"vaults_count\": {\n        \"count\": 8224,\n        \"has_more\": false\n      },\n      \"permissions\": {\n        \"access_permissions\": {\n          \"access_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"can_non_admins_create_or_edit_vaults\": false,\n        \"can_current_user_create_or_edit_vaults\": false\n      },\n      \"owner\": \"user\",\n      \"state\": \"deleted\",\n      \"created_by\": {\n        \"id\": \"72308265-d167-98b8-453e-fe726b5fce54\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"pending_approval\",\n        \"role\": \"admin\",\n        \"name\": \"John Doe\"\n      },\n      \"modified_by\": {\n        \"id\": \"b88fee81-9ee0-f17a-0000-acdd52030acd\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"onboarding_pending_code_generation\",\n        \"role\": \"trader\",\n        \"name\": \"John Doe\"\n      },\n      \"pending_change_request\": {\n        \"id\": \"e527b884-90c5-2443-bf51-629ced6514d7\",\n        \"new_name\": \"string\",\n        \"created_by\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"role\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"created_at\": \"1999-07-17T14:49:48.463Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47c15aa9-168f-4acf-af76-ff179bf833fe",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b516f4d-cc05-4f0f-b4be-a1b19fec1860",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b0c3943-7cdf-4e9d-b38d-0c01894c23a6",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd18f2c3-558e-4d16-b0ad-3cf58de55387",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4817ccda-c061-4a2a-a6e9-c943e4841073",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8399,\n        7632\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        884,\n        3689\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2a6023d-7b3c-4484-b0fe-4cfe7617eb1e",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff8ef1cc-9515-4b65-9fdb-754f0bc98d29",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "vault-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_level",
+                      "value": "view"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_vault_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "pending_approval"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cf14cf5c-4190-4a52-bad6-584df3da714d",
+    "name": "Fordefi Address Book Vault Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

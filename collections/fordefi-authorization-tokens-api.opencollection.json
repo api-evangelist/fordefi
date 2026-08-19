@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Authorization Tokens API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Authorization Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/authorization-tokens",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the users."
+              },
+              {
+                "name": "user_types",
+                "value": "",
+                "type": "query",
+                "description": "User types to filter. Only end users are currently supported."
+              }
+            ]
+          },
+          "docs": "List authorization tokens of end users."
+        },
+        {
+          "info": {
+            "name": "Issue Authorization Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/authorization-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issue authorization token for an end user."
+        },
+        {
+          "info": {
+            "name": "Delete Authorization Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.fordefi.com/api/v1/authorization-tokens/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authorization token to delete."
+              }
+            ]
+          },
+          "docs": "Delete authorization token of an end user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

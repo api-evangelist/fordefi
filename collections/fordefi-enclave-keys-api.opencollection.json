@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Enclave Keys API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enclave Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Enclave Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/enclave-keys"
+          },
+          "docs": "Get the public keys of the enclave."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

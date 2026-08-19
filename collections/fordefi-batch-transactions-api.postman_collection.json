@@ -1,0 +1,2236 @@
+{
+  "item": [
+    {
+      "id": "0fb122ee-cdb3-440b-abc5-b8a23626c7a2",
+      "name": "Batch Transactions",
+      "description": {
+        "content": "These endpoints allow you to manage batch transactions on the Fordefi platform.\n        <br><br>\n        Batch transactions are currently supported only on Solana, for the purpose\n        of supporting the `signAllTransactions` flow used by certain Solana DApps.\n        Batch transactions undergo policy evaluation as a whole:  the policy is\n        applied to a “virtual transaction” whose list of instructions is the union\n        of the instructions of the individual transactions in the batch, and whose balance\n        changes are the aggregation of balance changes of the individual transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a0dc6903-2b93-489b-abf8-1f5fb1c4b824",
+          "name": "Create Batch Transaction",
+          "request": {
+            "name": "Create Batch Transaction",
+            "description": {
+              "content": "Create a batch of transactions.\n<br>\nBatch transactions are currently supported only on Solana.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "batch-transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                "key": "x-signature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                "key": "x-timestamp",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Optional idempotence ID of a transaction.",
+                "key": "x-idempotence-id",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"chain\": \"<string>\",\n    \"transactions\": [\n      {\n        \"version\": \"<string>\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"<string>\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"<string>\",\n      \"priority_fee\": \"<string>\",\n      \"unit_price\": \"<string>\"\n    }\n  },\n  \"note\": \"<string>\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9489f0c2-ba22-4dd7-b2a0-aa939a46fcab",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_id\": \"07415db7-7ddb-5f35-e569-879376deba4c\",\n  \"transactions\": [\n    {\n      \"id\": \"10e4d79f-2890-1c66-99b4-9b8f3dbd2ff0\",\n      \"created_at\": \"2004-07-24T11:42:46.601Z\",\n      \"modified_at\": \"2003-10-23T19:40:18.611Z\",\n      \"signatures\": [\n        {\n          \"data\": \"SGVsbG8=\",\n          \"signed_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"data\": \"SGVsbG8=\",\n          \"signed_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"direction\": \"outgoing\",\n      \"interacted_vaults\": [\n        {\n          \"id\": \"833bb287-a614-014d-dfec-e7c68a6a9817\",\n          \"vault_group_ids\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"string\",\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": \"7c4b230c-ebe6-5cab-6728-b1cda222d1ec\",\n          \"address\": \"string\",\n          \"logo_url\": \"http://Nnz.striELnZ0AN7uL,GivAgW0fNicbCv,Wq1T7H2aQSG9xOkNGl5WPiCyf7\",\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": false\n        },\n        {\n          \"id\": \"a300bbaf-1904-7469-c1a0-a073f8366532\",\n          \"vault_group_ids\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"string\",\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": \"3496d93d-d714-df27-93bc-2b131dabb5fb\",\n          \"address\": \"string\",\n          \"logo_url\": \"http://EsGdsMUMxJseMXjzlaDOkR.kgxve7CtYX8fn3uS.Txr\",\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": false\n        }\n      ],\n      \"organization_id\": \"0f190bc5-616c-f7e3-5364-79960c320bb1\",\n      \"state\": \"finalized_for_signing\",\n      \"state_changes\": [\n        {\n          \"changed_at\": \"1946-09-22T14:35:37.565Z\",\n          \"new_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"previous_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"changed_at\": \"1968-01-19T11:11:20.992Z\",\n          \"new_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"previous_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"type\": \"string\",\n      \"solana_transaction_type_details\": {\n        \"type\": \"string\",\n        \"sender\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"recipient\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_internal\": true\n      },\n      \"chain\": {\n        \"chain_type\": \"string\",\n        \"unique_id\": \"solana_fogo_testnet\",\n        \"name\": \"string\",\n        \"native_currency_symbol\": \"ETH\",\n        \"native_currency_name\": \"Ether\",\n        \"logo_url\": \"https://MGFIVDCnKkQAUXHmfuAQZhGaBK.ysautaxhZjijk2wkCT8mDJZ-kDDGe-C1lUykFNHpJahfDb\",\n        \"is_testnet\": false,\n        \"is_enabled\": true,\n        \"blockchain_explorer\": {\n          \"transaction_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"root_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transaction_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"asset_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"version\": \"legacy\",\n      \"instructions\": [\n        {\n          \"program_index\": 4691,\n          \"data\": \"SGVsbG8=\",\n          \"account_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"program\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base58_data\": \"9haF\"\n        },\n        {\n          \"program_index\": 7948,\n          \"data\": \"SGVsbG8=\",\n          \"account_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"program\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base58_data\": \"wtx1rzE\"\n        }\n      ],\n      \"accounts\": [\n        {\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable\": true,\n          \"signer\": true\n        },\n        {\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable\": false,\n          \"signer\": true\n        }\n      ],\n      \"address_table_lookups\": [\n        {\n          \"account_key\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"readonly_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_key\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"readonly_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"sender\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"http://WX.yfgJHItmFC2a2ky6fCb9wSn77GHapJD4jhFnL4RfRRK\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"was_fee_set_in_request\": true,\n      \"managed_transaction_data\": {\n        \"created_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"signer_type\": \"api_signer\",\n        \"risks\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"has_current_user_vault_permissions\": false,\n        \"aborted_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"finalized_for_signing_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"device_signing_request\": {\n          \"created_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"signers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"approval_request\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"required_groups\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"approval_groups\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"aml_policy_match\": {\n          \"is_default\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"action_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"policy_match\": {\n          \"is_default\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"action_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"error_pushing_to_blockchain_message\": \"string\",\n        \"original_error_pushing_to_blockchain_message\": \"string\",\n        \"idempotence_id\": \"f5326b10-d200-4736-d42b-80fa54082944\",\n        \"batch_data\": {\n          \"batch_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"index_in_batch\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_size\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"matched_policies\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"push_mode\": \"manual\",\n        \"last_pushed_at\": \"1972-12-24T22:20:27.146Z\",\n        \"sign_mode\": \"auto\",\n        \"fee_paid_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"attested_payload_for_signing\": \"string\",\n        \"tx_policy_explanation_id\": \"21454c79-572a-2486-9767-6697c214a0ef\"\n      },\n      \"note\": \"string\",\n      \"spam_state\": \"unset\",\n      \"signed_externally\": false,\n      \"related_transactions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"chain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"hash\": \"string\",\n          \"id\": \"4c973b6a-c87c-32c2-c1c2-eb0026db6ced\",\n          \"explorer_url\": \"http://Cs.zvhaXWj5uzC-wZZzeXa4UPhQyRCyKxJld-Me+r9bqYhsmMEL\"\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"chain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"hash\": \"string\",\n          \"id\": \"93c50b29-b4a6-c226-55ce-4cda2a0989da\",\n          \"explorer_url\": \"https://AtwHAOHCWQIlhdadhuVQtLiqNyp.vzhoFaGm0CgHJsZokyZW-eAl69MYZ1RCvlFms7x2cu0vag,C6yecXmrP2j\"\n        }\n      ],\n      \"block\": {\n        \"number\": 1379,\n        \"mined_at\": \"1996-04-21T08:12:32.502Z\",\n        \"hash\": \"string\"\n      },\n      \"aml_check\": {\n        \"results\": {\n          \"scan_status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"scan_results\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"incoming_aml_check\": {\n          \"policy_match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"users_eligible_to_unfreeze\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frozen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mined_result_status\": \"missing\",\n      \"simulation_status_result\": {\n        \"details\": \"string\",\n        \"simulation_status\": \"failed\"\n      },\n      \"raw_transaction\": \"SGVsbG8=\",\n      \"hash\": \"FAWA66fudpiwdRDDQ4DRxdJsRvawvauwg4vQkm98ZHFpXmW5N7xzRiTRpt8QiZ19s1aVbzKgXW6kEZanwHeDFNS\",\n      \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\",\n      \"expected_result\": {\n        \"reversion\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"enriched_fee\": {\n          \"priority_level\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priority_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unit_price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"effects\": {\n          \"balance_changes\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transfers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allowances\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transaction_error\": \"string\",\n        \"instruction_error\": {\n          \"error_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instruction_index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mined_result\": {\n        \"reversion\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"enriched_fee\": {\n          \"priority_level\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priority_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unit_price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"effects\": {\n          \"balance_changes\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transfers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allowances\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transaction_error\": \"string\",\n        \"instruction_error\": {\n          \"error_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instruction_index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"explorer_url\": \"https://solscan.io/tx/FAWA66f...6kEZanwHeDFNS\",\n      \"fee_payer\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"http://XJyQWssLrgPpqPSqoxjuwrXejxcOAaNo.zjjxU.o7wb8hgaWFmsB\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"4663df2d-ae03-a916-8826-6c24fb3063f5\",\n      \"created_at\": \"2024-07-13T23:43:02.307Z\",\n      \"modified_at\": \"1981-07-20T07:44:37.018Z\",\n      \"signatures\": [\n        {\n          \"data\": \"SGVsbG8=\",\n          \"signed_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"data\": \"SGVsbG8=\",\n          \"signed_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"direction\": \"outgoing\",\n      \"interacted_vaults\": [\n        {\n          \"id\": \"fccfcf52-49e7-152f-3f66-04af4b02c200\",\n          \"vault_group_ids\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"string\",\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": \"12b9cd61-6661-8291-66e6-f5aa4171f446\",\n          \"address\": \"string\",\n          \"logo_url\": \"https://z.irjxw5D66yDw,6D.4Y1sAOowvfF1G,mWCNlPLTYojKL1la60b2j\",\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": false\n        },\n        {\n          \"id\": \"efdce5d5-dceb-3767-2fc6-3de6c9d3f8db\",\n          \"vault_group_ids\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"string\",\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": \"443f57d1-1106-d3cc-4e85-9b024863325e\",\n          \"address\": \"string\",\n          \"logo_url\": \"https://bBtsGAiFZhWLwFggnBQ.evtdR4ws-3oSVyx6xxI+L41v,Qa\",\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": false\n        }\n      ],\n      \"organization_id\": \"22e85660-9c7f-0625-1278-055151e2ebb4\",\n      \"state\": \"queued\",\n      \"state_changes\": [\n        {\n          \"changed_at\": \"2013-07-09T00:46:50.086Z\",\n          \"new_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"previous_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"changed_at\": \"1954-06-08T09:27:33.149Z\",\n          \"new_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"previous_state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"type\": \"string\",\n      \"solana_transaction_type_details\": {\n        \"type\": \"string\",\n        \"sender\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"recipient\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_internal\": true\n      },\n      \"chain\": {\n        \"chain_type\": \"string\",\n        \"unique_id\": \"solana_mainnet\",\n        \"name\": \"string\",\n        \"native_currency_symbol\": \"ETH\",\n        \"native_currency_name\": \"Ether\",\n        \"logo_url\": \"https://QErJYAurQbwRAYCv.avqobYTMXGmXDbjvGDdel6BOAw5vRQgz6A4O\",\n        \"is_testnet\": false,\n        \"is_enabled\": true,\n        \"blockchain_explorer\": {\n          \"transaction_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"root_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transaction_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"asset_format_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"version\": \"legacy\",\n      \"instructions\": [\n        {\n          \"program_index\": 1792,\n          \"data\": \"SGVsbG8=\",\n          \"account_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"program\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base58_data\": \"xMr3jZiR63\"\n        },\n        {\n          \"program_index\": 2544,\n          \"data\": \"SGVsbG8=\",\n          \"account_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"program\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base58_data\": \"V\"\n        }\n      ],\n      \"accounts\": [\n        {\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable\": true,\n          \"signer\": false\n        },\n        {\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable\": true,\n          \"signer\": true\n        }\n      ],\n      \"address_table_lookups\": [\n        {\n          \"account_key\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"readonly_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_key\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"writable_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"readonly_indexes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"sender\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"http://IofPTmZlxVvFpVlKy.vzxxv\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"was_fee_set_in_request\": true,\n      \"managed_transaction_data\": {\n        \"created_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"signer_type\": \"api_signer\",\n        \"risks\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"has_current_user_vault_permissions\": false,\n        \"aborted_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"finalized_for_signing_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"device_signing_request\": {\n          \"created_by\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"signers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"approval_request\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"required_groups\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"approval_groups\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"aml_policy_match\": {\n          \"is_default\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"action_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"policy_match\": {\n          \"is_default\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rule_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"action_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"error_pushing_to_blockchain_message\": \"string\",\n        \"original_error_pushing_to_blockchain_message\": \"string\",\n        \"idempotence_id\": \"97292c2c-30ac-e702-30c9-3d5bc82eaa5c\",\n        \"batch_data\": {\n          \"batch_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"index_in_batch\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"batch_size\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"matched_policies\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"push_mode\": \"deferred\",\n        \"last_pushed_at\": \"1985-12-28T15:45:33.386Z\",\n        \"sign_mode\": \"auto\",\n        \"fee_paid_by\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"attested_payload_for_signing\": \"string\",\n        \"tx_policy_explanation_id\": \"7dcceb84-5674-d48d-106d-c9240e9d7887\"\n      },\n      \"note\": \"string\",\n      \"spam_state\": \"unset\",\n      \"signed_externally\": false,\n      \"related_transactions\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"chain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"hash\": \"string\",\n          \"id\": \"cb048869-8916-6fca-1279-4728adeccac5\",\n          \"explorer_url\": \"https://AzvlYcn.qiPaOJ6qDfSd.Ctkw5fv+xx,Fo-xKcmqHGlhYkg+vV,j.ZW7X80JbPyVjrvHD\"\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"chain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"hash\": \"string\",\n          \"id\": \"f5891ca2-0805-d791-c53f-24e06ccc4643\",\n          \"explorer_url\": \"http://RetjbgXcUp.ojgkiCe2qb4pLWqjLSSfr7BiF\"\n        }\n      ],\n      \"block\": {\n        \"number\": 7376,\n        \"mined_at\": \"1990-11-29T16:39:10.259Z\",\n        \"hash\": \"string\"\n      },\n      \"aml_check\": {\n        \"results\": {\n          \"scan_status\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"scan_results\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"incoming_aml_check\": {\n          \"policy_match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"users_eligible_to_unfreeze\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frozen\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mined_result_status\": \"potentially_partial\",\n      \"simulation_status_result\": {\n        \"details\": \"string\",\n        \"simulation_status\": \"failed\"\n      },\n      \"raw_transaction\": \"SGVsbG8=\",\n      \"hash\": \"FAWA66fudpiwdRDDQ4DRxdJsRvawvauwg4vQkm98ZHFpXmW5N7xzRiTRpt8QiZ19s1aVbzKgXW6kEZanwHeDFNS\",\n      \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\",\n      \"expected_result\": {\n        \"reversion\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"enriched_fee\": {\n          \"priority_level\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priority_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unit_price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"effects\": {\n          \"balance_changes\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transfers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allowances\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transaction_error\": \"string\",\n        \"instruction_error\": {\n          \"error_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instruction_index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mined_result\": {\n        \"reversion\": {\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"reason\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"enriched_fee\": {\n          \"priority_level\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"base_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priority_fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"fee_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"unit_price\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"effects\": {\n          \"balance_changes\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transfers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"allowances\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transaction_error\": \"string\",\n        \"instruction_error\": {\n          \"error_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instruction_index\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"error_description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"explorer_url\": \"https://solscan.io/tx/FAWA66f...6kEZanwHeDFNS\",\n      \"fee_payer\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"http://kkmTSbyvnlZRJKlujtcQwndxMfvuOcxxy.glfSCaE3nhNQGN9ljfXf7\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bfe8454-338a-4cb2-a32c-78fcf8add759",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"origin_vault_used_as_funder\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "112b199f-8aab-4321-a2ed-fe632ed1b2ee",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b52f752c-9d50-418b-b479-b2bc66b58d22",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3176e4c-e4da-41e3-b47e-9993b50e2372",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05703fe5-4966-41a8-8066-268c17f7da0a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        6618,\n        1113\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8736,\n        3798\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bb11a35-cf92-4033-a3de-6d68ce3e4709",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eccd9b89-826d-419e-97ca-31746e31ead5",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotence ID of a transaction.",
+                    "key": "x-idempotence-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"0f6f39bf-ebc4-d5ca-13a7-ba30542dafce\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_eclipse_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": \"v0\",\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fail_on_prediction_failure\": true,\n    \"skip_prediction\": false,\n    \"push_mode\": \"auto\",\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    }\n  },\n  \"note\": \"string\",\n  \"signer_type\": \"initiator\",\n  \"sign_mode\": \"auto\",\n  \"dapp_info\": {\n    \"url\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a44e0a25-6df2-41f6-832c-a6bc9535f16b",
+          "name": "Predict Batch Transaction",
+          "request": {
+            "name": "Predict Batch Transaction",
+            "description": {
+              "content": "Simulate the batch of transactions and show changes in\ntoken balances, in addition to the fee estimation\n<br>\nBatch transactions are currently supported only on Solana.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "batch-transactions",
+                "predict"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"details\": {\n    \"type\": \"<string>\",\n    \"chain\": \"<string>\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"<string>\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"<string>\",\n      \"priority_fee\": \"<string>\",\n      \"unit_price\": \"<string>\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e82b8499-673c-47a2-9951-49b6ad5e8f0d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"matched_policies\": [\n    {\n      \"is_default\": false,\n      \"rule_id\": \"5cf4680f-fbd9-e6f4-d8ff-6c505172c2ec\",\n      \"rule_name\": \"string\",\n      \"action_type\": \"block\"\n    },\n    {\n      \"is_default\": true,\n      \"rule_id\": \"424afb82-0eb1-3f6b-e86c-5571ea1c3e84\",\n      \"rule_name\": \"string\",\n      \"action_type\": \"require_approval\"\n    }\n  ],\n  \"risks\": [\n    {\n      \"type\": \"post_conditions_allow_mode\",\n      \"severity\": \"low\",\n      \"title\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"type\": \"vault_not_interacted_with_address\",\n      \"severity\": \"low\",\n      \"title\": \"string\",\n      \"description\": \"string\"\n    }\n  ],\n  \"expected_result\": {\n    \"reversion\": {\n      \"state\": \"contract_asserted\",\n      \"reason\": \"string\"\n    },\n    \"enriched_fee\": {\n      \"priority_level\": \"custom\",\n      \"base_fee\": \"1000000000000000000\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"fee\": \"1000000000000000000\",\n      \"fee_type\": \"priority_fee\",\n      \"priced_asset\": {\n        \"type\": \"string\",\n        \"asset_info\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"price\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"effects\": {\n      \"balance_changes\": [\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"diff\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"diff\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"transfers\": [\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"from\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"to\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"from\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"to\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"allowances\": [\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"owner\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"spender\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"priced_asset\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"owner\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"spender\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"transaction_error\": \"string\",\n    \"instruction_error\": {\n      \"error_type\": \"string\",\n      \"instruction_index\": 3885,\n      \"error_description\": \"string\"\n    }\n  },\n  \"chain\": {\n    \"chain_type\": \"string\",\n    \"unique_id\": \"solana_fogo_testnet\",\n    \"name\": \"string\",\n    \"native_currency_symbol\": \"ETH\",\n    \"native_currency_name\": \"Ether\",\n    \"logo_url\": \"http://nlQEpMCYBlI.pbdj2r.X0KkCfTgEEdqenF7QEtHz77hNiIclG,LRvwGu9GOBa2rZ\",\n    \"is_testnet\": false,\n    \"is_enabled\": false,\n    \"blockchain_explorer\": {\n      \"transaction_url\": \"https://etherscan.io/tx/\",\n      \"address_url\": \"https://etherscan.io/address/\",\n      \"root_url\": \"https://etherscan.io/\",\n      \"transaction_format_url\": \"http://jnMhpEuvZFnimTeMcVqdsg.odcbv0vMCfp4cgb3mGoZo0v3Sz7h+iLDnVBy2veLGho-7yuDHlXJGqlZHYFMvE9\",\n      \"address_format_url\": \"http://uhbthhVTaXKBYLKENkrjFr.eumkGq2\",\n      \"asset_format_url\": \"http://cu.kvKLQ2egi2YGt1HawgwFVYTpjHmxNLknVOBdhJDGyte\"\n    }\n  },\n  \"solana_transaction_type_details\": {\n    \"type\": \"string\",\n    \"sender\": {\n      \"type\": \"string\",\n      \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n      \"vault\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"vault_group_ids\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"vault_group_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_user\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_external_signer\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"explorer_url\": \"https://mCiddOa.ysxci,Z+,ggacQmeqo9phOerG4Kz1KmAhIRXKW6,V07o0ehtS7-Qs\",\n      \"contact\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address_ref\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contract\": {\n        \"is_verified\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"dapp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"token\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"recipient\": {\n      \"type\": \"string\",\n      \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n      \"vault\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"vault_group_ids\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"vault_group_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"logo_url\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_user\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_external_signer\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"explorer_url\": \"https://sVsUqPqCHIJdHt.dtgVPQ-VPBQaLwX-yRhNymGOPhU66ea8FY-fJmiEB\",\n      \"contact\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address_ref\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contract\": {\n        \"is_verified\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"dapp\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"token\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"is_internal\": false\n  },\n  \"sender\": {\n    \"type\": \"string\",\n    \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n    \"vault\": {\n      \"id\": \"5f6b3063-58c2-ff55-d1af-56ff2343a356\",\n      \"vault_group_ids\": [\n        \"a82a9d29-a29f-e65e-3a50-aab46aa14e26\",\n        \"d2c39f7c-66fc-7e6e-ab05-69b9430b3356\"\n      ],\n      \"name\": \"string\",\n      \"state\": \"aborted\",\n      \"type\": \"safe\",\n      \"vault_group_id\": \"1a1792e6-d3b1-fd2c-5039-203cea23d75b\",\n      \"address\": \"string\",\n      \"logo_url\": \"https://kLLloPvUhOpBMdydhkVgLZXddsWZvb.hwc5WnXosY+OJkX8wiijWqqWLnCchPekDw8WV+K.4T\",\n      \"end_user\": {\n        \"id\": \"af74342e-c86a-19c5-4263-046797182b31\",\n        \"user_type\": \"string\",\n        \"external_id\": \"user|1234\",\n        \"state\": \"deleted\"\n      },\n      \"is_external_signer\": false\n    },\n    \"explorer_url\": \"https://CWUSxPuOgxNdOUWkFyYecuiyKzYLAePJV.dyueuyczP-AIUMWHo.EKOcxSjEJzakJ5NsV\",\n    \"contact\": {\n      \"id\": \"4f8d429c-1b2d-73d4-00c9-009b59e12ef8\",\n      \"name\": \"string\",\n      \"address_ref\": {\n        \"chain_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"chains\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"contract\": {\n      \"is_verified\": true,\n      \"name\": \"string\",\n      \"dapp\": {\n        \"id\": \"535af53d-2b26-cea9-ef74-c45484ff30bc\",\n        \"name\": \"string\",\n        \"url\": \"https://snDDNvHZORUiSEtS.fgnARfybwF+jTIy03N5VmuCYKOO+LRGdo3cCnC7GKPz\",\n        \"logo_url\": \"http://HcazOBAHucJiohASwroQxGNUVkR.pppvgoz,5l3ee1X,q-TrJZb6gvuJZB4JGRsmuMTYL8xsNdCYLJBri95nGubEUmN-Ou9,bNAtFrW\",\n        \"contracts_count\": 0\n      },\n      \"token\": {\n        \"type\": \"string\",\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": \"string\",\n        \"symbol\": \"string\",\n        \"decimals\": 9087,\n        \"logo_url\": \"http://LHwLxRLMnccdWykK.gxumV5KkRhqw21EukOJnmHhtZCxzIBsCehEEUQmJ2UTpD\"\n      }\n    }\n  },\n  \"suggested_fees\": {\n    \"type\": \"string\",\n    \"chain_unique_id\": \"solana_fogo_testnet\",\n    \"base_fee\": \"1000000000000000000\",\n    \"low\": \"1000000000000000000\",\n    \"medium\": \"1000000000000000000\",\n    \"high\": \"1000000000000000000\",\n    \"fee_type\": \"string\",\n    \"unit_prices\": {\n      \"limit\": \"1000000000000000000\",\n      \"low\": \"1000000000000000000\",\n      \"medium\": \"1000000000000000000\",\n      \"high\": \"1000000000000000000\"\n    }\n  },\n  \"instructions\": [\n    {\n      \"program_index\": 5517,\n      \"data\": \"SGVsbG8=\",\n      \"account_indexes\": [\n        9740,\n        751\n      ],\n      \"program\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"https://csspxTQTmb.pxxmYR9bLg.-tc1M.M\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"base58_data\": \"yvSYa7xg1\"\n    },\n    {\n      \"program_index\": 1430,\n      \"data\": \"SGVsbG8=\",\n      \"account_indexes\": [\n        1863,\n        5081\n      ],\n      \"program\": {\n        \"type\": \"string\",\n        \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n        \"vault\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"vault_group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_user\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"is_external_signer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"explorer_url\": \"http://COJlNCIzLRZNRUFALhUJ.dyqpsZ45rcJyi1HkLR\",\n        \"contact\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"address_ref\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"contract\": {\n          \"is_verified\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dapp\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"token\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"base58_data\": \"BhZ1\"\n    }\n  ],\n  \"was_fee_set_in_request\": true,\n  \"type\": \"string\",\n  \"policy_match\": {\n    \"is_default\": true,\n    \"rule_id\": \"18a8bfa5-8f34-d9c5-5506-c950c4747099\",\n    \"rule_name\": \"string\",\n    \"action_type\": \"block\"\n  },\n  \"approval_request\": {\n    \"state\": \"approved\",\n    \"required_groups\": 5373,\n    \"approval_groups\": [\n      {\n        \"quorum_size\": 3134,\n        \"approvers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"quorum_size\": 5928,\n        \"approvers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"error_message\": \"string\"\n  },\n  \"note\": \"string\",\n  \"tx_policy_explanation_id\": \"e1221d99-454b-82dc-4742-98a4c2eca88c\",\n  \"aml_policy_match\": {\n    \"is_default\": false,\n    \"rule_id\": \"4abdc9d7-ed8f-2bd7-3c08-ea60850266de\",\n    \"rule_name\": \"string\",\n    \"action_type\": \"allow\"\n  },\n  \"aml_results\": {\n    \"scan_status\": \"pending\",\n    \"error_message\": \"string\",\n    \"scan_results\": {\n      \"type\": \"string\",\n      \"alerts\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"external_id\": \"978b5141-68bd-902d-66b2-0d0d13d481bd\"\n    }\n  },\n  \"simulation_status_result\": {\n    \"details\": \"string\",\n    \"simulation_status\": \"failed\"\n  },\n  \"raw_transaction\": \"SGVsbG8=\",\n  \"fee_payer\": {\n    \"type\": \"string\",\n    \"address\": \"4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA\",\n    \"vault\": {\n      \"id\": \"66cd96ee-9615-3c04-3525-c430ffc093b5\",\n      \"vault_group_ids\": [\n        \"5cc779b3-6b0c-4438-6442-02524d115592\",\n        \"a6b25775-90e8-81db-3ee4-9f2a8f97a81c\"\n      ],\n      \"name\": \"string\",\n      \"state\": \"aborted\",\n      \"type\": \"stellar\",\n      \"vault_group_id\": \"24c8cdfb-75a3-5efd-e29a-10a1632484b0\",\n      \"address\": \"string\",\n      \"logo_url\": \"https://RyxwFUwrWjvVlRzXwkanB.fygjW+fnsQOMjh,vSxXZWX99QM7GY\",\n      \"end_user\": {\n        \"id\": \"b5621638-7b3f-0e94-f5e4-39841a0b1b7d\",\n        \"user_type\": \"string\",\n        \"external_id\": \"user|1234\",\n        \"state\": \"deleted\"\n      },\n      \"is_external_signer\": false\n    },\n    \"explorer_url\": \"http://lpSgfUTlcZwnUpvGsWwVV.cychYe3GtWHzYxwSEVWwGQDd5uyV.FnqxOaQq7ppwdEub6zq3IlwKAL.E1l+Kt\",\n    \"contact\": {\n      \"id\": \"3bfea742-8343-31c1-254b-e650e32d431c\",\n      \"name\": \"string\",\n      \"address_ref\": {\n        \"chain_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"chains\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"contract\": {\n      \"is_verified\": true,\n      \"name\": \"string\",\n      \"dapp\": {\n        \"id\": \"ff66ded7-d918-4b33-4610-50be8aa1ff97\",\n        \"name\": \"string\",\n        \"url\": \"https://cKPHVPtKeakaqdVgHh.nfrYeHcfhF\",\n        \"logo_url\": \"http://LYiSXDgYCIqsHflFNonINuBvTbLk.iuUZ9l3ArnpxAYge\",\n        \"contracts_count\": 0\n      },\n      \"token\": {\n        \"type\": \"string\",\n        \"address\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": \"string\",\n        \"symbol\": \"string\",\n        \"decimals\": 578,\n        \"logo_url\": \"http://YwWNOeowLPMrEioVWFrIYFdCUchgvKgcq.rjoxPx,HlMccRODUjlv1hQ-UG2brzHiFEKbfV0A\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6a7c1b8-999c-4530-a14d-522e1c77cfa4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"insecure_key_derivation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "270b8c58-e727-4352-b4f3-2718fd30657d",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2eb33a09-2471-40fa-a982-801439f0b68c",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "512a1a27-c47b-4946-bcd9-d43ab26f4d2d",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "152af37a-d1fa-4d72-81b7-3d956d7dd540",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        6618,\n        1113\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8736,\n        3798\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c5f2879-a5af-43be-8359-c0d256754f43",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3376bf8-484c-4371-8529-173aedf51a23",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"7ce4cd54-61d4-da38-0ffb-d0116dec41ea\",\n  \"type\": \"string\",\n  \"details\": {\n    \"type\": \"string\",\n    \"chain\": \"solana_fogo_mainnet\",\n    \"transactions\": [\n      {\n        \"version\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"instructions\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"address_table_lookups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"signatures\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"recent_blockhash\": \"4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZAMdL4VZHirAn\"\n      }\n    ],\n    \"fee\": {\n      \"type\": \"string\",\n      \"priority_fee\": \"1000000000000000000\",\n      \"unit_price\": \"1000000000000000000\"\n    },\n    \"fail_on_prediction_failure\": true,\n    \"skip_simulation\": false\n  },\n  \"should_run_policy_check\": true,\n  \"note\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5f68d1a-8c5c-468d-869b-7e4415888b23",
+          "name": "Abort Batch Transaction",
+          "request": {
+            "name": "Abort Batch Transaction",
+            "description": {
+              "content": "Abort a batch of transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "batch-transactions",
+                ":batch_id",
+                "abort"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "batch_id",
+                  "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc5b7b71-c962-448f-b495-1867c78f8d6e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5dc4297e-958f-4bb7-afc7-20e8437eef14",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"transaction_is_in_batch\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61f2ae80-3807-4fa1-97ff-f6bb8f370273",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "243eee91-c465-47c4-8d18-15f3aefe25f3",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76c41971-ba3b-4e3f-97ba-7cd5f4a9e4c3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"resource\": \"vault_group\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5464697c-282f-4b6c-b2c5-3e338acc2dee",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c07bb3f1-bada-4321-be51-2323a1566bff",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        6618,\n        1113\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8736,\n        3798\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb55a302-d447-451b-a83c-ebb1455bb59c",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee940c94-77bf-40de-aacb-b7d76f2d347e",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51e65272-b2d6-4db4-bf95-5fa9b21d5d03",
+          "name": "Approve Batch Transaction",
+          "request": {
+            "name": "Approve Batch Transaction",
+            "description": {
+              "content": "Approve a batch of transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "batch-transactions",
+                ":batch_id",
+                "approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "batch_id",
+                  "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa4bfc1b-3dac-48ab-a14b-fb28823b8744",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59eccaad-5817-447b-9833-ced3b9231604",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"invalid_transaction_state\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b9dc0f4-8809-4a8b-b129-fcc42959fd50",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db48145e-466b-4a82-b0b2-470923c37a29",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f9aac36-93be-4ae5-beea-d2ad0675971f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"resource\": \"vault_group\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "934320c5-3adc-4cba-9de3-cb5ff43b0550",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb5a787f-97fc-450f-a1f4-c5b76aa6752f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        6618,\n        1113\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8736,\n        3798\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16e7d5b2-97af-43ae-8aeb-2472be205702",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8c86105-6515-4a76-b351-8d00c6094de0",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "batch-transactions",
+                    ":batch_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "batch_id",
+                      "description": "(Required) Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da408b50-edb1-452a-a559-a300aa674bc9",
+    "name": "Fordefi Address Book Batch Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

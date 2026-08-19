@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Swaps API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Swaps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/swaps/providers/:chain_type",
+            "params": [
+              {
+                "name": "chain_type",
+                "value": "",
+                "type": "path",
+                "description": "Chain type to get providers for."
+              }
+            ]
+          },
+          "docs": "Get providers for a chain type."
+        },
+        {
+          "info": {
+            "name": "Get Quotes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/swaps/quotes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get available quotes for a swap between two assets."
+        },
+        {
+          "info": {
+            "name": "Create Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/swaps",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new spot swap."
+        },
+        {
+          "info": {
+            "name": "Predict Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/swaps/predict",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate the spot swap and changes in token\nbalances, in addition to the fee estimation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

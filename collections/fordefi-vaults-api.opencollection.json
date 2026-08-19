@@ -1,0 +1,485 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Vaults API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vaults",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "vault_ids",
+                "value": "",
+                "type": "query",
+                "description": "Vault IDs to filter on."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "List of full names to filter on."
+              },
+              {
+                "name": "vault_types",
+                "value": "",
+                "type": "query",
+                "description": "Vault types to filter on."
+              },
+              {
+                "name": "vault_states",
+                "value": "",
+                "type": "query",
+                "description": "Vault states to filter on."
+              },
+              {
+                "name": "key_holder_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of key holder IDs to filter on."
+              },
+              {
+                "name": "vault_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of vault group IDs to filter on. Filter applies to current and pending vault groups."
+              },
+              {
+                "name": "exclude_vault_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of vault group IDs to exclude."
+              },
+              {
+                "name": "exclude_vault_ids",
+                "value": "",
+                "type": "query",
+                "description": "Vault IDs to exclude."
+              },
+              {
+                "name": "origin_type",
+                "value": "",
+                "type": "query",
+                "description": "Origin type to filter on."
+              },
+              {
+                "name": "account_addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of account addresses to filter on."
+              },
+              {
+                "name": "positive_native_balance_chain_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of chain IDs to fetch native assets for. Only vaults with positive native balance in any of these chains will be included in native_assets response."
+              }
+            ]
+          },
+          "docs": "Get a list of all vaults in an organization."
+        },
+        {
+          "info": {
+            "name": "Create Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/vaults",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new vault."
+        },
+        {
+          "info": {
+            "name": "Export Vaults With Assets Async",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults/export_async",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of vault/asset pairs to export, unlimited if not set."
+              },
+              {
+                "name": "vaults_ids",
+                "value": "",
+                "type": "query",
+                "description": "Vault IDs to filter on."
+              },
+              {
+                "name": "vault_types",
+                "value": "",
+                "type": "query",
+                "description": "Vault types to filter on."
+              }
+            ]
+          },
+          "docs": "Get a CSV-format list of balances of all vaults and their assets."
+        },
+        {
+          "info": {
+            "name": "Get Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve vault details."
+        },
+        {
+          "info": {
+            "name": "Get Vault Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/assets/:asset_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to retrieve."
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the asset to retrieve."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              }
+            ]
+          },
+          "docs": "Get a specific asset in a vault."
+        },
+        {
+          "info": {
+            "name": "Get Vault Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/assets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to retrieve."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "asset_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_hidden",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all assets in a vault."
+        },
+        {
+          "info": {
+            "name": "Submit Update Vault Change Proposal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/proposals",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to submit a change proposal for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit an update vault change proposal. Verify, approve, and abort are handled via the user-actions API."
+        },
+        {
+          "info": {
+            "name": "Archive Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/archive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to archive."
+              }
+            ]
+          },
+          "docs": "Archive an existing vault."
+        },
+        {
+          "info": {
+            "name": "Restore Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/restore",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to restore."
+              }
+            ]
+          },
+          "docs": "Restore an archived vault."
+        },
+        {
+          "info": {
+            "name": "Rename Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/name",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to rename."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename an existing vault."
+        },
+        {
+          "info": {
+            "name": "List Vault Addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/addresses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of addresses to filter on."
+              },
+              {
+                "name": "address_types",
+                "value": "",
+                "type": "query",
+                "description": "List of address types to filter on."
+              }
+            ]
+          },
+          "docs": "Get a list of all addresses in a vault."
+        },
+        {
+          "info": {
+            "name": "Create Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/vaults/:id/addresses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault to create address in."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new address."
+        },
+        {
+          "info": {
+            "name": "Rename Vault Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fordefi.com/api/v1/vaults/addresses/:id/name",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the vault address to rename."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename an existing vault address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

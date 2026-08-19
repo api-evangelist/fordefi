@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Batch Transactions API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Batch Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/batch-transactions",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              },
+              {
+                "name": "x-idempotence-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a batch of transactions.\n<br>\nBatch transactions are currently supported only on Solana."
+        },
+        {
+          "info": {
+            "name": "Predict Batch Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/batch-transactions/predict",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate the batch of transactions and show changes in\ntoken balances, in addition to the fee estimation\n<br>\nBatch transactions are currently supported only on Solana."
+        },
+        {
+          "info": {
+            "name": "Abort Batch Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/batch-transactions/:batch_id/abort",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path",
+                "description": "Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id` field of any transaction in the batch."
+              }
+            ]
+          },
+          "docs": "Abort a batch of transactions."
+        },
+        {
+          "info": {
+            "name": "Approve Batch Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/batch-transactions/:batch_id/approve",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path",
+                "description": "Transaction ID of the last transaction in the batch (for example, transaction 2/2 in the batch).ORValue of the `managed_transaction_data.batch_data.batch_id`field of any transaction in the batch."
+              }
+            ]
+          },
+          "docs": "Approve a batch of transactions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

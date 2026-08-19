@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Blockchains API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blockchains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/blockchains",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "chain_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sources",
+                "value": "",
+                "type": "query",
+                "description": "The source of the chain. Can be:<ul><li>`default`: Chains with built-in support on Fordefi's platform.<li>`custom`: User-added chains with support on Fordefi's platform.</ul>"
+              },
+              {
+                "name": "include_mainnets",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_testnets",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_exchanges",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_all",
+                "value": "",
+                "type": "query",
+                "description": "Include all chains in the response."
+              }
+            ]
+          },
+          "docs": "Get a list of supported blockchains."
+        },
+        {
+          "info": {
+            "name": "Get Suggested Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/blockchains/suggested-fees",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "chain_types",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the suggested fees in a specific network."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

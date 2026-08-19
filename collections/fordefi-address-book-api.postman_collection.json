@@ -1,0 +1,3701 @@
+{
+  "item": [
+    {
+      "id": "99fd2883-b749-41e0-b8d0-3878120f580b",
+      "name": "Address Book",
+      "description": {
+        "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05bb7a73-2902-4803-9adb-464c2e0fd17d",
+          "name": "Create Contact",
+          "request": {
+            "name": "Create Contact",
+            "description": {
+              "content": "Create a new address book contact in an organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "addressbook",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                "key": "x-signature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                "key": "x-timestamp",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"address\": \"<string>\",\n  \"group_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"chains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"<string>\",\n      \"details\": {\n        \"type\": \"<string>\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"details\": {\n        \"type\": \"<string>\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0bc76b2-edf7-4e7e-8bf6-0c6d63b76977",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"c4132de2-96a4-bdb6-d04e-f22698f1808f\",\n  \"created_at\": \"1955-09-21T14:12:43.295Z\",\n  \"modified_at\": \"1976-06-01T18:33:14.099Z\",\n  \"name\": \"string\",\n  \"modified_by\": {\n    \"id\": \"5b923573-c534-d824-e765-0b18f8c90502\",\n    \"user_type\": \"string\",\n    \"email\": \"string\",\n    \"state\": \"reset_device_pending_code_generation\",\n    \"role\": \"trader\",\n    \"name\": \"John Doe\"\n  },\n  \"state\": \"pending\",\n  \"groups\": [\n    {\n      \"id\": \"8b33601a-9487-50bd-dd7c-77ff6395934c\",\n      \"name\": \"string\",\n      \"contacts_count\": 9274\n    },\n    {\n      \"id\": \"290cb23e-7038-7210-c953-ed78711267a2\",\n      \"name\": \"string\",\n      \"contacts_count\": 6238\n    }\n  ],\n  \"asset_infos\": [\n    {\n      \"id\": \"30ad9cb1-2891-ea22-9e50-d75aa9d90b78\",\n      \"asset_identifier\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"details\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 2549,\n      \"verified\": true,\n      \"is_spam\": true,\n      \"metadata_uri\": \"string\",\n      \"logo_url\": \"http://b.yizK1UHbYhzY6DDSqfK8ekjUVevrHZq..\",\n      \"explorer_url\": \"http://FpCmlJqfWvAMUpNQW.vpwgMkDlcGIdbchzLOVKj9rcy1yp2VbaRrAbOdlYN.U+3ifLREok-\"\n    },\n    {\n      \"id\": \"e7c8038f-a3ce-9212-dd86-ab12abc94a00\",\n      \"asset_identifier\": {\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"details\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 8935,\n      \"verified\": true,\n      \"is_spam\": false,\n      \"metadata_uri\": \"string\",\n      \"logo_url\": \"http://NNraRjJdceHsljCePS.cytMw93khjqgAJekczsdiuBtTvtepunT6IThHEaDITmOd0SFsOkTTTlErI1OeRcyVmZQh,7eCx,3LQPBjU\",\n      \"explorer_url\": \"https://WYOkDpDvMiedtFCAQVpV.dgHGjkvcZB0oSqLEV5Yf68GbryGLHHhOb+UZ9ekCUS6nd7FoQrsDwMGYgSS\"\n    }\n  ],\n  \"chain_type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"chains\": [\n    {\n      \"chain_type\": \"string\",\n      \"unique_id\": \"aptos_testnet\",\n      \"name\": \"string\",\n      \"native_currency_symbol\": \"ETH\",\n      \"native_currency_name\": \"Ether\",\n      \"logo_url\": \"https://QqDnqbbSBqrrgHDaCDFUtbkwTrAzig.jeceyKU\",\n      \"is_testnet\": false,\n      \"is_enabled\": true,\n      \"blockchain_explorer\": {\n        \"transaction_url\": \"https://etherscan.io/tx/\",\n        \"address_url\": \"https://etherscan.io/address/\",\n        \"root_url\": \"https://etherscan.io/\",\n        \"transaction_format_url\": \"https://V.ojcG0QzGmAwAKs8d4OcGqUhMPlSs9WWW6IdWx.JkAPN,Xr.\",\n        \"address_format_url\": \"http://h.okfgm0nMsy5VrTcneQus10TbuHGXsBvlyhmkZuDItHcQJUbMnBfuX\",\n        \"asset_format_url\": \"https://k.djiYmK2.LXl61GCkWnwEjBVwnH6eRKw2Y.N\"\n      }\n    },\n    {\n      \"chain_type\": \"string\",\n      \"unique_id\": \"aptos_mainnet\",\n      \"name\": \"string\",\n      \"native_currency_symbol\": \"ETH\",\n      \"native_currency_name\": \"Ether\",\n      \"logo_url\": \"http://LbLLwpDjvmyIKUUadhoNvdrQ.mnIVe.h.Yk\",\n      \"is_testnet\": true,\n      \"is_enabled\": true,\n      \"blockchain_explorer\": {\n        \"transaction_url\": \"https://etherscan.io/tx/\",\n        \"address_url\": \"https://etherscan.io/address/\",\n        \"root_url\": \"https://etherscan.io/\",\n        \"transaction_format_url\": \"http://chneEDtsiLvhRgGOshhPqz.ggwmNw9VTyDMB2lZki8zxNPsRFO\",\n        \"address_format_url\": \"http://yWVHXagcPNkNXbLHlEkvRGbRkc.vdocW38XOhdJzdq+Qm2TEIJTkQf27n11KGJaCsdI6,k1uHPK\",\n        \"asset_format_url\": \"http://YGXSStCxaKuly.jzNTvGcBjI+oalW38RCM91qNJDuYZrvRB+px9RDO7SAWFJ4oFqv.fP03d3A\"\n      }\n    }\n  ],\n  \"pending_changes\": {\n    \"change_request_reason\": \"creation\",\n    \"batch_size\": 7030,\n    \"is_being_edited\": false,\n    \"change_request_id\": \"4addc64b-3e61-242c-6735-f98ca402db58\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf69eca7-b127-4b5b-9a13-2aad65c53419",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01a1d0bc-2979-47e4-bd9c-9053d65f68a1",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afe95bc2-a115-4c62-b867-7b4021cc3212",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c151250-44a4-4fd3-bbd7-33286036808c",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1760dc34-5333-4639-82a4-5c6e9d694174",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8681,\n        6008\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        1680,\n        1046\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff9a5a86-b65c-41e1-84e5-a7d047cd9149",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24e5d21f-7fcf-4371-9723-d02a25bb9771",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n  \"group_ids\": [\n    \"bc6c1e74-0c15-7e6a-92e9-18b075eb3256\",\n    \"1b465d77-f560-cd59-2adf-25ed507da983\"\n  ],\n  \"chains\": [\n    \"aptos_movement_mainnet\",\n    \"aptos_movement_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d32022b5-0672-480f-b254-b8cc15df93d3",
+          "name": "List Contacts",
+          "request": {
+            "name": "List Contacts",
+            "description": {
+              "content": "Get a list of all contacts in an organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "addressbook",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number to fetch."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip_count",
+                  "value": "false",
+                  "description": "Whether to skip counting the total number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_ids",
+                  "value": "<uuid>",
+                  "description": "The contact IDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_ids",
+                  "value": "<uuid>",
+                  "description": "The contact IDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "The names to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "The names to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "The states to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "The states to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>",
+                  "description": "The chain types to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain_types",
+                  "value": "<string>",
+                  "description": "The chain types to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "The chain unique ids to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "The chain unique ids to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_ids",
+                  "value": "<uuid>",
+                  "description": "List of asset identifiers to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_ids",
+                  "value": "<uuid>",
+                  "description": "List of asset identifiers to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "address_group_ids",
+                  "value": "<uuid>",
+                  "description": "The address group IDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "address_group_ids",
+                  "value": "<uuid>",
+                  "description": "The address group IDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_address_group_ids",
+                  "value": "<uuid>",
+                  "description": "List of address group IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_address_group_ids",
+                  "value": "<uuid>",
+                  "description": "List of address group IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_contact_ids",
+                  "value": "<uuid>",
+                  "description": "List of contact IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_contact_ids",
+                  "value": "<uuid>",
+                  "description": "List of contact IDs to exclude."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43215ae4-071e-4511-a96d-3c962af7fbb8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5294,\n  \"page\": 498,\n  \"size\": 2794,\n  \"contacts\": [\n    {\n      \"id\": \"be02bdc3-67d0-27ae-96c0-3d11a5dc7e19\",\n      \"created_at\": \"2010-06-03T00:40:22.280Z\",\n      \"modified_at\": \"1953-12-04T01:33:25.165Z\",\n      \"name\": \"string\",\n      \"modified_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"state\": \"pending\",\n      \"groups\": [\n        {\n          \"id\": \"33bd5249-78e8-581f-addc-05d2c432ce75\",\n          \"name\": \"string\",\n          \"contacts_count\": 9590\n        },\n        {\n          \"id\": \"b4a74463-7b2d-4de6-88a2-9606d8ca80cd\",\n          \"name\": \"string\",\n          \"contacts_count\": 7481\n        }\n      ],\n      \"asset_infos\": [\n        {\n          \"id\": \"e903ab56-d698-6310-2839-c28d53553b94\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 1489,\n          \"verified\": false,\n          \"is_spam\": false,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"http://hFFhKVdSXabtlodt.jqklXZz7D6OtL9jmfH8SqFSuLORcYfNT4MAoJ\",\n          \"explorer_url\": \"https://cuYBtObqPQLoEDEo.kpodxQfzSKOd-v5ZjjSJcEg9NWN4hHBruIEiowsPbs75\"\n        },\n        {\n          \"id\": \"8a574deb-07eb-7439-2e9e-4a5f0fc3260e\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 635,\n          \"verified\": true,\n          \"is_spam\": false,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"http://aPXdfwUXQZkCCKyXctkRrux.qssgN-,L-0LZls5myMAQHGrBMaSCu8ehJis.m0+XV\",\n          \"explorer_url\": \"http://ltdEaOypVZddARYRLY.ibVYPfRajAEOG\"\n        }\n      ],\n      \"chain_type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"chains\": [\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://awYnjOLemdDYJhg.xyZw3e0D.Qds\",\n          \"is_testnet\": false,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://xSbWBjhQidkaVcv.rrjyDhP9ix4NoRNF9-PKnT+zSWg,eJlay1CkriOYKCS9KUPZcP9SLcDbJE\",\n          \"is_testnet\": false,\n          \"is_enabled\": true,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_changes\": {\n        \"change_request_reason\": \"modification\",\n        \"batch_size\": 939,\n        \"is_being_edited\": false,\n        \"change_request_id\": \"c7928cb1-13ed-2a8a-b07d-7cab04c31ed1\"\n      }\n    },\n    {\n      \"id\": \"e8a4a34c-4f46-9290-74b7-f13058e1bb40\",\n      \"created_at\": \"1954-11-24T11:17:30.988Z\",\n      \"modified_at\": \"1952-01-09T22:23:28.321Z\",\n      \"name\": \"string\",\n      \"modified_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"state\": \"deleted\",\n      \"groups\": [\n        {\n          \"id\": \"8e9a7524-486f-faa0-a401-8c80f157b7d1\",\n          \"name\": \"string\",\n          \"contacts_count\": 9957\n        },\n        {\n          \"id\": \"dc966e09-a4d4-2264-efbc-a96f3a620e1c\",\n          \"name\": \"string\",\n          \"contacts_count\": 6078\n        }\n      ],\n      \"asset_infos\": [\n        {\n          \"id\": \"40e5504c-27b3-5159-4467-fbffa7017614\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 7807,\n          \"verified\": false,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"https://tpublmNyxrLgJDPxhUqZYKNb.ijOX8NWk7N\",\n          \"explorer_url\": \"http://EIkqhxSUBaW.zojkh9Z,VWdIUH2Ieay3GlpGJx\"\n        },\n        {\n          \"id\": \"5a7a2d65-6ca6-9859-8dc3-cea5392ece61\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 9300,\n          \"verified\": true,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"https://dZzqKvGbRVwxmBPESopqOpWkMZpvGl.akHbqYcq++20IWOY0rw6EDJBiu3rKvX4yJg0YRKqNsV60QofjNCp+wbgr-uN-8DH3KNMLZB8ra3XvhV2lVh\",\n          \"explorer_url\": \"http://msUxtHjrwhLoA.jtqgjYlfBWfPyMAgiB7qiVBbnnuVnUsV\"\n        }\n      ],\n      \"chain_type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"chains\": [\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://aJbTFjYEOpWdJkHZg.wwfhKyiS3uysstAPpm0VP\",\n          \"is_testnet\": false,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"http://ssQpFHzbDxhHctkFysxhDzJCcokmTUZEn.amutggjsSS0r2qiPlWK7E1gDwYyTgTk75Mp2WAqUcaPoEFOipx2BWaWsCYUJcs1VYzukE0AVypEW4VW3ZBZU.KAAe\",\n          \"is_testnet\": true,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_changes\": {\n        \"change_request_reason\": \"creation\",\n        \"batch_size\": 2499,\n        \"is_being_edited\": false,\n        \"change_request_id\": \"71e27359-3179-a28b-53e8-b15aed47c3fc\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31323780-2376-4ef7-b8cf-c71a1bc4692a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25db2e1c-d2ca-44d0-b9b5-1684bf13a539",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86e09a5e-ac8e-4d89-a62a-61fe78041b99",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0f47df2-5cc5-47b5-862f-b9fe94732b31",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5375bb93-8027-46f0-a064-91a5e09ec3a9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8681,\n        6008\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        1680,\n        1046\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2bc0119-1454-4dc3-8479-2f83cc9d481f",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "975caa31-4f6a-4b81-ae12-c40ef8577570",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at_asc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "aptos"
+                    },
+                    {
+                      "key": "chain_types",
+                      "value": "utxo"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "asset_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_address_group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_contact_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e43eb90-0817-4127-bd30-a9f050ea075d",
+          "name": "Create Batch Contacts",
+          "request": {
+            "name": "Create Batch Contacts",
+            "description": {
+              "content": "Create multiple new address book contacts in an organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "addressbook",
+                "contacts",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                "key": "x-signature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                "key": "x-timestamp",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"address\": \"<string>\",\n      \"group_ids\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ],\n      \"chains\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"<string>\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b784a95e-af89-4277-a342-b8285a612211",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contacts\": [\n    {\n      \"id\": \"055bf23a-c060-2eac-0403-6f325180230a\",\n      \"created_at\": \"2017-09-19T19:50:41.193Z\",\n      \"modified_at\": \"1952-11-19T12:43:10.555Z\",\n      \"name\": \"string\",\n      \"modified_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"state\": \"active\",\n      \"groups\": [\n        {\n          \"id\": \"b8e65a78-85c2-1a97-fa59-549d30e0cd02\",\n          \"name\": \"string\",\n          \"contacts_count\": 35\n        },\n        {\n          \"id\": \"e09b887e-deaf-e630-f421-6efd81589f23\",\n          \"name\": \"string\",\n          \"contacts_count\": 8480\n        }\n      ],\n      \"asset_infos\": [\n        {\n          \"id\": \"57167f4b-8390-d648-a86c-61122767f49d\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 4011,\n          \"verified\": false,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"http://LjZUSmRfwt.pyPXCra.DhpWSrAB6LKKSs-ci7VS3sNsDnx-wMbWeSGgwfOJSozhz,wdLmZT\",\n          \"explorer_url\": \"https://qCEtagtDdkTWULWUQDAgBJtCFc.tljxlAIPCh1Hy7Qd5XDc7QQDJJ15RyH2vlN8GKiI5sMxPMxLzCXize7IWJcRPiinPVsAkfC\"\n        },\n        {\n          \"id\": \"2f78ed4c-f401-3c89-d250-699f9deb10d3\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 8690,\n          \"verified\": false,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"https://BEZCx.ctIRbS5DrVg6OsNNi99fNSO7-vUpE\",\n          \"explorer_url\": \"https://agJstJ.fnytCNfvN07cLWNvLeIImsM4CBN4x\"\n        }\n      ],\n      \"chain_type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"chains\": [\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://Z.wwBYCJPYvLQk6UL4hxTHB1fx14hqidFU36ZBBXNWT2QFmSYn+q6KDF\",\n          \"is_testnet\": true,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"http://HQeSZRKpsGXLsvPDwddUmEKxTfGWrxut.gblVHQYlU,sBo6t9PcnpwosSybX+B6FEwYiffCJHMj\",\n          \"is_testnet\": true,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_changes\": {\n        \"change_request_reason\": \"creation\",\n        \"batch_size\": 8097,\n        \"is_being_edited\": true,\n        \"change_request_id\": \"27444ef7-a38a-d4b4-b824-2e1113cdb9c6\"\n      }\n    },\n    {\n      \"id\": \"6f2c5e45-da96-866f-2550-14dc82466b2e\",\n      \"created_at\": \"1973-04-28T20:06:06.403Z\",\n      \"modified_at\": \"2001-01-09T22:36:35.278Z\",\n      \"name\": \"string\",\n      \"modified_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"state\": \"active\",\n      \"groups\": [\n        {\n          \"id\": \"c5128275-beec-d63c-ba2a-4f1c1ec83d36\",\n          \"name\": \"string\",\n          \"contacts_count\": 6213\n        },\n        {\n          \"id\": \"b03864ea-fd34-96a5-15b4-436f8353b9dd\",\n          \"name\": \"string\",\n          \"contacts_count\": 2257\n        }\n      ],\n      \"asset_infos\": [\n        {\n          \"id\": \"d5031c8f-6c7c-3a39-7e6c-55f5e5dc03d2\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 4733,\n          \"verified\": true,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"https://kkOtUYCWzj.gkAGj2U,.AG3vbcgl9xIGssZrmdMnfOuppZc,r6\",\n          \"explorer_url\": \"https://YgwbJMGtQB.mlacapLpEjIKI3z6RwSgUJ1.7T\"\n        },\n        {\n          \"id\": \"52d7a4d1-cec2-6c53-e36f-3143a4963edc\",\n          \"asset_identifier\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"symbol\": \"string\",\n          \"decimals\": 9110,\n          \"verified\": true,\n          \"is_spam\": true,\n          \"metadata_uri\": \"string\",\n          \"logo_url\": \"http://tbYwSkwFfBmmbgrOwyuSVRSHZacsLLCQ.ahqwe9yfjsneBvVZ,6XnEv+nc0V3Eh-6PmNThMUR01kLmd3VMEaMCn,\",\n          \"explorer_url\": \"http://VYdAMbUDdpKePWwSwEp.yqbhA+QY5uOBCiv3IiN7Z0X83zePWcOyEKt8ERpX92V5RCUHiEws8bTNo\"\n        }\n      ],\n      \"chain_type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"chains\": [\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://tDyVFYLKNqoOmnxwFTVkAxSCFSJecqSk.munNvrVGHrFDw..NQ\",\n          \"is_testnet\": true,\n          \"is_enabled\": true,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"chain_type\": \"string\",\n          \"unique_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": \"string\",\n          \"native_currency_symbol\": \"ETH\",\n          \"native_currency_name\": \"Ether\",\n          \"logo_url\": \"https://XvVlKPrtBDcVIaurCcpImSLfKV.wqzBjjJk0U4c26G0Im9HLEhjehI.jdnoX.dxC9XUt\",\n          \"is_testnet\": true,\n          \"is_enabled\": false,\n          \"blockchain_explorer\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_changes\": {\n        \"change_request_reason\": \"modification\",\n        \"batch_size\": 7239,\n        \"is_being_edited\": false,\n        \"change_request_id\": \"1bbf8efe-63af-566a-baff-e6a739e7ba23\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5728072a-9b94-473a-abe1-0bf284b9bd06",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5745ed28-2124-4cec-ace9-2506954e54e6",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "554fb2ec-6e34-4d42-94da-ef2837b23bbd",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2e86bf5-f82d-4314-b27e-37b920f14ffe",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "462a1f38-794b-4798-9ebe-3d5035e77b0e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8681,\n        6008\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        1680,\n        1046\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d369f675-77fd-4ff3-a187-88d7f7a28796",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23984c5e-8313-416d-89ab-843df2fb7ae8",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contacts\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"address\": \"0x3300c18e7b931bdfc73dccf3e2d043ad1c9d120c777fff5aeeb9956224e5247a\",\n      \"group_ids\": [\n        \"356ed7da-d3a7-1d41-173d-74e02f506dcd\",\n        \"f159a8da-8cdc-9a55-71d9-929431944a69\"\n      ],\n      \"chains\": [\n        \"aptos_mainnet\",\n        \"aptos_movement_testnet\"\n      ],\n      \"assets_identifiers\": [\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"string\",\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c78849fc-f8ce-4f00-af8d-e9dd4afc54ac",
+          "name": "Abort Contact Change Proposal",
+          "request": {
+            "name": "Abort Contact Change Proposal",
+            "description": {
+              "content": "Abort a contact change proposal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "addressbook",
+                "contacts",
+                "proposals",
+                ":proposal_id",
+                "abort"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "proposal_id",
+                  "description": "(Required) ID of the address book contact proposal to abort."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab675d46-ab33-4469-ba3c-d4a4df6d080d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3565a16-e48f-4207-b6d8-c428a73f5474",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "689a62ff-3f89-4e0f-a72d-da41221b0a17",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "857f4e26-09bf-45eb-9e7f-8b2052d48aa5",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d383beb-bff9-47ce-b155-b618b45312c2",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e288370-0c94-462f-8e05-db724726cae8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8681,\n        6008\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        1680,\n        1046\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f551587-0c19-4254-bdac-9ab19ada22ca",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56df932a-3abc-45c4-8210-6c370ef8cdfb",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    "proposals",
+                    ":proposal_id",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "proposal_id",
+                      "description": "(Required) ID of the address book contact proposal to abort."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92c626ad-5940-4ace-8122-80cb8eb04799",
+          "name": "Edit Contact",
+          "request": {
+            "name": "Edit Contact",
+            "description": {
+              "content": "Edit address book contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "addressbook",
+                "contacts",
+                ":id",
+                "proposals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) ID of the address book contact."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                "key": "x-signature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                "key": "x-timestamp",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"chains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"<string>\",\n      \"details\": {\n        \"type\": \"<string>\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"details\": {\n        \"type\": \"<string>\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5aa889c8-7b52-428f-8da1-b1acf0394930",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ce8e898-fd6e-4c25-b0de-2503877f06ad",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ace88062-dd23-4f75-807a-b32b494bcefd",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93bf3f8d-6006-444f-9ae7-27add84fc019",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c138471d-7484-4dda-8220-7fc051c3a74c",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa8fafc6-1099-4e4c-8e99-a1b30b9a3f2d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        8681,\n        6008\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        1680,\n        1046\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7ec1205-d304-4c22-a07e-0eaf32222817",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fd5b526-5d98-472b-b574-e9146effa86d",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "addressbook",
+                    "contacts",
+                    ":id",
+                    "proposals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the address book contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"chains\": [\n    \"aptos_testnet\",\n    \"aptos_testnet\"\n  ],\n  \"assets_identifiers\": [\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"details\": {\n        \"type\": \"string\",\n        \"chain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3de881c9-80ab-4318-8604-29ec324837bb",
+    "name": "Fordefi Address Book API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

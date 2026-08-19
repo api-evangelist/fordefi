@@ -1,0 +1,610 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Transactions API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/transactions/export",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of transactions to export, unlimited if not set."
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vault_ids",
+                "value": "",
+                "type": "query",
+                "description": "The filter applies both to transactions that have been signed by the vault and also to transactions that have interacted with the vault. "
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "initiator_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sub_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signer_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transaction_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "asset_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transaction_hashes",
+                "value": "",
+                "type": "query",
+                "description": "Transaction hashes to filter by. Will return transactions with any of the specified hashes. The format of the hash depends on the blockchain type."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "String to search transactions by ID or hash."
+              },
+              {
+                "name": "frozen",
+                "value": "",
+                "type": "query",
+                "description": "Filter for frozen transactions or transactions that were unfrozen."
+              },
+              {
+                "name": "claimed",
+                "value": "",
+                "type": "query",
+                "description": "Filter for transactions waiting for the receiver to claim or accept. `true` selects settled transfers (Stellar claimable balances that were claimed, Canton transfers that were accepted). `false` selects ones not yet settled — still pending receiver action, or (Canton) already expired."
+              }
+            ]
+          },
+          "docs": "Start the export process for filtered transactions using cursor pagination."
+        },
+        {
+          "info": {
+            "name": "Index Transaction By Hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/index-by-hash",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Index Transaction By Hash"
+        },
+        {
+          "info": {
+            "name": "Get Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve transaction details."
+        },
+        {
+          "info": {
+            "name": "List Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/transactions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "modified_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vault_ids",
+                "value": "",
+                "type": "query",
+                "description": "The filter applies both to transactions that have been signed by the vault and also to transactions that have interacted with the vault. "
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "initiator_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sub_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "signer_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transaction_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "asset_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "transaction_hashes",
+                "value": "",
+                "type": "query",
+                "description": "Transaction hashes to filter by. Will return transactions with any of the specified hashes. The format of the hash depends on the blockchain type."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "String to search transactions by ID or hash."
+              },
+              {
+                "name": "frozen",
+                "value": "",
+                "type": "query",
+                "description": "Filter for frozen transactions or transactions that were unfrozen."
+              },
+              {
+                "name": "claimed",
+                "value": "",
+                "type": "query",
+                "description": "Filter for transactions waiting for the receiver to claim or accept. `true` selects settled transfers (Stellar claimable balances that were claimed, Canton transfers that were accepted). `false` selects ones not yet settled — still pending receiver action, or (Canton) already expired."
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "State of the transaction. Can be one of the following:`aborted` `accelerated` `accelerating` `approved` `canceling` `cancelled` `completed` `completed_reverted` `dropped` `error_processing_by_exchange` `error_pushing_to_blockchain` `error_signing` `error_submitting_to_exchange` `error_submitting_to_provider` `finalized_for_signing` `insufficient_funds` `mined` `mined_reverted` `pending_exchange` `pushed_to_blockchain` `queued` `sent_to_provider` `signed` `stuck` `waiting_for_approval` `waiting_for_signing_trigger`, or an aggregation of states:<ul><li>`error`, which can be one of:</li><ul><li>`completed_reverted`</li><li>`dropped`</li><li>`error_processing_by_exchange`</li><li>`error_pushing_to_blockchain`</li><li>`error_signing`</li><li>`error_submitting_to_exchange`</li><li>`error_submitting_to_provider`</li><li>`insufficient_funds`</li></ul><li>`finalized`, which can be one of:</li><ul><li>`aborted`</li><li>`accelerated`</li><li>`cancelled`</li><li>`completed`</li><li>`completed_reverted`</li><li>`dropped`</li><li>`error_processing_by_exchange`</li><li>`error_pushing_to_blockchain`</li><li>`error_signing`</li><li>`error_submitting_to_exchange`</li><li>`error_submitting_to_provider`</li><li>`insufficient_funds`</li></ul><li>`pending`, which can be one of:</li><ul><li>`accelerating`</li><li>`approved`</li><li>`canceling`</li><li>`finalized_for_signing`</li><li>`finalized_for_signing`</li><li>`mined`</li><li>`mined_reverted`</li><li>`pending_exchange`</li><li>`pushed_to_blockchain`</li><li>`queued`</li><li>`sent_to_provider`</li><li>`signed`</li><li>`stuck`</li><li>`waiting_for_approval`</li><li>`waiting_for_signing_trigger`</li></ul></ul>"
+              },
+              {
+                "name": "is_hidden",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_full_response",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "batch_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_blackbox",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "policy_rule_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all transactions in an organization."
+        },
+        {
+          "info": {
+            "name": "Create Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              },
+              {
+                "name": "x-idempotence-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new transaction."
+        },
+        {
+          "info": {
+            "name": "Create Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/transfer",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              },
+              {
+                "name": "x-idempotence-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create basic transfer transaction."
+        },
+        {
+          "info": {
+            "name": "Create Transaction And Wait",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/create-and-wait",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              },
+              {
+                "name": "x-idempotence-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new transaction and wait until transaction reaches given state."
+        },
+        {
+          "info": {
+            "name": "Approve Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/approve",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to approve."
+              }
+            ]
+          },
+          "docs": "Approve a transaction.\n\nA transaction awaits approval when the caller API user has been specified as a\npotential approver in the policy and the transaction\nis in the `waiting_for_approval` state."
+        },
+        {
+          "info": {
+            "name": "Abort Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/abort",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to abort."
+              }
+            ]
+          },
+          "docs": "Abort a transaction.\n\nAbort is possible only for a transaction that is in one of the following states:\n   <ul>\n   <li>Waiting for approval\n   <li>Approved\n   <li>Finalized for signing\n   </ul>\n\nThe aborting user must be one of the following:\n<ul>\n<li>The user who created the transaction\n<li>An admin\n<li>A legitimate approver\n</ul>\n\nAPI users can abort only the transactions they created."
+        },
+        {
+          "info": {
+            "name": "Release Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/release",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to release."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Release a transaction."
+        },
+        {
+          "info": {
+            "name": "Predict Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/predict",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate the transaction and changes in token\nbalances, in addition to the fee estimation."
+        },
+        {
+          "info": {
+            "name": "Push Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/push",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to be pushed to chain."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Push an existing signed transaction to the chain. The transaction must\nhave been previously created with a `push_mode: manual` flag and must now\nbe in state `signed`."
+        },
+        {
+          "info": {
+            "name": "Update Transaction Spam State",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/update-spam-state",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to update spam state for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update transaction's spam state."
+        },
+        {
+          "info": {
+            "name": "Trigger Transaction Signing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/trigger-signing",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to trigger."
+              }
+            ]
+          },
+          "docs": "Trigger transaction signing."
+        },
+        {
+          "info": {
+            "name": "Unfreeze Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/unfreeze",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to unfreeze."
+              }
+            ]
+          },
+          "docs": "Trigger transaction auto revoke protection."
+        },
+        {
+          "info": {
+            "name": "Freeze Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/transactions/:id/freeze",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transaction to freeze."
+              }
+            ]
+          },
+          "docs": "Freeze transaction."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

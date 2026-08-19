@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Assets API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Owned Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/assets/owned-assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the asset to retrieve."
+              }
+            ]
+          },
+          "docs": "Get a a specific asset owned by an organization."
+        },
+        {
+          "info": {
+            "name": "List Owned Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/assets/owned-assets",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "asset_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_hidden",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vault_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "only_native",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_nft",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_negative",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              }
+            ]
+          },
+          "docs": "Get a list of all assets owned by an organization."
+        },
+        {
+          "info": {
+            "name": "Update Asset Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.fordefi.com/api/v1/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the asset's configuration under the entire organization."
+        },
+        {
+          "info": {
+            "name": "Fetch Asset Prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/assets/prices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch the prices of assets."
+        },
+        {
+          "info": {
+            "name": "Create Asset Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/assets/asset-infos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create asset infos in the Fordefi platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

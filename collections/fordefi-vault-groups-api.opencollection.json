@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Vault Groups API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vault Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vault Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/vault-groups",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "vault_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "Vault group IDs to filter on."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "access_level",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_vault_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "Vault group IDs to exclude."
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "Vault group states to filter on."
+              }
+            ]
+          },
+          "docs": "Get a list of vault groups in the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

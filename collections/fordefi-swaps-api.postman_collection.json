@@ -1,0 +1,2076 @@
+{
+  "item": [
+    {
+      "id": "d8ef10e1-14ca-41f7-a77f-7b69e355abd5",
+      "name": "Swaps",
+      "description": {
+        "content": "These endpoints allow you to manage swaps.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9e00efc8-0e96-4619-978b-8c3265115711",
+          "name": "Get Providers",
+          "request": {
+            "name": "Get Providers",
+            "description": {
+              "content": "Get providers for a chain type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "swaps",
+                "providers",
+                ":chain_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain_type",
+                  "description": "(Required) Chain type to get providers for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7e95388-35a8-470d-befe-b9543de658c0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"providers\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ed0aec9-703a-44cb-af72-9c21dc81251e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b07c7bf-e193-4987-b45d-94b520f0d799",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "255a98fe-aefc-4181-8b60-996acd10c06b",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "237e3f64-fdb8-4498-b7a7-b37640ca2d25",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb9e385e-fe77-4e9e-8af0-894d765417c1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccf8c5b8-c92c-4b75-a5ff-6db63a7fcf1f",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d27f9a4-eb58-4741-8cbb-76e0f6ed065a",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "providers",
+                    ":chain_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain_type",
+                      "description": "(Required) Chain type to get providers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1daf3338-e59d-44f1-80e5-6b791f66ac56",
+          "name": "Get Quotes",
+          "request": {
+            "name": "Get Quotes",
+            "description": {
+              "content": "Get available quotes for a swap between two assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "swaps",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"<string>\",\n  \"slippage_bps\": \"<string>\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8ff40c5-8f2e-42e4-9ede-de40945447c3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"providers_with_quote\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a0af7f9-9d11-4f7f-b477-42c3cf6be772",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72e84814-e9f9-4cc9-bd9e-458f766a50e3",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f64b525-b1e3-4bdb-adb4-6aae4f8ff5b1",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "721c8c78-5840-4046-944a-3ad8cdf70000",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0206c8b-774a-4bd3-9ab9-70e0cc9cf56e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c0a2638-1e07-433f-80c0-cf391335cc15",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b33b3974-c464-4bca-806d-d5d85e677b8e",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"signer_type\": \"initiator\",\n  \"requested_provider_ids\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a212f1b-98a5-4ee5-891d-db6b35eb305a",
+          "name": "Create Transaction",
+          "request": {
+            "name": "Create Transaction",
+            "description": {
+              "content": "Create a new spot swap.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "swaps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                "key": "x-signature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                "key": "x-timestamp",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"<string>\",\n  \"slippage_bps\": \"<string>\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76331c22-a010-464c-a82e-8ddaf4d06884",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactions\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ffb351-b7a6-4b65-87bc-4bf453ce2d58",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"blocked_by_policy\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4265a3eb-5cee-43d5-829a-083410709d4a",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "119c77f8-d617-4837-952e-8af99116a4b5",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab269edc-1a61-413f-8a14-a9380848784e",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a614880d-f072-4d09-8f38-c8ce18e8b24b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "657159c4-3b10-4a2a-8754-be91d0066721",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c0debdf-1556-4104-b652-a947043410d7",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Signature of the body. Base64 encoded string. If the request is made programatically by an API user, signing of the request is required and is intended to protect you from malicious backends. `x_signature` is valid for 120 seconds.",
+                    "key": "x-signature",
+                    "value": "SGVsbG8="
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timestamp of the signature. Integer. Specify an Epoch date. If the request is made programatically by an API user, the timestamp of the request is required and is intended to protect you from replay attacks.",
+                    "key": "x-timestamp",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"signer_type\": \"initiator\",\n  \"fail_on_prediction_failure\": true,\n  \"use_secure_node\": false,\n  \"use_mev_protected_node\": false,\n  \"dapp_info\": {\n    \"url\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d1775cc-e35d-4fdb-8e47-0898f0014be3",
+          "name": "Predict Transaction",
+          "request": {
+            "name": "Predict Transaction",
+            "description": {
+              "content": "Simulate the spot swap and changes in token\nbalances, in addition to the fee estimation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "swaps",
+                "predict"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"<string>\",\n  \"slippage_bps\": \"<string>\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e048f128-9d19-44f4-9e1e-ad36b9187ef4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"matched_policies\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"risks\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"type\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"chain\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"sender\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"aptos_message_type\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"message_to_display\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"policy_match\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"approval_request\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"note\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"tx_policy_explanation_id\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b26af4b1-7b9b-4dab-b1b4-441700313895",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\",\n  \"error_type\": \"revoke_allowance_first\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8b2b5bd-f49f-455d-8f0d-36eb4044b496",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f131729f-eb80-4be3-b557-ee7ed4995fb5",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "961af5a2-ec3e-4dd9-95cc-bf6ace77207a",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97e66656-cc0f-4fa6-9f5b-21932c13fdd5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7ee1d22-bd92-4d7e-ae39-5b2e3b534138",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f044bbbb-7126-45d7-bc69-32168061c3ed",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "swaps",
+                    "predict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quote_id\": \"<uuid>\",\n  \"vault_id\": \"<uuid>\",\n  \"input_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"output_asset_identifier\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"amount\": \"1000000000000000000\",\n  \"slippage_bps\": \"1000000000000000000\",\n  \"fee\": {\n    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n  },\n  \"fee_payer\": {\n    \"type\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"vault_id\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"should_run_policy_check\": true,\n  \"fail_on_prediction_failure\": true,\n  \"use_mev_protected_node\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dab45b12-c3c3-476f-95e7-12f8879daf0f",
+    "name": "Fordefi Address Book Swaps API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

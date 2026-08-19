@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book Users API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/users",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "The types of the users to filter on."
+              },
+              {
+                "name": "roles",
+                "value": "",
+                "type": "query",
+                "description": "The roles of the users to filter on."
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "The states of the users to filter on.  Is one of: <ul><li>`active`: The user can perform all actions in the Fordefi platform.<li>`onboarding_pending_code_generation`: The user has been approved but still needs to generate a code for the user.<li>`onboarding_pending_activation`: The user has been generated a code but still needs to activate the account with it.<li>`deleted`: The user has been deleted.</ul>"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query",
+                "description": "`True` to include deleted users in the response, `False` otherwise."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "The names of the users."
+              },
+              {
+                "name": "emails",
+                "value": "",
+                "type": "query",
+                "description": "The emails of the users."
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the users."
+              },
+              {
+                "name": "external_ids",
+                "value": "",
+                "type": "query",
+                "description": "The IDs that you assign to the end user."
+              },
+              {
+                "name": "group_ids",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the user groups."
+              },
+              {
+                "name": "group_ids__not",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifiers of the user groups to exclude."
+              },
+              {
+                "name": "states_on_groups",
+                "value": "",
+                "type": "query",
+                "description": "The states of the user groups to filter group_ids on. Is one of: <ul><li>`active`: The user group is active.<li>`pending_addition`: The user is pending to be added to the group.<li>`pending_removal`: The user is pending to be removed from the group.</ul>"
+              },
+              {
+                "name": "exclude_user_ids",
+                "value": "",
+                "type": "query",
+                "description": "The user IDs to exclude."
+              }
+            ]
+          },
+          "docs": "Get a list of users in the organization."
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user to retrieve."
+              }
+            ]
+          },
+          "docs": "Gets the user that corresponds to the given ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

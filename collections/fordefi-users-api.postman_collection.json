@@ -1,0 +1,2040 @@
+{
+  "item": [
+    {
+      "id": "bed5e71e-18e3-4516-ac3a-6e860a357539",
+      "name": "Users",
+      "description": {
+        "content": "These endpoints allow you to get information about users in your Fordefi organization.\n\nThere are several types of users in the Fordefi platform:\n - **Person**: A human user of the platform.\n - **API User**, also commonly known as a service account.\n   See [Create an API user](https://docs.fordefi.com/developers/getting-started/create-an-api-user).\n - **API Signer**: Used to auto-sign transactions.\n   See [Automate Signing with API Signer](https://docs.fordefi.com/developers/getting-started/set-up-an-api-signer).\n\nUsers can have one of three possible roles, which define the permissions that the user is given:\n - **Admin**: A user with high privileges in the organization.\n   Only admins have permission to manage the policy, set up the backup, manage the address book,\n   and add or remove users in the organization.\n   Only a person can have an admin role.\n - **Trader**: A user who can create vaults and transactions.\n - **Viewer**: A user who has full view of the organization's users, addresses, and policies,\n   as well as of the vaults and transactions, but does not have permissions to create or modify them.\n\nThe Users API is currently read-only. To add/remove users, visit the Fordefi web console.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d06f9064-a14b-44b9-a6d7-f76b44dde2d9",
+          "name": "List Users",
+          "request": {
+            "name": "List Users",
+            "description": {
+              "content": "Get a list of users in the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "The number of items per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip_count",
+                  "value": "false",
+                  "description": "Whether to skip counting the total number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "The types of the users to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "The types of the users to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "roles",
+                  "value": "<string>",
+                  "description": "The roles of the users to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "roles",
+                  "value": "<string>",
+                  "description": "The roles of the users to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "The states of the users to filter on.  Is one of: <ul><li>`active`: The user can perform all actions in the Fordefi platform.<li>`onboarding_pending_code_generation`: The user has been approved but still needs to generate a code for the user.<li>`onboarding_pending_activation`: The user has been generated a code but still needs to activate the account with it.<li>`deleted`: The user has been deleted.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "states",
+                  "value": "<string>",
+                  "description": "The states of the users to filter on.  Is one of: <ul><li>`active`: The user can perform all actions in the Fordefi platform.<li>`onboarding_pending_code_generation`: The user has been approved but still needs to generate a code for the user.<li>`onboarding_pending_activation`: The user has been generated a code but still needs to activate the account with it.<li>`deleted`: The user has been deleted.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_deleted",
+                  "value": "false",
+                  "description": "`True` to include deleted users in the response, `False` otherwise."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "The names of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "The names of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "emails",
+                  "value": "<string>",
+                  "description": "The emails of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "emails",
+                  "value": "<string>",
+                  "description": "The emails of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the users."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_ids",
+                  "value": "<string>",
+                  "description": "The IDs that you assign to the end user."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_ids",
+                  "value": "<string>",
+                  "description": "The IDs that you assign to the end user."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_ids",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the user groups."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_ids",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the user groups."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_ids__not",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the user groups to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_ids__not",
+                  "value": "<uuid>",
+                  "description": "The unique identifiers of the user groups to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "states_on_groups",
+                  "value": "<string>",
+                  "description": "The states of the user groups to filter group_ids on. Is one of: <ul><li>`active`: The user group is active.<li>`pending_addition`: The user is pending to be added to the group.<li>`pending_removal`: The user is pending to be removed from the group.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "states_on_groups",
+                  "value": "<string>",
+                  "description": "The states of the user groups to filter group_ids on. Is one of: <ul><li>`active`: The user group is active.<li>`pending_addition`: The user is pending to be added to the group.<li>`pending_removal`: The user is pending to be removed from the group.</ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_user_ids",
+                  "value": "<uuid>",
+                  "description": "The user IDs to exclude."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_user_ids",
+                  "value": "<uuid>",
+                  "description": "The user IDs to exclude."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32d24f48-5116-4aa4-b818-a6d5598f56a4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5658,\n  \"page\": 8158,\n  \"size\": 2286,\n  \"users\": [\n    {\n      \"id\": \"9db8af77-3222-2004-d3c3-e58f01d620ed\",\n      \"created_at\": \"1996-02-03T00:42:03.599Z\",\n      \"modified_at\": \"1988-08-19T16:15:04.497Z\",\n      \"user_type\": \"string\",\n      \"email\": \"string\",\n      \"state\": \"reset_device_pending_activation\",\n      \"acknowledged_banners\": [\n        \"new_policy_message\",\n        \"welcome_message\"\n      ],\n      \"role\": \"trader\",\n      \"name\": \"John Doe\",\n      \"is_new_device_provisioning\": false,\n      \"user_groups\": [\n        {\n          \"id\": \"9a3ef58f-e5e7-a72d-3331-d613db0da94f\",\n          \"name\": \"string\",\n          \"users_count\": 8067,\n          \"admins_count\": 9823,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"9514b80e-f3c1-cce6-5b78-8579c7a94b13\",\n          \"name\": \"string\",\n          \"users_count\": 8915,\n          \"admins_count\": 3425,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_addition_to_user_groups\": [\n        {\n          \"id\": \"58e8f9cd-49dc-c82b-d0d5-f5e721db8b37\",\n          \"name\": \"string\",\n          \"users_count\": 3934,\n          \"admins_count\": 4714,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"223b74a1-5402-9c5b-be00-4a23097faf52\",\n          \"name\": \"string\",\n          \"users_count\": 992,\n          \"admins_count\": 7950,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_removal_from_user_groups\": [\n        {\n          \"id\": \"7613cd12-44c2-196d-1bd5-885739d3f239\",\n          \"name\": \"string\",\n          \"users_count\": 6291,\n          \"admins_count\": 6623,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"66309c59-5afb-496d-19b3-79327ceca3f4\",\n          \"name\": \"string\",\n          \"users_count\": 4624,\n          \"admins_count\": 1443,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_change\": {\n        \"new_role\": \"admin\",\n        \"change_request_id\": \"193ce312-a8c9-690d-8e8c-38fcbc6ae4d5\"\n      },\n      \"device_backup_info\": {\n        \"device_backup_info\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"backup_created_at\": \"2013-02-13T19:40:47.783Z\",\n        \"backup_last_verified_at\": \"1955-11-22T02:43:41.203Z\"\n      },\n      \"invited_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"device_reset_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"approval_request\": {\n        \"state\": \"auto_approved\",\n        \"required_groups\": 1673,\n        \"approval_groups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"error_message\": \"string\"\n      }\n    },\n    {\n      \"id\": \"c403b470-ac59-d313-c865-b5b190b7a159\",\n      \"created_at\": \"1955-06-11T10:38:01.809Z\",\n      \"modified_at\": \"1949-07-01T17:54:50.314Z\",\n      \"user_type\": \"string\",\n      \"email\": \"string\",\n      \"state\": \"onboarding_pending_code_generation\",\n      \"acknowledged_banners\": [\n        \"new_policy_message\",\n        \"new_policy_message\"\n      ],\n      \"role\": \"admin\",\n      \"name\": \"John Doe\",\n      \"is_new_device_provisioning\": true,\n      \"user_groups\": [\n        {\n          \"id\": \"98f1d3ae-fb85-3c75-36c1-875373d836d4\",\n          \"name\": \"string\",\n          \"users_count\": 1239,\n          \"admins_count\": 448,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"97d8a2eb-b132-82d4-b0a4-93452e3ef410\",\n          \"name\": \"string\",\n          \"users_count\": 3816,\n          \"admins_count\": 8080,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_addition_to_user_groups\": [\n        {\n          \"id\": \"b6c8c166-6bb6-c520-9dde-84d97641e1d3\",\n          \"name\": \"string\",\n          \"users_count\": 1279,\n          \"admins_count\": 3760,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"839a3433-c8c3-660f-6a35-40b4af79a43e\",\n          \"name\": \"string\",\n          \"users_count\": 3916,\n          \"admins_count\": 3405,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_removal_from_user_groups\": [\n        {\n          \"id\": \"d0a66208-0888-fe6d-31a8-57bfe9ec57c2\",\n          \"name\": \"string\",\n          \"users_count\": 8708,\n          \"admins_count\": 5223,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"2e965612-1de9-ff8b-221d-6150654c5a48\",\n          \"name\": \"string\",\n          \"users_count\": 1515,\n          \"admins_count\": 1972,\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"pending_change\": {\n        \"new_role\": \"trader\",\n        \"change_request_id\": \"176c3561-c625-c0fe-5bd2-aa704353798a\"\n      },\n      \"device_backup_info\": {\n        \"device_backup_info\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"backup_created_at\": \"2013-09-16T00:32:17.610Z\",\n        \"backup_last_verified_at\": \"1989-10-24T20:25:18.922Z\"\n      },\n      \"invited_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"device_reset_by\": {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"user_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"state\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"role\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"approval_request\": {\n        \"state\": \"insufficient_approvers\",\n        \"required_groups\": 7752,\n        \"approval_groups\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"error_message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "121c0446-7f33-44b5-ad4a-d03ea815277f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d644f279-d99e-44c0-9a7e-f02a08a53c4b",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74a0e04c-3951-44a7-8d36-33a29e4147c6",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f624ccf5-5045-4a3c-bece-11f4a42a0bac",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9ebc6a9-706e-424e-8be6-405a8702ed7b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        7216,\n        2492\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8856,\n        8160\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fb5d5eb-6bfb-439b-a3ff-e9910d3d4da9",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23caf3b4-2fab-4c0c-a256-d5ebbc7db22b",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "name_desc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "skip_count",
+                      "value": "false"
+                    },
+                    {
+                      "key": "types",
+                      "value": "person"
+                    },
+                    {
+                      "key": "types",
+                      "value": "api_user"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "trader"
+                    },
+                    {
+                      "key": "roles",
+                      "value": "viewer"
+                    },
+                    {
+                      "key": "states",
+                      "value": "onboarding_pending_code_generation"
+                    },
+                    {
+                      "key": "states",
+                      "value": "deleted"
+                    },
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_ids__not",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "active"
+                    },
+                    {
+                      "key": "states_on_groups",
+                      "value": "pending_removal"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "exclude_user_ids",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bea31ac-7420-49d6-8062-9293882ed975",
+          "name": "Get User",
+          "request": {
+            "name": "Get User",
+            "description": {
+              "content": "Gets the user that corresponds to the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) ID of the user to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b2c500c-ee7b-42f2-9d77-6bd79a5f76b9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f8d3c467-ac61-3fe0-3bd5-bac437d7215c\",\n  \"created_at\": \"1963-07-21T12:17:53.681Z\",\n  \"modified_at\": \"1988-05-01T04:41:01.569Z\",\n  \"user_type\": \"string\",\n  \"email\": \"string\",\n  \"state\": \"reset_device_pending_code_generation\",\n  \"acknowledged_banners\": [\n    \"welcome_message\",\n    \"welcome_message\"\n  ],\n  \"role\": \"viewer\",\n  \"name\": \"John Doe\",\n  \"is_new_device_provisioning\": false,\n  \"user_groups\": [\n    {\n      \"id\": \"62a3303f-8fed-79d2-3afe-4d4d465536dc\",\n      \"name\": \"string\",\n      \"users_count\": 1147,\n      \"admins_count\": 9143,\n      \"state\": \"deleted\"\n    },\n    {\n      \"id\": \"66ea9c90-1cf4-41aa-a936-ff1cfbc978d4\",\n      \"name\": \"string\",\n      \"users_count\": 10,\n      \"admins_count\": 8225,\n      \"state\": \"deleted\"\n    }\n  ],\n  \"pending_addition_to_user_groups\": [\n    {\n      \"id\": \"2df7cbe3-3b87-fbca-bdce-8001b1af6d0c\",\n      \"name\": \"string\",\n      \"users_count\": 3947,\n      \"admins_count\": 3155,\n      \"state\": \"deleted\"\n    },\n    {\n      \"id\": \"d7bd4364-c5ab-c479-09de-c1991ac623f7\",\n      \"name\": \"string\",\n      \"users_count\": 1316,\n      \"admins_count\": 9859,\n      \"state\": \"active\"\n    }\n  ],\n  \"pending_removal_from_user_groups\": [\n    {\n      \"id\": \"5aa7f3be-5ec8-65d3-7a4a-e069c06e62f5\",\n      \"name\": \"string\",\n      \"users_count\": 9364,\n      \"admins_count\": 9899,\n      \"state\": \"active\"\n    },\n    {\n      \"id\": \"be470e9a-d7ea-822c-f7f0-9f107f41ced1\",\n      \"name\": \"string\",\n      \"users_count\": 4980,\n      \"admins_count\": 8713,\n      \"state\": \"active\"\n    }\n  ],\n  \"pending_change\": {\n    \"new_role\": \"admin\",\n    \"change_request_id\": \"20319987-ecd7-0fca-4711-b56b56bf2e90\"\n  },\n  \"device_backup_info\": {\n    \"device_backup_info\": {\n      \"validation_hash\": \"SGVsbG8=\",\n      \"type\": \"string\",\n      \"cloud_type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"account\": \"string\",\n      \"pin_code\": \"136578\"\n    },\n    \"backup_created_at\": \"1985-05-10T14:19:43.190Z\",\n    \"backup_last_verified_at\": \"1961-03-20T08:30:54.018Z\"\n  },\n  \"invited_by\": {\n    \"id\": \"65548bbd-aa58-98b4-0dae-e30bb9eca44c\",\n    \"user_type\": \"string\",\n    \"email\": \"string\",\n    \"state\": \"pending_approval\",\n    \"role\": \"viewer\",\n    \"name\": \"John Doe\"\n  },\n  \"device_reset_by\": {\n    \"id\": \"86ae4937-e8ea-2911-9571-eb9974451212\",\n    \"user_type\": \"string\",\n    \"email\": \"string\",\n    \"state\": \"deleted\",\n    \"role\": \"trader\",\n    \"name\": \"John Doe\"\n  },\n  \"approval_request\": {\n    \"state\": \"approved\",\n    \"required_groups\": 6957,\n    \"approval_groups\": [\n      {\n        \"quorum_size\": 1313,\n        \"approvers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"quorum_size\": 5295,\n        \"approvers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"error_message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dff1308a-5bdd-4628-935d-21dcd0642512",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9f11881-4fae-4e71-89aa-9a6a2e3a32bb",
+              "name": "Unauthorized User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "424ed5ba-6110-44ef-b7a8-bd205dd50568",
+              "name": "Forbidden User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "251f19fb-5788-40ec-b25d-0fb5415a7806",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"resource\": \"user_group_change_proposal\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56a24f91-e5e7-476a-b9ba-97567c41f6c2",
+              "name": "Request Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4533a617-b110-46b9-8f63-7137bbbb77d4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        7216,\n        2492\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8856,\n        8160\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aade40a4-487e-45e1-b421-c75d1979b78e",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "770d5d49-6e02-4ac7-95b8-731587a208f1",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the user to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fordefi.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d5faf18-43db-472e-b182-0e42c9910d73",
+    "name": "Fordefi Address Book Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
+      "type": "text/plain"
+    }
+  }
+}

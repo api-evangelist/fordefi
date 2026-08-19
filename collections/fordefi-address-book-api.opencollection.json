@@ -1,0 +1,216 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fordefi Address Book API",
+    "version": "0.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Address Book",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fordefi.com/api/v1/addressbook/contacts",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              },
+              {
+                "name": "skip_count",
+                "value": "",
+                "type": "query",
+                "description": "Whether to skip counting the total number of items."
+              },
+              {
+                "name": "contact_ids",
+                "value": "",
+                "type": "query",
+                "description": "The contact IDs to filter by."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "The names to filter by."
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "The states to filter by."
+              },
+              {
+                "name": "chain_types",
+                "value": "",
+                "type": "query",
+                "description": "The chain types to filter by."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chain unique ids to filter by."
+              },
+              {
+                "name": "asset_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of asset identifiers to filter on."
+              },
+              {
+                "name": "address_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "The address group IDs to filter by."
+              },
+              {
+                "name": "exclude_address_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of address group IDs to exclude."
+              },
+              {
+                "name": "exclude_contact_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of contact IDs to exclude."
+              }
+            ]
+          },
+          "docs": "Get a list of all contacts in an organization."
+        },
+        {
+          "info": {
+            "name": "Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/addressbook/contacts",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new address book contact in an organization."
+        },
+        {
+          "info": {
+            "name": "Create Batch Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/addressbook/contacts/batch",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple new address book contacts in an organization."
+        },
+        {
+          "info": {
+            "name": "Abort Contact Change Proposal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/addressbook/contacts/proposals/:proposal_id/abort",
+            "params": [
+              {
+                "name": "proposal_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the address book contact proposal to abort."
+              }
+            ]
+          },
+          "docs": "Abort a contact change proposal."
+        },
+        {
+          "info": {
+            "name": "Edit Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.fordefi.com/api/v1/addressbook/contacts/:id/proposals",
+            "headers": [
+              {
+                "name": "x-signature",
+                "value": ""
+              },
+              {
+                "name": "x-timestamp",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the address book contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit address book contact."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
