@@ -41,6 +41,17 @@ tags:
 - Security
 - Cryptocurrency
 - Digital Assets
+- Wallets
+- Custody
+- Blockchain
+- DeFi
+- MPC
+- Payments
+tags_raw:
+- Company
+- Security
+- Cryptocurrency
+- Digital Assets
 - Wallet
 - Custody
 - Blockchain
@@ -180,6 +191,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Export
+  tags_raw:
   - Exports
   properties:
   - type: OpenAPI
@@ -192,6 +205,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -227,6 +242,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -279,6 +296,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -317,6 +336,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Vault
+  tags_raw:
   - Vaults
   properties:
   - type: OpenAPI
@@ -333,6 +354,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
