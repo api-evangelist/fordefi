@@ -115,6 +115,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Audit Logs
+  tags_raw:
   - Audit Log
   properties:
   - type: OpenAPI
@@ -232,6 +234,8 @@ apis:
   humanURL: https://docs.fordefi.com/developers/api-overview
   baseURL: https://api.fordefi.com/
   tags:
+  - Swap
+  tags_raw:
   - Swaps
   properties:
   - type: OpenAPI
