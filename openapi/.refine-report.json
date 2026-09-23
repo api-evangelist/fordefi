@@ -1,23 +1,7 @@
 {
   "provider": "fordefi",
   "sources": [
-    "fordefi-address-book-api-openapi.yml",
-    "fordefi-assets-api-openapi.yml",
-    "fordefi-audit-log-api-openapi.yml",
-    "fordefi-authorization-tokens-api-openapi.yml",
-    "fordefi-batch-transactions-api-openapi.yml",
-    "fordefi-blockchains-api-openapi.yml",
-    "fordefi-enclave-keys-api-openapi.yml",
-    "fordefi-end-users-api-openapi.yml",
-    "fordefi-exports-api-openapi.yml",
-    "fordefi-organizations-api-openapi.yml",
-    "fordefi-swaps-api-openapi.yml",
-    "fordefi-transactions-api-openapi.yml",
-    "fordefi-user-groups-api-openapi.yml",
-    "fordefi-users-api-openapi.yml",
-    "fordefi-vault-groups-api-openapi.yml",
-    "fordefi-vaults-api-openapi.yml",
-    "fordefi-webhooks-api-openapi.yml"
+    "_original/fordefi-openapi-original.json"
   ],
   "outputs": [
     "fordefi-address-book-api-openapi.yml",
@@ -41,6 +25,30 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fordefi-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "fordefi-openapi-original.json: declared missing tag: Enclave Keys",
+    "fordefi-openapi-original.json: declared missing tag: Organizations",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fordefi-address-book-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-audit-log-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-authorization-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-batch-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-blockchains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-enclave-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-end-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-exports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-swaps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-user-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-vault-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-vaults-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fordefi-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

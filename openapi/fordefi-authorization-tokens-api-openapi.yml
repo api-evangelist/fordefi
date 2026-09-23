@@ -1,8 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book Authorization Tokens API
+  title: Fordefi Authorization Tokens API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+  description: 'These endpoints allow you to manage end-user authorization tokens used for Fordefi''s WaaS solution.
+
+
+    Authorization tokens allow end users to authenticate with Fordefi. Each end user can have a maximum of ten active authorization tokens at any time.
+
+
+    More information on authenticating end users is provided in the WaaS developer guide.'
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -10,7 +16,13 @@ security:
 - bearerAuth: []
 tags:
 - name: Authorization Tokens
-  description: These endpoints allow you to manage end-user authorization tokens used for Fordefi's WaaS solution.<br><br>Authorization tokens allow end users to authenticate with Fordefi. Each end user can have a maximum of ten active authorization tokens at any time.<br><br>More information on authenticating end users is provided in the <a href="https://docs.fordefi.com/waas/waas-authentication">WaaS developer guide</a>.
+  description: 'These endpoints allow you to manage end-user authorization tokens used for Fordefi''s WaaS solution.
+
+
+    Authorization tokens allow end users to authenticate with Fordefi. Each end user can have a maximum of ten active authorization tokens at any time.
+
+
+    More information on authenticating end users is provided in the WaaS developer guide.'
 paths:
   /api/v1/authorization-tokens:
     post:
@@ -258,30 +270,6 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
-    IssueEndUserAuthTokenRequest:
-      properties:
-        user_type:
-          type: string
-          const: end_user
-          title: User Type
-          description: The type of the user.
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-          description: ID of the end user to issue the authorization token for.
-        expiration:
-          type: integer
-          maximum: 315360000.0
-          minimum: 1.0
-          title: Expiration
-          description: 'Token expiration in seconds (default: 1 day).'
-          default: 86400
-      type: object
-      required:
-      - user_type
-      - user_id
-      title: IssueEndUserAuthTokenRequest
     PreconditionFailedError:
       properties:
         title:
@@ -309,9 +297,6 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    IssueAuthTokenResponse:
-      $ref: '#/components/schemas/IssueEndUserAuthTokenResponse'
-      title: IssueAuthTokenResponse
     ListAuthTokensResponse:
       properties:
         total:
@@ -336,6 +321,33 @@ components:
       - size
       - auth_tokens
       title: ListAuthTokensResponse
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
     ResourceError:
       properties:
         title:
@@ -362,40 +374,6 @@ components:
       - title
       - detail
       title: ResourceError
-    DefinedPreconditionError_IssueEndUserAuthTokenErrorType_:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-        error_type:
-          $ref: '#/components/schemas/IssueEndUserAuthTokenErrorType'
-      type: object
-      required:
-      - title
-      - detail
-      title: DefinedPreconditionError[IssueEndUserAuthTokenErrorType]
-    IssueEndUserAuthTokenErrorType:
-      type: string
-      enum:
-      - cannot_issue_token_for_user_type
-      title: IssueEndUserAuthTokenErrorType
     Resource:
       type: string
       enum:
@@ -426,30 +404,30 @@ components:
       - safe_address
       - audit_log
       title: Resource
-    ValidationError:
+    ValidationErrorDetail:
       properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
+            anyOf:
+            - type: integer
+            - type: string
           type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
+          title: Location
+        msg:
           type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
+          title: Message
+        type:
           type: string
+          title: Error Type
       type: object
       required:
-      - title
-      - detail
-      title: ValidationError
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    IssueAuthTokenResponse:
+      $ref: '#/components/schemas/IssueEndUserAuthTokenResponse'
+      title: IssueAuthTokenResponse
     AuthToken:
       properties:
         id:
@@ -491,6 +469,71 @@ components:
       - expired_at
       - user_type
       title: AuthToken
+    IssueEndUserAuthTokenErrorType:
+      type: string
+      enum:
+      - cannot_issue_token_for_user_type
+      title: IssueEndUserAuthTokenErrorType
+    DefinedPreconditionError_IssueEndUserAuthTokenErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/IssueEndUserAuthTokenErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[IssueEndUserAuthTokenErrorType]
+    IssueEndUserAuthTokenRequest:
+      properties:
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user to issue the authorization token for.
+        expiration:
+          type: integer
+          maximum: 315360000.0
+          minimum: 1.0
+          title: Expiration
+          description: 'Token expiration in seconds (default: 1 day).'
+          default: 86400
+      type: object
+      required:
+      - user_type
+      - user_id
+      title: IssueEndUserAuthTokenRequest
+    IssueAuthTokenRequest:
+      oneOf:
+      - $ref: '#/components/schemas/IssueEndUserAuthTokenRequest'
+      discriminator:
+        propertyName: user_type
+        mapping:
+          end_user: '#/components/schemas/IssueEndUserAuthTokenRequest'
     IssueEndUserAuthTokenResponse:
       properties:
         id:
@@ -537,27 +580,17 @@ components:
       - user_type
       - access_token
       title: IssueEndUserAuthTokenResponse
-    IssueAuthTokenRequest:
-      oneOf:
-      - $ref: '#/components/schemas/IssueEndUserAuthTokenRequest'
-      discriminator:
-        propertyName: user_type
-        mapping:
-          end_user: '#/components/schemas/IssueEndUserAuthTokenRequest'
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
+    ValidationError:
       properties:
         title:
           type: string
           title: Title
           description: Human-readable error message.
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
           title: Detail
-          description: Detailed error message.
         full_detail:
           title: Full Detail
           description: Full error message with additional details, if available.
@@ -570,28 +603,7 @@ components:
       required:
       - title
       - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
+      title: ValidationError
   securitySchemes:
     bearerAuth:
       type: http

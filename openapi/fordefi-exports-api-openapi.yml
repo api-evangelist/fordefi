@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book Exports API
+  title: Fordefi Exports API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+  description: These endpoints allow you to manage asynchronous actions such as data exports.
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -148,15 +148,29 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    ExportState:
-      type: string
-      enum:
-      - created
-      - in_progress
-      - aborted
-      - ready
-      - error
-      title: ExportState
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
     PreconditionFailedError:
       properties:
         title:
@@ -184,6 +198,116 @@ components:
       - title
       - detail
       title: PreconditionFailedError
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    DefinedPreconditionError_CreateTransactionErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/CreateTransactionErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[CreateTransactionErrorType]
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
     Export:
       properties:
         id:
@@ -255,32 +379,19 @@ components:
       - download_url
       - expiration_time
       title: Export
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
+    ExportedResource:
+      type: string
+      enum:
+      - transaction
+      - backup_snapshot
+      - vault
+      title: ExportedResource
+    ExportType:
+      type: string
+      enum:
+      - csv
+      - zip
+      title: ExportType
     CreateTransactionErrorType:
       type: string
       enum:
@@ -340,36 +451,15 @@ components:
       - invalid_canton_vault_registration_state
       - failed_finding_wrapped_native_token
       title: CreateTransactionErrorType
-    Resource:
+    ExportState:
       type: string
       enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
+      - created
+      - in_progress
+      - aborted
+      - ready
+      - error
+      title: ExportState
     ValidationError:
       properties:
         title:
@@ -394,96 +484,6 @@ components:
       - title
       - detail
       title: ValidationError
-    DefinedPreconditionError_CreateTransactionErrorType_:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-        error_type:
-          $ref: '#/components/schemas/CreateTransactionErrorType'
-      type: object
-      required:
-      - title
-      - detail
-      title: DefinedPreconditionError[CreateTransactionErrorType]
-    ExportedResource:
-      type: string
-      enum:
-      - transaction
-      - backup_snapshot
-      - vault
-      title: ExportedResource
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    ExportType:
-      type: string
-      enum:
-      - csv
-      - zip
-      title: ExportType
   securitySchemes:
     bearerAuth:
       type: http

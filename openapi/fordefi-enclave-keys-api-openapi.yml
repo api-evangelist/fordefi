@@ -1,8 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book Enclave Keys API
+  title: Fordefi Enclave Keys API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -69,6 +68,45 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
+    AttestedSigningKey:
+      properties:
+        public_key:
+          type: string
+          title: Public Key
+          description: Public key used for signing.
+          example: SGVsbG8=
+        attestation:
+          $ref: '#/components/schemas/Attestation'
+          description: Attestation of the public key.
+      type: object
+      required:
+      - public_key
+      - attestation
+      title: AttestedSigningKey
+      description: Signing key attested by the enclave.
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
     PreconditionFailedError:
       properties:
         title:
@@ -96,20 +134,10 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    TimestampedSignature:
-      properties:
-        signature:
-          type: string
-          title: Signature
-          example: SGVsbG8=
-        timestamp:
-          type: integer
-          title: Timestamp
+    RateLimitError:
+      properties: {}
       type: object
-      required:
-      - signature
-      - timestamp
-      title: TimestampedSignature
+      title: RateLimitError
     ValidationError:
       properties:
         title:
@@ -134,28 +162,27 @@ components:
       - title
       - detail
       title: ValidationError
-    SignedEncryptionKey:
+    ValidationErrorDetail:
       properties:
-        public_key:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Public Key
-          description: Public key used for encryption.
-          example: SGVsbG8=
-        timestamped_signature:
-          $ref: '#/components/schemas/TimestampedSignature'
-          description: Signature of the public key.
-        certificate:
+          title: Message
+        type:
           type: string
-          title: Certificate
-          description: Short-lived ECDSA-signed certificate for the encryption public key.
-          example: SGVsbG8=
+          title: Error Type
       type: object
       required:
-      - public_key
-      - timestamped_signature
-      - certificate
-      title: SignedEncryptionKey
-      description: Encryption key signed by the enclave.
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
     ListEnclaveKeysResponse:
       properties:
         sign_key:
@@ -186,70 +213,42 @@ components:
       - certificate
       title: Attestation
       description: Attestation of a public key.
-    ValidationErrorDetail:
+    TimestampedSignature:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
+        signature:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Signature
+          example: SGVsbG8=
+        timestamp:
+          type: integer
+          title: Timestamp
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    AttestedSigningKey:
+      - signature
+      - timestamp
+      title: TimestampedSignature
+    SignedEncryptionKey:
       properties:
         public_key:
           type: string
           title: Public Key
-          description: Public key used for signing.
+          description: Public key used for encryption.
           example: SGVsbG8=
-        attestation:
-          $ref: '#/components/schemas/Attestation'
-          description: Attestation of the public key.
+        timestamped_signature:
+          $ref: '#/components/schemas/TimestampedSignature'
+          description: Signature of the public key.
+        certificate:
+          type: string
+          title: Certificate
+          description: Short-lived ECDSA-signed certificate for the encryption public key.
+          example: SGVsbG8=
       type: object
       required:
       - public_key
-      - attestation
-      title: AttestedSigningKey
-      description: Signing key attested by the enclave.
+      - timestamped_signature
+      - certificate
+      title: SignedEncryptionKey
+      description: Encryption key signed by the enclave.
   securitySchemes:
     bearerAuth:
       type: http

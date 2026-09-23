@@ -1,8 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book End Users API
+  title: Fordefi End Users API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+  description: 'These endpoints allow you to manage WaaS end-users.
+
+
+    End users correspond to users of the platform who has integrated the Fordefi WaaS solution.
+
+    For example, in the case of a retail platform, these would be the retail consumers of the platform.'
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -10,7 +15,12 @@ security:
 - bearerAuth: []
 tags:
 - name: End Users
-  description: "These endpoints allow you to manage WaaS end-users.\n        <br><br>\n        End users correspond to users of the platform who has integrated the Fordefi WaaS solution.\n        For example, in the case of a retail platform, these would be the retail consumers of the platform."
+  description: 'These endpoints allow you to manage WaaS end-users.
+
+
+    End users correspond to users of the platform who has integrated the Fordefi WaaS solution.
+
+    For example, in the case of a retail platform, these would be the retail consumers of the platform.'
 paths:
   /api/v1/end-users:
     get:
@@ -476,287 +486,6 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
-    CreateEndUserRequest:
-      properties:
-        external_id:
-          type: string
-          title: External Id
-          description: The ID that you assign to an end user.
-      type: object
-      required:
-      - external_id
-      title: CreateEndUserRequest
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    SetExportEndUserKeysPermissionsRequest:
-      properties:
-        allow:
-          type: boolean
-          title: Allow
-          description: Allow or disable export
-      type: object
-      required:
-      - allow
-      title: SetExportEndUserKeysPermissionsRequest
-    CreateEndUserErrorType:
-      type: string
-      enum:
-      - unsupported_organization
-      - backup_not_ready
-      title: CreateEndUserErrorType
-    EncryptedDeviceSharesBackup:
-      properties:
-        id:
-          title: Id
-          description: The ID of the backup. Not provided for organization keysets.
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The time the backup was created.
-        ecdsa:
-          title: Ecdsa
-          description: Device ECDSA encrypted share
-          type: string
-          example: SGVsbG8=
-        eddsa:
-          title: Eddsa
-          description: Device EdDSA encrypted share
-          type: string
-          example: SGVsbG8=
-        ecdsa_stark:
-          title: Ecdsa Stark
-          description: Device ECDSA stark encrypted share
-          type: string
-          example: SGVsbG8=
-        schnorr_secp256k1:
-          title: Schnorr Secp256K1
-          description: Device Schnorr secp256k1 encrypted share
-          type: string
-          example: SGVsbG8=
-        auth_key:
-          title: Auth Key
-          description: An encrypted backup of the user's auth-key.
-          type: string
-          example: SGVsbG8=
-      type: object
-      required:
-      - created_at
-      title: EncryptedDeviceSharesBackup
-    EndUserSortableFields:
-      type: string
-      enum:
-      - created_asc
-      - created_desc
-      - end_user_last_login_asc
-      - end_user_last_login_desc
-      title: EndUserSortableFields
-    DefinedPreconditionError_CreateEndUserErrorType_:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-        error_type:
-          $ref: '#/components/schemas/CreateEndUserErrorType'
-      type: object
-      required:
-      - title
-      - detail
-      title: DefinedPreconditionError[CreateEndUserErrorType]
-    CreateEndUserResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the object in the Fordefi platform.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The date and time when the object was created.
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
-        external_id:
-          type: string
-          title: External Id
-          description: The ID that you assigned to the end user.
-          example: user|1234
-        last_login_at:
-          type: string
-          format: date-time
-          title: Last Login At
-          description: The timestamp when the end user last logged into the mobile SDK.
-        desired_key_types:
-          title: Desired Key Types
-          description: Desired key types. This field is populated by the user during keyset generation.
-          items:
-            $ref: '#/components/schemas/KeyType'
-          type: array
-        keyset_id:
-          type: string
-          format: uuid
-          title: Keyset Id
-          description: The unique identifier of the keyset.
-        ecdsa:
-          description: ECDSA key. The key is used to generate ECDSA-based vaults (for example, EVM vaults).
-          $ref: '#/components/schemas/KeysetKey'
-        eddsa:
-          description: EdDSA key. The key is used to generate EdDSA-based vaults (for example, Solana vaults).
-          $ref: '#/components/schemas/KeysetKey'
-        ecdsa_stark:
-          description: ECDSA-Stark key. The key is used to generate ECDSA-Stark-based vaults (for example, Stark Blackbox vaults).
-          $ref: '#/components/schemas/KeysetKey'
-        schnorr_secp256k1:
-          description: Schnorr Secp256k1 key. The key is used to generate Schnorr-Secp256k1-based vaults.
-          $ref: '#/components/schemas/KeysetKey'
-        auth_public_key:
-          title: Auth Public Key
-          description: The public key of the user's auth-key.
-          type: string
-          example: SGVsbG8=
-        encrypted_device_auth_key:
-          title: Encrypted Device Auth Key
-          description: An encrypted backup of the user's auth-key.
-          deprecated: true
-          type: string
-          example: SGVsbG8=
-        encrypted_device_shares_backups:
-          title: Encrypted Device Shares Backups
-          description: Encrypted device shares backups.
-          items:
-            $ref: '#/components/schemas/EncryptedDeviceSharesBackup'
-          type: array
-        last_backup_at:
-          type: string
-          format: date-time
-          title: Last Backup At
-          description: The last time backup was intitated.
-        export_allowed:
-          type: boolean
-          title: Export Allowed
-          description: Whether the user is allowed to export the keyset.
-        last_export_at:
-          type: string
-          format: date-time
-          title: Last Export At
-          description: The last time the keyset was exported.
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - external_id
-      - last_login_at
-      - keyset_id
-      - last_backup_at
-      - export_allowed
-      - last_export_at
-      title: CreateEndUserResponse
-    KeyType:
-      type: string
-      enum:
-      - ecdsa_secp256k1
-      - eddsa_ed25519
-      - ecdsa_stark
-      - schnorr_secp256k1
-      title: KeyType
     KeysetKey:
       properties:
         id:
@@ -876,6 +605,92 @@ components:
       - export_allowed
       - last_export_at
       title: GetCurrentEndUserResponse
+    SetExportEndUserKeysPermissionsRequest:
+      properties:
+        allow:
+          type: boolean
+          title: Allow
+          description: Allow or disable export
+      type: object
+      required:
+      - allow
+      title: SetExportEndUserKeysPermissionsRequest
+    EncryptedDeviceSharesBackup:
+      properties:
+        id:
+          title: Id
+          description: The ID of the backup. Not provided for organization keysets.
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The time the backup was created.
+        ecdsa:
+          title: Ecdsa
+          description: Device ECDSA encrypted share
+          type: string
+          example: SGVsbG8=
+        eddsa:
+          title: Eddsa
+          description: Device EdDSA encrypted share
+          type: string
+          example: SGVsbG8=
+        ecdsa_stark:
+          title: Ecdsa Stark
+          description: Device ECDSA stark encrypted share
+          type: string
+          example: SGVsbG8=
+        schnorr_secp256k1:
+          title: Schnorr Secp256K1
+          description: Device Schnorr secp256k1 encrypted share
+          type: string
+          example: SGVsbG8=
+        auth_key:
+          title: Auth Key
+          description: An encrypted backup of the user's auth-key.
+          type: string
+          example: SGVsbG8=
+      type: object
+      required:
+      - created_at
+      title: EncryptedDeviceSharesBackup
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    KeyType:
+      type: string
+      enum:
+      - ecdsa_secp256k1
+      - eddsa_ed25519
+      - ecdsa_stark
+      - schnorr_secp256k1
+      title: KeyType
     GetEndUserResponse:
       properties:
         id:
@@ -969,6 +784,104 @@ components:
       - export_allowed
       - last_export_at
       title: GetEndUserResponse
+    EndUserSortableFields:
+      type: string
+      enum:
+      - created_asc
+      - created_desc
+      - end_user_last_login_asc
+      - end_user_last_login_desc
+      title: EndUserSortableFields
+    CreateEndUserRequest:
+      properties:
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assign to an end user.
+      type: object
+      required:
+      - external_id
+      title: CreateEndUserRequest
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    DefinedPreconditionError_CreateEndUserErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/CreateEndUserErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[CreateEndUserErrorType]
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
     ListEndUsersResponse:
       properties:
         total:
@@ -991,6 +904,98 @@ components:
       - size
       - end_users
       title: ListEndUsersResponse
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    KeyShares:
+      properties:
+        device:
+          title: Device
+          description: Device latest encrypted share for the key.
+          type: string
+          example: SGVsbG8=
+        platform:
+          title: Platform
+          description: Platform encrypted shares for the key. Whether it contains one or two shares depends on the backup type.
+          items:
+            type: string
+            example: SGVsbG8=
+          type: array
+      type: object
+      title: KeyShares
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
     EndUser:
       properties:
         id:
@@ -1027,100 +1032,105 @@ components:
       - last_login_at
       title: EndUser
       description: Represents an end user in the Fordefi platform.
-    KeyShares:
+    CreateEndUserResponse:
       properties:
-        device:
-          title: Device
-          description: Device latest encrypted share for the key.
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        external_id:
+          type: string
+          title: External Id
+          description: The ID that you assigned to the end user.
+          example: user|1234
+        last_login_at:
+          type: string
+          format: date-time
+          title: Last Login At
+          description: The timestamp when the end user last logged into the mobile SDK.
+        desired_key_types:
+          title: Desired Key Types
+          description: Desired key types. This field is populated by the user during keyset generation.
+          items:
+            $ref: '#/components/schemas/KeyType'
+          type: array
+        keyset_id:
+          type: string
+          format: uuid
+          title: Keyset Id
+          description: The unique identifier of the keyset.
+        ecdsa:
+          description: ECDSA key. The key is used to generate ECDSA-based vaults (for example, EVM vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        eddsa:
+          description: EdDSA key. The key is used to generate EdDSA-based vaults (for example, Solana vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        ecdsa_stark:
+          description: ECDSA-Stark key. The key is used to generate ECDSA-Stark-based vaults (for example, Stark Blackbox vaults).
+          $ref: '#/components/schemas/KeysetKey'
+        schnorr_secp256k1:
+          description: Schnorr Secp256k1 key. The key is used to generate Schnorr-Secp256k1-based vaults.
+          $ref: '#/components/schemas/KeysetKey'
+        auth_public_key:
+          title: Auth Public Key
+          description: The public key of the user's auth-key.
           type: string
           example: SGVsbG8=
-        platform:
-          title: Platform
-          description: Platform encrypted shares for the key. Whether it contains one or two shares depends on the backup type.
+        encrypted_device_auth_key:
+          title: Encrypted Device Auth Key
+          description: An encrypted backup of the user's auth-key.
+          deprecated: true
+          type: string
+          example: SGVsbG8=
+        encrypted_device_shares_backups:
+          title: Encrypted Device Shares Backups
+          description: Encrypted device shares backups.
           items:
-            type: string
-            example: SGVsbG8=
+            $ref: '#/components/schemas/EncryptedDeviceSharesBackup'
           type: array
+        last_backup_at:
+          type: string
+          format: date-time
+          title: Last Backup At
+          description: The last time backup was intitated.
+        export_allowed:
+          type: boolean
+          title: Export Allowed
+          description: Whether the user is allowed to export the keyset.
+        last_export_at:
+          type: string
+          format: date-time
+          title: Last Export At
+          description: The last time the keyset was exported.
       type: object
-      title: KeyShares
-    Resource:
+      required:
+      - id
+      - created_at
+      - modified_at
+      - external_id
+      - last_login_at
+      - keyset_id
+      - last_backup_at
+      - export_allowed
+      - last_export_at
+      title: CreateEndUserResponse
+    CreateEndUserErrorType:
       type: string
       enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
+      - unsupported_organization
+      - backup_not_ready
+      title: CreateEndUserErrorType
   securitySchemes:
     bearerAuth:
       type: http

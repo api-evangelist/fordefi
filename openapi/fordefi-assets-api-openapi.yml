@@ -1,8 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book Assets API
+  title: Fordefi Assets API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
+  description: 'These endpoints allow you to get information about the assets in your organization,
+
+    including metadata, balances, and prices.
+
+
+    Fordefi supports native assets and fungible tokens on each of the supported blockchains,
+
+    and on many chains also non-fungible tokens.
+
+
+    Assets are chain-specific, meaning that USDC on Ethereum is different from USDC on Polygon.'
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -10,7 +20,17 @@ security:
 - bearerAuth: []
 tags:
 - name: Assets
-  description: "These endpoints allow you to get information about the assets in your organization,\n        including metadata, balances, and prices.\n        <br><br>\n        Fordefi supports native assets and fungible tokens on each of the supported blockchains,\n        and on many chains also non-fungible tokens.\n        <br><br>\n        Assets are chain-specific, meaning that USDC on Ethereum is different from USDC on Polygon.\n        "
+  description: 'These endpoints allow you to get information about the assets in your organization,
+
+    including metadata, balances, and prices.
+
+
+    Fordefi supports native assets and fungible tokens on each of the supported blockchains,
+
+    and on many chains also non-fungible tokens.
+
+
+    Assets are chain-specific, meaning that USDC on Ethereum is different from USDC on Polygon.'
 paths:
   /api/v1/assets/owned-assets/{id}:
     get:
@@ -438,6 +458,52 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
+    TonChainUniqueId:
+      type: string
+      enum:
+      - ton_mainnet
+      title: TonChainUniqueId
+    StellarAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: Stellar asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedStellarChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: StellarAssetIdentifier
+    AptosNewCoinTypeRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The chain details this address is of.
+        metadata_address:
+          type: string
+          title: Metadata Address
+          description: New coin's metadata address.
+      type: object
+      required:
+      - chain
+      - metadata_address
+      title: AptosNewCoinTypeRequest
+      description: New coin type represents a blockchain new coin type.
     StacksAssetIdentifier:
       properties:
         type:
@@ -462,6 +528,23 @@ components:
       - details
       - chain
       title: StacksAssetIdentifier
+    UtxoAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: Utxo asset identifier type.
+        details:
+          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedUtxoChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: UtxoAssetIdentifier
     EnrichedUtxoChain:
       properties:
         chain_type:
@@ -517,345 +600,55 @@ components:
       - is_testnet
       - is_enabled
       title: EnrichedUtxoChain
-    TronChainUniqueId:
-      type: string
-      enum:
-      - tron_mainnet
-      - tron_shasta
-      title: TronChainUniqueId
-    AptosAssetIdentifierRequest:
+    AptosCoinTypeRequest:
       properties:
-        type:
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The chain details this address is of.
+        coin_type_str:
           type: string
-          const: aptos
-          title: Type
-          description: Aptos asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
-          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
-              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
-              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+          title: Coin Type Str
+          description: Coin type string representation.
       type: object
       required:
-      - type
-      - details
-      title: AptosAssetIdentifierRequest
+      - chain
+      - coin_type_str
+      title: AptosCoinTypeRequest
+      description: Coin type represents a blockchain legacy coin type.
+    StellarAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain details this address is of.
+        base32_repr:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Base32 Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+      type: object
+      required:
+      - chain
+      - base32_repr
+      title: StellarAddressRequest
+      description: Address represents a blockchain address.
     StarknetChainUniqueId:
       type: string
       enum:
       - starknet_mainnet
       title: StarknetChainUniqueId
-    TonNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: TON asset identifier type.
-        chain:
-          $ref: '#/components/schemas/TonChainUniqueId'
-          description: The details of the chain of the native asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: TonNativeAssetIdentifierRequest
-    StarknetErc20AssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: erc20
-          title: Type
-          description: Erc20 asset identifier type.
-        erc20:
-          $ref: '#/components/schemas/StarknetAddressRequest'
-          description: The Erc20 details.
-      type: object
-      required:
-      - type
-      - erc20
-      title: StarknetErc20AssetIdentifierRequest
-    OwnedAsset:
-      properties:
-        priced_asset:
-          $ref: '#/components/schemas/PricedAsset'
-        balances:
-          $ref: '#/components/schemas/Balances'
-        balance:
-          title: Balance
-          deprecated: true
-          type: string
-          pattern: ^\d+$
-          example: '1000000000000000000'
-      type: object
-      required:
-      - priced_asset
-      - balances
-      title: OwnedAsset
-    TronTrc20AssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: trc20
-          title: Type
-          description: Trc20 asset identifier type.
-        trc20:
-          $ref: '#/components/schemas/TronAddressRequest'
-          description: The Trc20 details.
-      type: object
-      required:
-      - type
-      - trc20
-      title: TronTrc20AssetIdentifierRequest
-    ExchangeChainUniqueId:
-      type: string
-      enum:
-      - exchange_binance
-      - exchange_bybit
-      - exchange_coinbase_international
-      - exchange_coinbase_us
-      - exchange_okx
-      - exchange_kraken
-      title: ExchangeChainUniqueId
-    PricedAssetResponse:
-      oneOf:
-      - $ref: '#/components/schemas/PricedAsset'
-      - $ref: '#/components/schemas/InvalidAssetRequest'
-      discriminator:
-        propertyName: type
-        mapping:
-          asset_price: '#/components/schemas/PricedAsset'
-          invalid_asset: '#/components/schemas/InvalidAssetRequest'
-    FetchAssetPricesRequest:
-      properties:
-        asset_identifiers:
-          items:
-            $ref: '#/components/schemas/AssetIdentifierRequest'
-          type: array
-          minItems: 1
-          title: Asset Identifiers
-          description: The assets to price.
-      type: object
-      required:
-      - asset_identifiers
-      title: FetchAssetPricesRequest
-    SolanaSplTokenAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: spl_token
-          title: Type
-          description: SPL token asset identifier type.
-        token:
-          $ref: '#/components/schemas/SolanaAddressRequest'
-          description: The SPL token details.
-      type: object
-      required:
-      - type
-      - token
-      title: SolanaSplTokenAssetIdentifierRequest
-    CantonAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: canton
-          title: Type
-          description: Canton asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
-              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: CantonAssetIdentifierRequest
-    UpdateAssetConfiguration:
-      properties:
-        asset:
-          $ref: '#/components/schemas/AssetIdentifierRequest'
-          description: The address of the ERC-20 asset to update.
-        hidden:
-          type: boolean
-          title: Hidden
-          description: '`True` to hide the token when listing assets, `False` otherwise.'
-      type: object
-      required:
-      - asset
-      - hidden
-      title: UpdateAssetConfiguration
-    TronAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/TronChainUniqueId'
-          description: The chain details this address is of.
-        base58_repr:
-          type: string
-          maxLength: 34
-          minLength: 34
-          pattern: ^T[a-km-zA-HJ-NP-Z1-9]+$
-          title: Base58 Repr
-          description: Base58 representation of the address in the chain.
-          example: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
-      type: object
-      required:
-      - chain
-      - base58_repr
-      title: TronAddressRequest
-      description: Address represents a blockchain address.
-    TonAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: ton
-          title: Type
-          description: TON asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
-              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: TonAssetIdentifierRequest
-    SuiAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: sui
-          title: Type
-          description: Sui asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
-              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedSuiChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: SuiAssetIdentifier
-    TronAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: tron
-          title: Type
-          description: TRON asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
-              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedTronChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: TronAssetIdentifier
-    CantonNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: Canton asset identifier type.
-        chain:
-          $ref: '#/components/schemas/CantonChainUniqueId'
-          description: The details of the chain of the native asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: CantonNativeAssetIdentifierRequest
-    SolanaNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: Solana asset identifier type.
-        chain:
-          $ref: '#/components/schemas/SolanaChainUniqueId'
-          description: The details of the chain of the native asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: SolanaNativeAssetIdentifierRequest
-    AssetIdentifierRequest:
-      oneOf:
-      - $ref: '#/components/schemas/AptosAssetIdentifierRequest'
-      - $ref: '#/components/schemas/ArchAssetIdentifierRequest'
-      - $ref: '#/components/schemas/CantonAssetIdentifierRequest'
-      - $ref: '#/components/schemas/CosmosAssetIdentifierRequest'
-      - $ref: '#/components/schemas/EvmAssetIdentifierRequest'
-      - $ref: '#/components/schemas/ExchangeAssetIdentifierRequest'
-      - $ref: '#/components/schemas/SolanaAssetIdentifierRequest'
-      - $ref: '#/components/schemas/StacksAssetIdentifierRequest'
-      - $ref: '#/components/schemas/StellarAssetIdentifierRequest'
-      - $ref: '#/components/schemas/StarknetAssetIdentifierRequest'
-      - $ref: '#/components/schemas/SuiAssetIdentifierRequest'
-      - $ref: '#/components/schemas/TonAssetIdentifierRequest'
-      - $ref: '#/components/schemas/TronAssetIdentifierRequest'
-      - $ref: '#/components/schemas/UtxoAssetIdentifierRequest'
-      discriminator:
-        propertyName: type
-        mapping:
-          aptos: '#/components/schemas/AptosAssetIdentifierRequest'
-          arch: '#/components/schemas/ArchAssetIdentifierRequest'
-          canton: '#/components/schemas/CantonAssetIdentifierRequest'
-          cosmos: '#/components/schemas/CosmosAssetIdentifierRequest'
-          evm: '#/components/schemas/EvmAssetIdentifierRequest'
-          exchange: '#/components/schemas/ExchangeAssetIdentifierRequest'
-          solana: '#/components/schemas/SolanaAssetIdentifierRequest'
-          stacks: '#/components/schemas/StacksAssetIdentifierRequest'
-          starknet: '#/components/schemas/StarknetAssetIdentifierRequest'
-          stellar: '#/components/schemas/StellarAssetIdentifierRequest'
-          sui: '#/components/schemas/SuiAssetIdentifierRequest'
-          ton: '#/components/schemas/TonAssetIdentifierRequest'
-          tron: '#/components/schemas/TronAssetIdentifierRequest'
-          utxo: '#/components/schemas/UtxoAssetIdentifierRequest'
-    EnrichedStarknetChain:
+    EnrichedTonChain:
       properties:
         chain_type:
           type: string
-          const: starknet
+          const: ton
           title: Chain Type
           description: The type of the chain.
         unique_id:
-          $ref: '#/components/schemas/StarknetChainUniqueId'
-          description: The type of the Starknet-based chain.
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The type of the TON-based chain.
         name:
           type: string
           minLength: 1
@@ -900,230 +693,223 @@ components:
       - logo_url
       - is_testnet
       - is_enabled
-      title: EnrichedStarknetChain
-    SuiChainUniqueId:
+      title: EnrichedTonChain
+    StarknetErc20AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: erc20
+          title: Type
+          description: Erc20 asset identifier type.
+        erc20:
+          $ref: '#/components/schemas/StarknetAddressRequest'
+          description: The Erc20 details.
+      type: object
+      required:
+      - type
+      - erc20
+      title: StarknetErc20AssetIdentifierRequest
+    UtxoChainUniqueId:
       type: string
       enum:
-      - sui_mainnet
-      - sui_testnet
-      title: SuiChainUniqueId
-    StarknetAssetIdentifier:
+      - bitcoin_mainnet
+      - bitcoin_testnet
+      - bitcoin_testnet_v4
+      - dogecoin_mainnet
+      - bitcoin_cash_mainnet
+      - pearl_testnet
+      - pearl_mainnet
+      title: UtxoChainUniqueId
+    AptosAssetIdentifier:
       properties:
         type:
           type: string
-          const: starknet
+          const: aptos
           title: Type
-          description: Starknet asset identifier type.
+          description: Aptos asset identifier type.
         details:
           oneOf:
-          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
           discriminator:
             propertyName: type
             mapping:
-              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
-              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
         chain:
-          $ref: '#/components/schemas/EnrichedStarknetChain'
+          $ref: '#/components/schemas/EnrichedAptosChain'
       type: object
       required:
       - type
       - details
       - chain
-      title: StarknetAssetIdentifier
-    ArchAssetIdentifier:
+      title: AptosAssetIdentifier
+    EvmAddressRequest:
+      properties:
+        chain:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 42
+          minLength: 42
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: EvmAddressRequest
+      description: Address represents a blockchain address.
+    EvmErc20AssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: arch
+          const: erc20
           title: Type
-          description: Arch asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
-              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedArchChain'
+          description: EVM asset identifier type.
+        token:
+          $ref: '#/components/schemas/EvmAddressRequest'
+          description: The ERC-20 token contract.
       type: object
       required:
       - type
-      - details
-      - chain
-      title: ArchAssetIdentifier
-    EvmNativeAssetIdentifierRequest:
+      - token
+      title: EvmErc20AssetIdentifierRequest
+    SolanaNativeAssetIdentifierRequest:
       properties:
         type:
           type: string
           const: native
           title: Type
-          description: EVM asset identifier type.
+          description: Solana asset identifier type.
         chain:
-          type: string
-          minLength: 1
-          title: EvmChainUniqueId
+          $ref: '#/components/schemas/SolanaChainUniqueId'
           description: The details of the chain of the native asset.
       type: object
       required:
       - type
       - chain
-      title: EvmNativeAssetIdentifierRequest
-    UtxoNativeAssetIdentifierRequest:
+      title: SolanaNativeAssetIdentifierRequest
+    CreateAssetInfoRequest:
+      properties:
+        asset_identifier:
+          $ref: '#/components/schemas/AssetIdentifierRequest'
+          description: The asset identifier to enrich.
+      type: object
+      required:
+      - asset_identifier
+      title: CreateAssetInfoRequest
+    AptosAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: native
+          const: aptos
           title: Type
-          description: Utxo asset identifier type.
-        chain:
-          $ref: '#/components/schemas/UtxoChainUniqueId'
-          description: The unique id of the chain of the asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: UtxoNativeAssetIdentifierRequest
-    CosmosNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: Cosmos asset identifier type.
-        chain:
-          $ref: '#/components/schemas/CosmosChainUniqueId'
-          description: The unique id of the chain of the asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: CosmosNativeAssetIdentifierRequest
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    EvmAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: evm
-          title: Type
-          description: Asset identifier type.
+          description: Aptos asset identifier type.
         details:
           oneOf:
-          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
           discriminator:
             propertyName: type
             mapping:
-              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
-              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
-              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
-              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
-              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
+              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
+              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: AptosAssetIdentifierRequest
+    EnrichedSuiChain:
+      properties:
+        chain_type:
+          type: string
+          const: sui
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The type of the Sui-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedSuiChain
+    SolanaChainUniqueId:
+      type: string
+      enum:
+      - solana_mainnet
+      - solana_devnet
+      - solana_eclipse_mainnet
+      - solana_fogo_mainnet
+      - solana_fogo_testnet
+      title: SolanaChainUniqueId
+    TonAddressRequest:
+      properties:
         chain:
-          $ref: '#/components/schemas/EnrichedEvmChain'
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The chain details this address is of.
+        address:
+          type: string
+          maxLength: 67
+          pattern: ^[-0-9]+:[A-Fa-f0-9]{64}$
+          title: Address
+          description: Contract address in a raw format.
       type: object
       required:
-      - type
-      - details
       - chain
-      title: EvmAssetIdentifier
-    InvalidAssetRequest:
-      properties:
-        type:
-          type: string
-          const: invalid_asset
-          title: Type
-        asset_identifier_request:
-          $ref: '#/components/schemas/AssetIdentifierRequest'
-          description: The invalid asset identifier.
-        error:
-          type: string
-          title: Error
-          description: The error message.
-      type: object
-      required:
-      - type
-      - asset_identifier_request
-      - error
-      title: InvalidAssetRequest
-    ExchangeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: exchange
-          title: Type
-          description: Asset identifier type.
-        exchange_type:
-          $ref: '#/components/schemas/ExchangeType'
-          description: exchange type.
-        asset_symbol:
-          type: string
-          title: Asset Symbol
-          description: The symbol of the asset on the exchange.
-      type: object
-      required:
-      - type
-      - exchange_type
-      - asset_symbol
-      title: ExchangeAssetIdentifierRequest
-    AptosCoinAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: coin
-          title: Type
-          description: Legacy coin asset identifier type.
-        coin_type:
-          $ref: '#/components/schemas/AptosCoinTypeRequest'
-          description: The legacy coin details.
-      type: object
-      required:
-      - type
-      - coin_type
-      title: AptosCoinAssetIdentifierRequest
-    UtxoAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: utxo
-          title: Type
-          description: Utxo asset identifier type.
-        details:
-          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: UtxoAssetIdentifierRequest
+      - address
+      title: TonAddressRequest
+      description: Address represents a blockchain address.
     EnrichedSolanaChain:
       properties:
         chain_type:
@@ -1179,37 +965,52 @@ components:
       - is_testnet
       - is_enabled
       title: EnrichedSolanaChain
-    TonJettonAssetIdentifierRequest:
+    StellarSorobanAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: jetton
+          const: soroban_asset
           title: Type
-          description: Jetton asset identifier type.
-        jetton:
-          $ref: '#/components/schemas/TonAddressRequest'
-          description: The Jetton details.
+          description: Stellar asset identifier type.
+        address:
+          type: string
+          maxLength: 56
+          minLength: 56
+          pattern: ^[GCL][A-Z2-7]{55}$
+          title: Address
+          description: The Soroban asset address.
+          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the Soroban asset.
       type: object
       required:
       - type
-      - jetton
-      title: TonJettonAssetIdentifierRequest
-    SolanaChainUniqueId:
+      - address
+      - chain
+      title: StellarSorobanAssetIdentifierRequest
+    FiatCurrencySymbol:
       type: string
       enum:
-      - solana_mainnet
-      - solana_devnet
-      - solana_eclipse_mainnet
-      - solana_fogo_mainnet
-      - solana_fogo_testnet
-      title: SolanaChainUniqueId
-    ChainSource:
-      type: string
-      enum:
-      - default
-      - custom
-      title: ChainSource
-    CosmosAssetIdentifier:
+      - usd
+      title: FiatCurrencySymbol
+      description: FiatCurrencySymbol
+    TronTrc20AssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: trc20
+          title: Type
+          description: Trc20 asset identifier type.
+        trc20:
+          $ref: '#/components/schemas/TronAddressRequest'
+          description: The Trc20 details.
+      type: object
+      required:
+      - type
+      - trc20
+      title: TronTrc20AssetIdentifierRequest
+    CosmosAssetIdentifierRequest:
       properties:
         type:
           type: string
@@ -1225,14 +1026,735 @@ components:
             mapping:
               native: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
               token: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: CosmosAssetIdentifierRequest
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    EvmNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: EVM asset identifier type.
         chain:
-          $ref: '#/components/schemas/EnrichedCosmosChain'
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: EvmNativeAssetIdentifierRequest
+    EnrichedStacksChain:
+      properties:
+        chain_type:
+          type: string
+          const: stacks
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The type of the Stacks-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStacksChain
+    GetOwnedAssetResponse:
+      $ref: '#/components/schemas/OwnedAsset'
+      title: GetOwnedAssetResponse
+    Price:
+      properties:
+        price:
+          title: Price
+          description: The price in the given fiat currency.
+          deprecated: true
+          type: string
+          pattern: ^\d+$
+          example: '1000000000000000000'
+        price_float:
+          type: string
+          pattern: ^\d+(\.\d+)?$
+          title: Price Float
+          description: The absolute price in the given fiat currency. When is_negative is true the asset's value is the negative of this (e.g. a debt token).
+          example: '1000000000000000000'
+        is_negative:
+          type: boolean
+          title: Is Negative
+          description: Whether the asset's value is negative (e.g. a debt token). price_float holds the absolute value.
+          default: false
+        fiat_currency:
+          $ref: '#/components/schemas/FiatCurrency'
+      type: object
+      required:
+      - price
+      - price_float
+      - fiat_currency
+      title: Price
+      description: Price represents a price in a given FiatCurrency.
+    SolanaAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/SolanaChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
+      type: object
+      required:
+      - chain
+      - base58_repr
+      title: SolanaAddressRequest
+      description: Address represents a blockchain address.
+    TonAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: ton
+          title: Type
+          description: TON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
+              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedTonChain'
       type: object
       required:
       - type
       - details
       - chain
-      title: CosmosAssetIdentifier
+      title: TonAssetIdentifier
+    TronNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: TRON asset identifier type.
+        chain:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: TronNativeAssetIdentifierRequest
+    StellarChainUniqueId:
+      type: string
+      enum:
+      - stellar_mainnet
+      title: StellarChainUniqueId
+    SolanaAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: Solana asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: SolanaAssetIdentifierRequest
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    EvmHyperLiquidAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: hyperliquid
+          title: Type
+          description: EVM asset identifier type.
+        chain:
+          type: string
+          minLength: 1
+          title: EvmChainUniqueId
+          description: Currently artificially set to Arbitrum.
+        token_id:
+          type: string
+          title: Token Id
+          description: The token id of the asset on Hyperliquid.
+        index:
+          type: integer
+          title: Index
+          description: The index of the asset on Hyperliquid.
+      type: object
+      required:
+      - type
+      - chain
+      - token_id
+      - index
+      title: EvmHyperLiquidAssetIdentifierRequest
+    CantonNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Canton asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: CantonNativeAssetIdentifierRequest
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    CosmosNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Cosmos asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The unique id of the chain of the asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: CosmosNativeAssetIdentifierRequest
+    ArchChainUniqueId:
+      type: string
+      enum:
+      - arch_mainnet
+      - arch_testnet
+      title: ArchChainUniqueId
+    ExchangeType:
+      type: string
+      enum:
+      - binance
+      - bybit
+      - coinbase_international
+      - coinbase_us
+      - okx
+      - kraken
+      title: ExchangeType
+    ExchangeAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: exchange
+          title: Type
+          description: Asset identifier type.
+        exchange_type:
+          $ref: '#/components/schemas/ExchangeType'
+          description: exchange type.
+        asset_symbol:
+          type: string
+          title: Asset Symbol
+          description: The symbol of the asset on the exchange.
+        chain:
+          $ref: '#/components/schemas/EnrichedExchangeChain'
+      type: object
+      required:
+      - type
+      - exchange_type
+      - asset_symbol
+      - chain
+      title: ExchangeAssetIdentifier
+    AssetInfo:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The asset ID.
+        asset_identifier:
+          $ref: '#/components/schemas/AssetIdentifier'
+          description: The asset identifier.
+        name:
+          type: string
+          title: Name
+          description: The name of the asset.
+        symbol:
+          type: string
+          title: Symbol
+          description: The symbol (ticker) of the asset.
+        decimals:
+          type: integer
+          minimum: 0.0
+          title: Decimals
+        verified:
+          type: boolean
+          title: Verified
+          description: '`True` if this asset is verified by Fordefi, `False` otherwise.'
+        metadata_uri:
+          title: Metadata Uri
+          description: The URI of the asset metadata.
+          type: string
+        is_spam:
+          type: boolean
+          title: Is Spam
+          description: '`True` if this asset is spam, `False` otherwise.'
+        logo_url:
+          title: Logo Url
+          description: The URL of the asset logo.
+          type: string
+          minLength: 1
+          format: uri
+        explorer_url:
+          title: Explorer Url
+          description: The URL of a blockchain explorer that provides real-time information about the asset.
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+      type: object
+      required:
+      - id
+      - asset_identifier
+      - name
+      - symbol
+      - decimals
+      - verified
+      - is_spam
+      title: AssetInfo
+    SolanaAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: solana
+          title: Type
+          description: Solana asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
+              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedSolanaChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: SolanaAssetIdentifier
+    CantonAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: Canton asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: CantonAssetIdentifierRequest
+    SuiChainUniqueId:
+      type: string
+      enum:
+      - sui_mainnet
+      - sui_testnet
+      title: SuiChainUniqueId
+    FetchAssetPricesRequest:
+      properties:
+        asset_identifiers:
+          items:
+            $ref: '#/components/schemas/AssetIdentifierRequest'
+          type: array
+          minItems: 1
+          title: Asset Identifiers
+          description: The assets to price.
+      type: object
+      required:
+      - asset_identifiers
+      title: FetchAssetPricesRequest
+    StacksChainUniqueId:
+      type: string
+      enum:
+      - stacks_mainnet
+      title: StacksChainUniqueId
+    StarknetAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 66
+          minLength: 66
+          pattern: ^0[xX][a-fA-F0-9]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: '0x0448f450e64B50dDF49e9F95C5b63a15cD21E21a39cA2D45628d9E5B27e5e1D8'
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: StarknetAddressRequest
+      description: Address represents a blockchain address.
+    EnrichedExchangeChain:
+      properties:
+        chain_type:
+          type: string
+          const: exchange
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ExchangeChainUniqueId'
+          description: The type of the Exchange-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedExchangeChain
+    ArchAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: Arch asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: ArchAssetIdentifierRequest
+    FiatCurrency:
+      properties:
+        currency_symbol:
+          $ref: '#/components/schemas/FiatCurrencySymbol'
+          description: The symbol of the fiat currency.
+        decimals:
+          type: integer
+          minimum: 0.0
+          title: Decimals
+          description: The number of decimals in the fiat currency.
+      type: object
+      required:
+      - currency_symbol
+      - decimals
+      title: FiatCurrency
+    StacksNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Stacks asset identifier type.
+        chain:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: StacksNativeAssetIdentifierRequest
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    SuiNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Sui asset identifier type.
+        chain:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: SuiNativeAssetIdentifierRequest
+    AssetIdentifier:
+      oneOf:
+      - $ref: '#/components/schemas/AptosAssetIdentifier'
+      - $ref: '#/components/schemas/ArchAssetIdentifier'
+      - $ref: '#/components/schemas/CantonAssetIdentifier'
+      - $ref: '#/components/schemas/CosmosAssetIdentifier'
+      - $ref: '#/components/schemas/EvmAssetIdentifier'
+      - $ref: '#/components/schemas/ExchangeAssetIdentifier'
+      - $ref: '#/components/schemas/SolanaAssetIdentifier'
+      - $ref: '#/components/schemas/StacksAssetIdentifier'
+      - $ref: '#/components/schemas/StellarAssetIdentifier'
+      - $ref: '#/components/schemas/StarknetAssetIdentifier'
+      - $ref: '#/components/schemas/SuiAssetIdentifier'
+      - $ref: '#/components/schemas/TonAssetIdentifier'
+      - $ref: '#/components/schemas/TronAssetIdentifier'
+      - $ref: '#/components/schemas/UtxoAssetIdentifier'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/AptosAssetIdentifier'
+          arch: '#/components/schemas/ArchAssetIdentifier'
+          canton: '#/components/schemas/CantonAssetIdentifier'
+          cosmos: '#/components/schemas/CosmosAssetIdentifier'
+          evm: '#/components/schemas/EvmAssetIdentifier'
+          exchange: '#/components/schemas/ExchangeAssetIdentifier'
+          solana: '#/components/schemas/SolanaAssetIdentifier'
+          stacks: '#/components/schemas/StacksAssetIdentifier'
+          starknet: '#/components/schemas/StarknetAssetIdentifier'
+          stellar: '#/components/schemas/StellarAssetIdentifier'
+          sui: '#/components/schemas/SuiAssetIdentifier'
+          ton: '#/components/schemas/TonAssetIdentifier'
+          tron: '#/components/schemas/TronAssetIdentifier'
+          utxo: '#/components/schemas/UtxoAssetIdentifier'
+    FetchAssetPricesResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        priced_assets:
+          items:
+            $ref: '#/components/schemas/PricedAssetResponse'
+          type: array
+          title: Priced Assets
+          description: The priced assets.
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - priced_assets
+      title: FetchAssetPricesResponse
+    EvmAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: Asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedEvmChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: EvmAssetIdentifier
     EnrichedEvmChain:
       properties:
         chain_type:
@@ -1328,47 +1850,214 @@ components:
       - gas_type
       - source
       title: EnrichedEvmChain
-    SuiNativeAssetIdentifierRequest:
+    SuiAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: native
+          const: sui
           title: Type
           description: Sui asset identifier type.
-        chain:
-          $ref: '#/components/schemas/SuiChainUniqueId'
-          description: The details of the chain of the native asset.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
       type: object
       required:
       - type
-      - chain
-      title: SuiNativeAssetIdentifierRequest
-    ArchAplTokenAssetIdentifierRequest:
+      - details
+      title: SuiAssetIdentifierRequest
+    SuiCoinAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: apl_token
+          const: coin
           title: Type
-          description: APL token asset identifier type.
-        token:
-          $ref: '#/components/schemas/ArchAddressRequest'
-          description: The APL token details.
+          description: Coin asset identifier type.
+        coin_type:
+          $ref: '#/components/schemas/SuiCoinTypeRequest'
+          description: The Coin details.
       type: object
       required:
       - type
-      - token
-      title: ArchAplTokenAssetIdentifierRequest
-    ArchChainUniqueId:
+      - coin_type
+      title: SuiCoinAssetIdentifierRequest
+    CantonAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: canton
+          title: Type
+          description: Canton asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
+              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedCantonChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: CantonAssetIdentifier
+    TronAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 34
+          minLength: 34
+          pattern: ^T[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+      type: object
+      required:
+      - chain
+      - base58_repr
+      title: TronAddressRequest
+      description: Address represents a blockchain address.
+    GasType:
       type: string
       enum:
-      - arch_mainnet
-      - arch_testnet
-      title: ArchChainUniqueId
-    CantonChainUniqueId:
+      - dynamic
+      - legacy
+      title: GasType
+    EnrichedCantonChain:
+      properties:
+        chain_type:
+          type: string
+          const: canton
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The type of the Canton chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedCantonChain
+    ArchAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: arch
+          title: Type
+          description: Arch asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedArchChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: ArchAssetIdentifier
+    AptosNewCoinAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: new_coin
+          title: Type
+          description: New coin asset identifier type.
+        new_coin_type:
+          $ref: '#/components/schemas/AptosNewCoinTypeRequest'
+          description: The new coin details.
+      type: object
+      required:
+      - type
+      - new_coin_type
+      title: AptosNewCoinAssetIdentifierRequest
+    OwnedAssetsSortableFields:
       type: string
       enum:
-      - canton_mainnet
-      title: CantonChainUniqueId
+      - asset_name_asc
+      - asset_name_desc
+      - chain_identifier_asc
+      - chain_identifier_desc
+      - balance_asc
+      - balance_desc
+      - market_value_asc
+      - market_value_desc
+      - price_asc
+      - price_desc
+      title: OwnedAssetsSortableFields
+    TonJettonAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: jetton
+          title: Type
+          description: Jetton asset identifier type.
+        jetton:
+          $ref: '#/components/schemas/TonAddressRequest'
+          description: The Jetton details.
+      type: object
+      required:
+      - type
+      - jetton
+      title: TonJettonAssetIdentifierRequest
     PricedAsset:
       properties:
         type:
@@ -1386,127 +2075,61 @@ components:
       - type
       - asset_info
       title: PricedAsset
-    StellarClassicAssetIdentifierRequest:
+    EvmErc721AssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: classic_asset
+          const: erc721
           title: Type
-          description: Stellar asset identifier type.
-        code:
+          description: EVM asset identifier type.
+        token:
+          $ref: '#/components/schemas/EvmAddressRequest'
+          description: The ERC-721 token contract.
+        token_id:
           type: string
-          maxLength: 12
-          minLength: 1
-          pattern: ^[A-Za-z0-9]{1,12}$
-          title: Code
-          description: The 1-4 character asset code.
-        issuer:
-          $ref: '#/components/schemas/StellarAddressRequest'
-          description: The issuer address.
-        chain:
-          $ref: '#/components/schemas/StellarChainUniqueId'
-          description: The chain of the Classic Asset.
+          pattern: ^\d+$
+          title: Token Id
+          description: The token id of the ERC-721 token.
+          example: '1000000000000000000'
       type: object
       required:
       - type
-      - code
-      - issuer
-      - chain
-      title: StellarClassicAssetIdentifierRequest
-    StellarSorobanAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: soroban_asset
-          title: Type
-          description: Stellar asset identifier type.
-        address:
-          type: string
-          maxLength: 56
-          minLength: 56
-          pattern: ^[GCL][A-Z2-7]{55}$
-          title: Address
-          description: The Soroban asset address.
-          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
-        chain:
-          $ref: '#/components/schemas/StellarChainUniqueId'
-          description: The chain of the Soroban asset.
-      type: object
-      required:
-      - type
-      - address
-      - chain
-      title: StellarSorobanAssetIdentifierRequest
-    TronNativeAssetIdentifierRequest:
+      - token
+      - token_id
+      title: EvmErc721AssetIdentifierRequest
+    UtxoNativeAssetIdentifierRequest:
       properties:
         type:
           type: string
           const: native
           title: Type
-          description: TRON asset identifier type.
+          description: Utxo asset identifier type.
         chain:
-          $ref: '#/components/schemas/TronChainUniqueId'
-          description: The details of the chain of the native asset.
+          $ref: '#/components/schemas/UtxoChainUniqueId'
+          description: The unique id of the chain of the asset.
       type: object
       required:
       - type
       - chain
-      title: TronNativeAssetIdentifierRequest
-    StellarAssetIdentifier:
+      title: UtxoNativeAssetIdentifierRequest
+    CantonAddressRequest:
       properties:
-        type:
-          type: string
-          const: stellar
-          title: Type
-          description: Stellar asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
-              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
-              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
         chain:
-          $ref: '#/components/schemas/EnrichedStellarChain'
+          $ref: '#/components/schemas/CantonChainUniqueId'
+          description: The chain details this address is of.
+        account:
+          type: string
+          maxLength: 251
+          minLength: 70
+          title: Account
+          description: Party representation of the address in the chain.
+          example: 45b72ac2a9742204e6e5f521781b0648::122028536bd166988ebbb422c7f483bb32d4134127e8c171c9666ce9b518e1dd27cf
       type: object
       required:
-      - type
-      - details
       - chain
-      title: StellarAssetIdentifier
-    Price:
-      properties:
-        price:
-          title: Price
-          description: The price in the given fiat currency.
-          deprecated: true
-          type: string
-          pattern: ^\d+$
-          example: '1000000000000000000'
-        price_float:
-          type: string
-          pattern: ^\d+(\.\d+)?$
-          title: Price Float
-          description: The absolute price in the given fiat currency. When is_negative is true the asset's value is the negative of this (e.g. a debt token).
-          example: '1000000000000000000'
-        is_negative:
-          type: boolean
-          title: Is Negative
-          description: Whether the asset's value is negative (e.g. a debt token). price_float holds the absolute value.
-          default: false
-        fiat_currency:
-          $ref: '#/components/schemas/FiatCurrency'
-      type: object
-      required:
-      - price
-      - price_float
-      - fiat_currency
-      title: Price
-      description: Price represents a price in a given FiatCurrency.
+      - account
+      title: CantonAddressRequest
+      description: Address represents a blockchain address.
     BlockchainExplorer:
       properties:
         transaction_url:
@@ -1558,170 +2181,313 @@ components:
       - root_url
       title: BlockchainExplorer
       description: A blockchain explorer entry point.
-    SuiAssetIdentifierRequest:
+    AssetIdentifierRequest:
+      oneOf:
+      - $ref: '#/components/schemas/AptosAssetIdentifierRequest'
+      - $ref: '#/components/schemas/ArchAssetIdentifierRequest'
+      - $ref: '#/components/schemas/CantonAssetIdentifierRequest'
+      - $ref: '#/components/schemas/CosmosAssetIdentifierRequest'
+      - $ref: '#/components/schemas/EvmAssetIdentifierRequest'
+      - $ref: '#/components/schemas/ExchangeAssetIdentifierRequest'
+      - $ref: '#/components/schemas/SolanaAssetIdentifierRequest'
+      - $ref: '#/components/schemas/StacksAssetIdentifierRequest'
+      - $ref: '#/components/schemas/StellarAssetIdentifierRequest'
+      - $ref: '#/components/schemas/StarknetAssetIdentifierRequest'
+      - $ref: '#/components/schemas/SuiAssetIdentifierRequest'
+      - $ref: '#/components/schemas/TonAssetIdentifierRequest'
+      - $ref: '#/components/schemas/TronAssetIdentifierRequest'
+      - $ref: '#/components/schemas/UtxoAssetIdentifierRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          aptos: '#/components/schemas/AptosAssetIdentifierRequest'
+          arch: '#/components/schemas/ArchAssetIdentifierRequest'
+          canton: '#/components/schemas/CantonAssetIdentifierRequest'
+          cosmos: '#/components/schemas/CosmosAssetIdentifierRequest'
+          evm: '#/components/schemas/EvmAssetIdentifierRequest'
+          exchange: '#/components/schemas/ExchangeAssetIdentifierRequest'
+          solana: '#/components/schemas/SolanaAssetIdentifierRequest'
+          stacks: '#/components/schemas/StacksAssetIdentifierRequest'
+          starknet: '#/components/schemas/StarknetAssetIdentifierRequest'
+          stellar: '#/components/schemas/StellarAssetIdentifierRequest'
+          sui: '#/components/schemas/SuiAssetIdentifierRequest'
+          ton: '#/components/schemas/TonAssetIdentifierRequest'
+          tron: '#/components/schemas/TronAssetIdentifierRequest'
+          utxo: '#/components/schemas/UtxoAssetIdentifierRequest'
+    ExchangeChainUniqueId:
+      type: string
+      enum:
+      - exchange_binance
+      - exchange_bybit
+      - exchange_coinbase_international
+      - exchange_coinbase_us
+      - exchange_okx
+      - exchange_kraken
+      title: ExchangeChainUniqueId
+    UpdateAssetConfiguration:
+      properties:
+        asset:
+          $ref: '#/components/schemas/AssetIdentifierRequest'
+          description: The address of the ERC-20 asset to update.
+        hidden:
+          type: boolean
+          title: Hidden
+          description: '`True` to hide the token when listing assets, `False` otherwise.'
+      type: object
+      required:
+      - asset
+      - hidden
+      title: UpdateAssetConfiguration
+    CantonInstrumentIdRequest:
+      properties:
+        address:
+          $ref: '#/components/schemas/CantonAddressRequest'
+          description: The address of the instrument provider.
+        id:
+          type: string
+          title: Id
+          description: The instrument ID within the provider's namespace.
+      type: object
+      required:
+      - address
+      - id
+      title: CantonInstrumentIdRequest
+      description: Instrument ID represents a Canton instrument identifier (address + id).
+    ExchangeAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: sui
+          const: exchange
           title: Type
-          description: Sui asset identifier type.
+          description: Asset identifier type.
+        exchange_type:
+          $ref: '#/components/schemas/ExchangeType'
+          description: exchange type.
+        asset_symbol:
+          type: string
+          title: Asset Symbol
+          description: The symbol of the asset on the exchange.
+      type: object
+      required:
+      - type
+      - exchange_type
+      - asset_symbol
+      title: ExchangeAssetIdentifierRequest
+    CantonChainUniqueId:
+      type: string
+      enum:
+      - canton_mainnet
+      title: CantonChainUniqueId
+    UtxoAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: utxo
+          title: Type
+          description: Utxo asset identifier type.
         details:
-          oneOf:
-          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
-              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
       type: object
       required:
       - type
       - details
-      title: SuiAssetIdentifierRequest
-    AssetInfo:
+      title: UtxoAssetIdentifierRequest
+    ValidationErrorDetail:
       properties:
-        id:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Id
-          description: The asset ID.
-        asset_identifier:
-          $ref: '#/components/schemas/AssetIdentifier'
-          description: The asset identifier.
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    TronAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: tron
+          title: Type
+          description: TRON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
+              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: TronAssetIdentifierRequest
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    StarknetAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: starknet
+          title: Type
+          description: Starknet asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: StarknetAssetIdentifierRequest
+    EnrichedStellarChain:
+      properties:
+        chain_type:
+          type: string
+          const: stellar
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The type of the Stellar chain.
         name:
           type: string
+          minLength: 1
           title: Name
-          description: The name of the asset.
-        symbol:
-          type: string
-          title: Symbol
-          description: The symbol (ticker) of the asset.
-        decimals:
-          type: integer
-          minimum: 0.0
-          title: Decimals
-        verified:
-          type: boolean
-          title: Verified
-          description: '`True` if this asset is verified by Fordefi, `False` otherwise.'
-        metadata_uri:
-          title: Metadata Uri
-          description: The URI of the asset metadata.
-          type: string
-        is_spam:
-          type: boolean
-          title: Is Spam
-          description: '`True` if this asset is spam, `False` otherwise.'
-        logo_url:
-          title: Logo Url
-          description: The URL of the asset logo.
+          description: The full blockchain name.
+        native_currency_symbol:
           type: string
           minLength: 1
-          format: uri
-        explorer_url:
-          title: Explorer Url
-          description: The URL of a blockchain explorer that provides real-time information about the asset.
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
           type: string
           maxLength: 2083
           minLength: 1
           format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
       type: object
       required:
-      - id
-      - asset_identifier
+      - chain_type
+      - unique_id
       - name
-      - symbol
-      - decimals
-      - verified
-      - is_spam
-      title: AssetInfo
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
-    CantonCip56TokenAssetIdentifierRequest:
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStellarChain
+    EnrichedTronChain:
       properties:
-        type:
+        chain_type:
           type: string
-          const: cip56_token
-          title: Type
-          description: CIP56 token asset identifier type.
-        token:
-          $ref: '#/components/schemas/CantonInstrumentIdRequest'
-          description: The CIP56 token details.
+          const: tron
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/TronChainUniqueId'
+          description: The type of the Tron-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
       type: object
       required:
-      - type
-      - token
-      title: CantonCip56TokenAssetIdentifierRequest
-    AptosAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: aptos
-          title: Type
-          description: Aptos asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/AptosNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/AptosCoinAssetIdentifierRequest'
-          - $ref: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              coin: '#/components/schemas/AptosCoinAssetIdentifierRequest'
-              native: '#/components/schemas/AptosNativeAssetIdentifierRequest'
-              new_coin: '#/components/schemas/AptosNewCoinAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedAptosChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: AptosAssetIdentifier
-    EvmErc20AssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: erc20
-          title: Type
-          description: EVM asset identifier type.
-        token:
-          $ref: '#/components/schemas/EvmAddressRequest'
-          description: The ERC-20 token contract.
-      type: object
-      required:
-      - type
-      - token
-      title: EvmErc20AssetIdentifierRequest
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedTronChain
     EvmErc1155AssetIdentifierRequest:
       properties:
         type:
@@ -1744,6 +2510,470 @@ components:
       - token
       - token_id
       title: EvmErc1155AssetIdentifierRequest
+    CosmosAssetIdentifier:
+      properties:
+        type:
+          type: string
+          const: cosmos
+          title: Type
+          description: Cosmos asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              native: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
+              token: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedCosmosChain'
+      type: object
+      required:
+      - type
+      - details
+      - chain
+      title: CosmosAssetIdentifier
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    AptosChainUniqueId:
+      type: string
+      enum:
+      - aptos_mainnet
+      - aptos_testnet
+      - aptos_movement_mainnet
+      - aptos_movement_testnet
+      title: AptosChainUniqueId
+    ChainSource:
+      type: string
+      enum:
+      - default
+      - custom
+      title: ChainSource
+    CantonCip56TokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: cip56_token
+          title: Type
+          description: CIP56 token asset identifier type.
+        token:
+          $ref: '#/components/schemas/CantonInstrumentIdRequest'
+          description: The CIP56 token details.
+      type: object
+      required:
+      - type
+      - token
+      title: CantonCip56TokenAssetIdentifierRequest
+    EnrichedStarknetChain:
+      properties:
+        chain_type:
+          type: string
+          const: starknet
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The type of the Starknet-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedStarknetChain
+    EnrichedArchChain:
+      properties:
+        chain_type:
+          type: string
+          const: arch
+          title: Chain Type
+          description: The type of the chain.
+        unique_id:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The type of the Arch-based chain.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The full blockchain name.
+        native_currency_symbol:
+          type: string
+          minLength: 1
+          title: Native Currency Symbol
+          description: The native currency symbol.
+          example: ETH
+        native_currency_name:
+          type: string
+          minLength: 1
+          title: Native Currency Name
+          description: The native currency name.
+          example: Ether
+        blockchain_explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+        logo_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Logo Url
+          description: The logo URL of the chain.
+        is_testnet:
+          type: boolean
+          title: Is Testnet
+          description: Whether the chain is on a testnet.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the chain is enabled.
+      type: object
+      required:
+      - chain_type
+      - unique_id
+      - name
+      - native_currency_symbol
+      - native_currency_name
+      - logo_url
+      - is_testnet
+      - is_enabled
+      title: EnrichedArchChain
+    SolanaSplTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: spl_token
+          title: Type
+          description: SPL token asset identifier type.
+        token:
+          $ref: '#/components/schemas/SolanaAddressRequest'
+          description: The SPL token details.
+      type: object
+      required:
+      - type
+      - token
+      title: SolanaSplTokenAssetIdentifierRequest
+    ListOwnedAssetsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        owned_assets:
+          items:
+            $ref: '#/components/schemas/OwnedAsset'
+          type: array
+          title: Owned Assets
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - owned_assets
+      title: ListOwnedAssetsResponse
+    StellarAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: stellar
+          title: Type
+          description: Stellar asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
+              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
+              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: StellarAssetIdentifierRequest
+    AptosCoinAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: coin
+          title: Type
+          description: Legacy coin asset identifier type.
+        coin_type:
+          $ref: '#/components/schemas/AptosCoinTypeRequest'
+          description: The legacy coin details.
+      type: object
+      required:
+      - type
+      - coin_type
+      title: AptosCoinAssetIdentifierRequest
+    ArchAplTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: apl_token
+          title: Type
+          description: APL token asset identifier type.
+        token:
+          $ref: '#/components/schemas/ArchAddressRequest'
+          description: The APL token details.
+      type: object
+      required:
+      - type
+      - token
+      title: ArchAplTokenAssetIdentifierRequest
+    InvalidAssetRequest:
+      properties:
+        type:
+          type: string
+          const: invalid_asset
+          title: Type
+        asset_identifier_request:
+          $ref: '#/components/schemas/AssetIdentifierRequest'
+          description: The invalid asset identifier.
+        error:
+          type: string
+          title: Error
+          description: The error message.
+      type: object
+      required:
+      - type
+      - asset_identifier_request
+      - error
+      title: InvalidAssetRequest
+    StacksAddressRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/StacksChainUniqueId'
+          description: The chain details this address is of.
+        hex_repr:
+          type: string
+          maxLength: 171
+          pattern: ^S[0-9A-Za-z._-]+$
+          title: Hex Repr
+          description: Hexadecimal representation of the address in the chain.
+          example: SP3J4NWQXC312DK0GXVRZKSRFBZG8S5FG1D2160E9
+      type: object
+      required:
+      - chain
+      - hex_repr
+      title: StacksAddressRequest
+      description: Address represents a blockchain address.
+    CreateAssetInfoResponse:
+      $ref: '#/components/schemas/AssetInfo'
+      title: CreateAssetInfoResponse
+      description: Asset info.
+    EvmAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: evm
+          title: Type
+          description: Asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
+              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
+              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
+              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
+              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
+      type: object
+      required:
+      - type
+      - details
+      title: EvmAssetIdentifierRequest
+    CosmosTokenAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: token
+          title: Type
+          description: Token asset identifier type.
+        chain:
+          $ref: '#/components/schemas/CosmosChainUniqueId'
+          description: The unique id of the chain of the asset.
+        denom:
+          type: string
+          title: Denom
+          description: The denom of the asset.
+      type: object
+      required:
+      - type
+      - chain
+      - denom
+      title: CosmosTokenAssetIdentifierRequest
+    CosmosChainUniqueId:
+      type: string
+      enum:
+      - cosmos_agoric-3
+      - cosmos_akashnet-2
+      - cosmos_archway-1
+      - cosmos_axelar-dojo-1
+      - cosmos_bbn-1
+      - cosmos_celestia
+      - cosmos_cosmoshub-4
+      - cosmos_dydx-mainnet-1
+      - cosmos_dydx-testnet-4
+      - cosmos_dymension_1100-1
+      - cosmos_injective-1
+      - cosmos_neutron-1
+      - cosmos_nillion-1
+      - cosmos_noble-1
+      - cosmos_osmosis-1
+      - cosmos_provider
+      - cosmos_ssc-1
+      - cosmos_pacific-1
+      - cosmos_stride-1
+      - cosmos_thorchain-1
+      - cosmos_mantra-1
+      title: CosmosChainUniqueId
+    TonNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: TON asset identifier type.
+        chain:
+          $ref: '#/components/schemas/TonChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: TonNativeAssetIdentifierRequest
+    Balances:
+      properties:
+        total_mined:
+          type: string
+          pattern: ^\d+$
+          title: Total Mined
+          description: The value of all mined assets.
+          example: '1000000000000000000'
+        total_pending_incoming:
+          type: string
+          pattern: ^\d+$
+          title: Total Pending Incoming
+          description: The value of all pending incoming assets.
+          example: '1000000000000000000'
+        available_mined:
+          type: string
+          pattern: ^\d+$
+          title: Available Mined
+          description: The value of all available mined assets. Equals to total mined balance minus frozen mined.
+          example: '1000000000000000000'
+        available_pending_incoming:
+          type: string
+          pattern: ^\d+$
+          title: Available Pending Incoming
+          description: The value of all available pending incoming assets. Equals to total pending incoming minus frozen pending incoming.
+          example: '1000000000000000000'
+        frozen_mined:
+          type: string
+          pattern: ^\d+$
+          title: Frozen Mined
+          description: The value of all mined frozen assets.
+          example: '1000000000000000000'
+        frozen_pending_incoming:
+          type: string
+          pattern: ^\d+$
+          title: Frozen Pending Incoming
+          description: The value of all pending incoming frozen assets.
+          example: '1000000000000000000'
+        trustline_limit:
+          title: Trustline Limit
+          description: The trustline limit for Stellar assets. Nil for non-Stellar assets or assets without trustlines.
+          type: string
+          pattern: ^\d+$
+          example: '1000000000000000000'
+        is_auto_approved:
+          title: Is Auto Approved
+          description: (Canton) True if incoming transfers of this asset are auto-accepted via a pre-approval.
+          type: boolean
+      type: object
+      required:
+      - total_mined
+      - total_pending_incoming
+      - available_mined
+      - available_pending_incoming
+      - frozen_mined
+      - frozen_pending_incoming
+      title: Balances
+      description: The cryptocurrency balances of the asset.
     EnrichedCosmosChain:
       properties:
         chain_type:
@@ -1808,651 +3038,30 @@ components:
       - base_denom
       - bech32_prefix
       title: EnrichedCosmosChain
-    CantonInstrumentIdRequest:
-      properties:
-        address:
-          $ref: '#/components/schemas/CantonAddressRequest'
-          description: The address of the instrument provider.
-        id:
-          type: string
-          title: Id
-          description: The instrument ID within the provider's namespace.
-      type: object
-      required:
-      - address
-      - id
-      title: CantonInstrumentIdRequest
-      description: Instrument ID represents a Canton instrument identifier (address + id).
-    TronAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: tron
-          title: Type
-          description: TRON asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
-              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: TronAssetIdentifierRequest
-    OwnedAssetsSortableFields:
-      type: string
-      enum:
-      - asset_name_asc
-      - asset_name_desc
-      - chain_identifier_asc
-      - chain_identifier_desc
-      - balance_asc
-      - balance_desc
-      - market_value_asc
-      - market_value_desc
-      - price_asc
-      - price_desc
-      title: OwnedAssetsSortableFields
-    SolanaAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/SolanaChainUniqueId'
-          description: The chain details this address is of.
-        base58_repr:
-          type: string
-          maxLength: 44
-          minLength: 32
-          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
-          title: Base58 Repr
-          description: Base58 representation of the address in the chain.
-          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
-      type: object
-      required:
-      - chain
-      - base58_repr
-      title: SolanaAddressRequest
-      description: Address represents a blockchain address.
-    EnrichedArchChain:
-      properties:
-        chain_type:
-          type: string
-          const: arch
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/ArchChainUniqueId'
-          description: The type of the Arch-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedArchChain
-    EnrichedTonChain:
-      properties:
-        chain_type:
-          type: string
-          const: ton
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/TonChainUniqueId'
-          description: The type of the TON-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedTonChain
-    StellarAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: stellar
-          title: Type
-          description: Stellar asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/StellarNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StellarClassicAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              classic_asset: '#/components/schemas/StellarClassicAssetIdentifierRequest'
-              native: '#/components/schemas/StellarNativeAssetIdentifierRequest'
-              soroban_asset: '#/components/schemas/StellarSorobanAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: StellarAssetIdentifierRequest
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    StacksSip10AssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: sip10
-          title: Type
-          description: Sip10 asset identifier type.
-        sip10:
-          $ref: '#/components/schemas/StacksAddressRequest'
-          description: The Sip10 details.
-      type: object
-      required:
-      - type
-      - sip10
-      title: StacksSip10AssetIdentifierRequest
-    CreateAssetInfoRequest:
-      properties:
-        asset_identifier:
-          $ref: '#/components/schemas/AssetIdentifierRequest'
-          description: The asset identifier to enrich.
-      type: object
-      required:
-      - asset_identifier
-      title: CreateAssetInfoRequest
-    SolanaAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: solana
-          title: Type
-          description: Solana asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
-              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedSolanaChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: SolanaAssetIdentifier
-    EvmAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: evm
-          title: Type
-          description: Asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/EvmNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc20AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc721AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
-          - $ref: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              erc1155: '#/components/schemas/EvmErc1155AssetIdentifierRequest'
-              erc20: '#/components/schemas/EvmErc20AssetIdentifierRequest'
-              erc721: '#/components/schemas/EvmErc721AssetIdentifierRequest'
-              hyperliquid: '#/components/schemas/EvmHyperLiquidAssetIdentifierRequest'
-              native: '#/components/schemas/EvmNativeAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: EvmAssetIdentifierRequest
-    CantonAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/CantonChainUniqueId'
-          description: The chain details this address is of.
-        account:
-          type: string
-          maxLength: 251
-          minLength: 70
-          title: Account
-          description: Party representation of the address in the chain.
-          example: 45b72ac2a9742204e6e5f521781b0648::122028536bd166988ebbb422c7f483bb32d4134127e8c171c9666ce9b518e1dd27cf
-      type: object
-      required:
-      - chain
-      - account
-      title: CantonAddressRequest
-      description: Address represents a blockchain address.
-    CosmosAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: cosmos
-          title: Type
-          description: Cosmos asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              native: '#/components/schemas/CosmosNativeAssetIdentifierRequest'
-              token: '#/components/schemas/CosmosTokenAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: CosmosAssetIdentifierRequest
-    StellarAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/StellarChainUniqueId'
-          description: The chain details this address is of.
-        base32_repr:
-          type: string
-          maxLength: 56
-          minLength: 56
-          pattern: ^[GCL][A-Z2-7]{55}$
-          title: Base32 Repr
-          description: Hexadecimal representation of the address in the chain.
-          example: GBRPYHIL2CI3FNQ4BXLFMNDLFJHO7W3B6FSHLTAVM2A4P45SHO4ZB7I2
-      type: object
-      required:
-      - chain
-      - base32_repr
-      title: StellarAddressRequest
-      description: Address represents a blockchain address.
-    EvmErc721AssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: erc721
-          title: Type
-          description: EVM asset identifier type.
-        token:
-          $ref: '#/components/schemas/EvmAddressRequest'
-          description: The ERC-721 token contract.
-        token_id:
-          type: string
-          pattern: ^\d+$
-          title: Token Id
-          description: The token id of the ERC-721 token.
-          example: '1000000000000000000'
-      type: object
-      required:
-      - type
-      - token
-      - token_id
-      title: EvmErc721AssetIdentifierRequest
-    CosmosChainUniqueId:
-      type: string
-      enum:
-      - cosmos_agoric-3
-      - cosmos_akashnet-2
-      - cosmos_archway-1
-      - cosmos_axelar-dojo-1
-      - cosmos_bbn-1
-      - cosmos_celestia
-      - cosmos_cosmoshub-4
-      - cosmos_dydx-mainnet-1
-      - cosmos_dydx-testnet-4
-      - cosmos_dymension_1100-1
-      - cosmos_injective-1
-      - cosmos_neutron-1
-      - cosmos_nillion-1
-      - cosmos_noble-1
-      - cosmos_osmosis-1
-      - cosmos_provider
-      - cosmos_ssc-1
-      - cosmos_pacific-1
-      - cosmos_stride-1
-      - cosmos_thorchain-1
-      - cosmos_mantra-1
-      title: CosmosChainUniqueId
-    SuiCoinTypeRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/SuiChainUniqueId'
-          description: The chain details this address is of.
-        coin_type_str:
-          type: string
-          title: Coin Type Str
-          description: Coin type string representation.
-      type: object
-      required:
-      - chain
-      - coin_type_str
-      title: SuiCoinTypeRequest
-      description: Coin type represents a blockchain coin type.
-    EnrichedTronChain:
-      properties:
-        chain_type:
-          type: string
-          const: tron
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/TronChainUniqueId'
-          description: The type of the Tron-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedTronChain
-    AptosNewCoinTypeRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/AptosChainUniqueId'
-          description: The chain details this address is of.
-        metadata_address:
-          type: string
-          title: Metadata Address
-          description: New coin's metadata address.
-      type: object
-      required:
-      - chain
-      - metadata_address
-      title: AptosNewCoinTypeRequest
-      description: New coin type represents a blockchain new coin type.
-    FiatCurrencySymbol:
-      type: string
-      enum:
-      - usd
-      title: FiatCurrencySymbol
-      description: FiatCurrencySymbol
-    CreateAssetInfoResponse:
-      $ref: '#/components/schemas/AssetInfo'
-      title: CreateAssetInfoResponse
-      description: Asset info.
-    TonAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: ton
-          title: Type
-          description: TON asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
-              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedTonChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: TonAssetIdentifier
-    StarknetNativeAssetIdentifierRequest:
+    StellarNativeAssetIdentifierRequest:
       properties:
         type:
           type: string
           const: native
           title: Type
-          description: Starknet asset identifier type.
+          description: Stellar asset identifier type.
         chain:
-          $ref: '#/components/schemas/StarknetChainUniqueId'
-          description: The details of the chain of the native asset.
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the native asset.
       type: object
       required:
       - type
       - chain
-      title: StarknetNativeAssetIdentifierRequest
-    EnrichedExchangeChain:
-      properties:
-        chain_type:
-          type: string
-          const: exchange
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/ExchangeChainUniqueId'
-          description: The type of the Exchange-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedExchangeChain
-    SuiCoinAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: coin
-          title: Type
-          description: Coin asset identifier type.
-        coin_type:
-          $ref: '#/components/schemas/SuiCoinTypeRequest'
-          description: The Coin details.
-      type: object
-      required:
-      - type
-      - coin_type
-      title: SuiCoinAssetIdentifierRequest
-    ListOwnedAssetsResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        owned_assets:
-          items:
-            $ref: '#/components/schemas/OwnedAsset'
-          type: array
-          title: Owned Assets
-      type: object
-      required:
-      - total
-      - page
-      - size
-      - owned_assets
-      title: ListOwnedAssetsResponse
-    StacksChainUniqueId:
-      type: string
-      enum:
-      - stacks_mainnet
-      title: StacksChainUniqueId
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
+      title: StellarNativeAssetIdentifierRequest
+    PricedAssetResponse:
+      oneOf:
+      - $ref: '#/components/schemas/PricedAsset'
+      - $ref: '#/components/schemas/InvalidAssetRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          asset_price: '#/components/schemas/PricedAsset'
+          invalid_asset: '#/components/schemas/InvalidAssetRequest'
     ArchNativeAssetIdentifierRequest:
       properties:
         type:
@@ -2468,215 +3077,147 @@ components:
       - type
       - chain
       title: ArchNativeAssetIdentifierRequest
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    TonAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/TonChainUniqueId'
-          description: The chain details this address is of.
-        address:
-          type: string
-          maxLength: 67
-          pattern: ^[-0-9]+:[A-Fa-f0-9]{64}$
-          title: Address
-          description: Contract address in a raw format.
-      type: object
-      required:
-      - chain
-      - address
-      title: TonAddressRequest
-      description: Address represents a blockchain address.
-    EnrichedStellarChain:
-      properties:
-        chain_type:
-          type: string
-          const: stellar
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/StellarChainUniqueId'
-          description: The type of the Stellar chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedStellarChain
-    StarknetAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/StarknetChainUniqueId'
-          description: The chain details this address is of.
-        hex_repr:
-          type: string
-          maxLength: 66
-          minLength: 66
-          pattern: ^0[xX][a-fA-F0-9]+$
-          title: Hex Repr
-          description: Hexadecimal representation of the address in the chain.
-          example: '0x0448f450e64B50dDF49e9F95C5b63a15cD21E21a39cA2D45628d9E5B27e5e1D8'
-      type: object
-      required:
-      - chain
-      - hex_repr
-      title: StarknetAddressRequest
-      description: Address represents a blockchain address.
-    EvmAddressRequest:
-      properties:
-        chain:
-          type: string
-          minLength: 1
-          title: EvmChainUniqueId
-          description: The chain details this address is of.
-        hex_repr:
-          type: string
-          maxLength: 42
-          minLength: 42
-          pattern: ^0[xX][a-fA-F0-9]+$
-          title: Hex Repr
-          description: Hexadecimal representation of the address in the chain.
-          example: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'
-      type: object
-      required:
-      - chain
-      - hex_repr
-      title: EvmAddressRequest
-      description: Address represents a blockchain address.
-    StacksAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/StacksChainUniqueId'
-          description: The chain details this address is of.
-        hex_repr:
-          type: string
-          maxLength: 171
-          pattern: ^S[0-9A-Za-z._-]+$
-          title: Hex Repr
-          description: Hexadecimal representation of the address in the chain.
-          example: SP3J4NWQXC312DK0GXVRZKSRFBZG8S5FG1D2160E9
-      type: object
-      required:
-      - chain
-      - hex_repr
-      title: StacksAddressRequest
-      description: Address represents a blockchain address.
-    AptosNewCoinAssetIdentifierRequest:
+    TonAssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: new_coin
+          const: ton
           title: Type
-          description: New coin asset identifier type.
-        new_coin_type:
-          $ref: '#/components/schemas/AptosNewCoinTypeRequest'
-          description: The new coin details.
+          description: TON asset identifier type.
+        details:
+          oneOf:
+          - $ref: '#/components/schemas/TonNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TonJettonAssetIdentifierRequest'
+          discriminator:
+            propertyName: type
+            mapping:
+              jetton: '#/components/schemas/TonJettonAssetIdentifierRequest'
+              native: '#/components/schemas/TonNativeAssetIdentifierRequest'
       type: object
       required:
       - type
-      - new_coin_type
-      title: AptosNewCoinAssetIdentifierRequest
-    UtxoChainUniqueId:
+      - details
+      title: TonAssetIdentifierRequest
+    CosmosBech32Prefix:
       type: string
       enum:
-      - bitcoin_mainnet
-      - bitcoin_testnet
-      - bitcoin_testnet_v4
-      - dogecoin_mainnet
-      - bitcoin_cash_mainnet
-      - pearl_testnet
-      - pearl_mainnet
-      title: UtxoChainUniqueId
-    GetOwnedAssetResponse:
-      $ref: '#/components/schemas/OwnedAsset'
-      title: GetOwnedAssetResponse
-    FetchAssetPricesResponse:
+      - agoric
+      - akash
+      - archway
+      - axelar
+      - bbn
+      - celestia
+      - cosmos
+      - dydx
+      - dym
+      - inj
+      - neutron
+      - nillion
+      - noble
+      - osmo
+      - saga
+      - sei
+      - stride
+      - thor
+      - mantra
+      title: CosmosBech32Prefix
+    ArchAddressRequest:
       properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        priced_assets:
-          items:
-            $ref: '#/components/schemas/PricedAssetResponse'
-          type: array
-          title: Priced Assets
-          description: The priced assets.
+        chain:
+          $ref: '#/components/schemas/ArchChainUniqueId'
+          description: The chain details this address is of.
+        base58_repr:
+          type: string
+          maxLength: 44
+          minLength: 32
+          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
+          title: Base58 Repr
+          description: Base58 representation of the address in the chain.
+          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
       type: object
       required:
-      - total
-      - page
-      - size
-      - priced_assets
-      title: FetchAssetPricesResponse
+      - chain
+      - base58_repr
+      title: ArchAddressRequest
+      description: Address represents a blockchain address.
+    StarknetNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Starknet asset identifier type.
+        chain:
+          $ref: '#/components/schemas/StarknetChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: StarknetNativeAssetIdentifierRequest
+    StellarClassicAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: classic_asset
+          title: Type
+          description: Stellar asset identifier type.
+        code:
+          type: string
+          maxLength: 12
+          minLength: 1
+          pattern: ^[A-Za-z0-9]{1,12}$
+          title: Code
+          description: The 1-4 character asset code.
+        issuer:
+          $ref: '#/components/schemas/StellarAddressRequest'
+          description: The issuer address.
+        chain:
+          $ref: '#/components/schemas/StellarChainUniqueId'
+          description: The chain of the Classic Asset.
+      type: object
+      required:
+      - type
+      - code
+      - issuer
+      - chain
+      title: StellarClassicAssetIdentifierRequest
+    SuiCoinTypeRequest:
+      properties:
+        chain:
+          $ref: '#/components/schemas/SuiChainUniqueId'
+          description: The chain details this address is of.
+        coin_type_str:
+          type: string
+          title: Coin Type Str
+          description: Coin type string representation.
+      type: object
+      required:
+      - chain
+      - coin_type_str
+      title: SuiCoinTypeRequest
+      description: Coin type represents a blockchain coin type.
+    AptosNativeAssetIdentifierRequest:
+      properties:
+        type:
+          type: string
+          const: native
+          title: Type
+          description: Aptos asset identifier type.
+        chain:
+          $ref: '#/components/schemas/AptosChainUniqueId'
+          description: The details of the chain of the native asset.
+      type: object
+      required:
+      - type
+      - chain
+      title: AptosNativeAssetIdentifierRequest
+    TronChainUniqueId:
+      type: string
+      enum:
+      - tron_mainnet
+      - tron_shasta
+      title: TronChainUniqueId
     EnrichedAptosChain:
       properties:
         chain_type:
@@ -2732,203 +3273,86 @@ components:
       - is_testnet
       - is_enabled
       title: EnrichedAptosChain
-    ArchAddressRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/ArchChainUniqueId'
-          description: The chain details this address is of.
-        base58_repr:
-          type: string
-          maxLength: 44
-          minLength: 32
-          pattern: ^[a-km-zA-HJ-NP-Z1-9]+$
-          title: Base58 Repr
-          description: Base58 representation of the address in the chain.
-          example: 4fYNw3dojWmQ4dXtSGE9epjRGy9pFSx62YypT7avPYvA
-      type: object
-      required:
-      - chain
-      - base58_repr
-      title: ArchAddressRequest
-      description: Address represents a blockchain address.
-    CosmosBech32Prefix:
-      type: string
-      enum:
-      - agoric
-      - akash
-      - archway
-      - axelar
-      - bbn
-      - celestia
-      - cosmos
-      - dydx
-      - dym
-      - inj
-      - neutron
-      - nillion
-      - noble
-      - osmo
-      - saga
-      - sei
-      - stride
-      - thor
-      - mantra
-      title: CosmosBech32Prefix
-    AptosCoinTypeRequest:
-      properties:
-        chain:
-          $ref: '#/components/schemas/AptosChainUniqueId'
-          description: The chain details this address is of.
-        coin_type_str:
-          type: string
-          title: Coin Type Str
-          description: Coin type string representation.
-      type: object
-      required:
-      - chain
-      - coin_type_str
-      title: AptosCoinTypeRequest
-      description: Coin type represents a blockchain legacy coin type.
-    ArchAssetIdentifierRequest:
+    StarknetAssetIdentifier:
       properties:
         type:
           type: string
-          const: arch
+          const: starknet
           title: Type
-          description: Arch asset identifier type.
+          description: Starknet asset identifier type.
         details:
           oneOf:
-          - $ref: '#/components/schemas/ArchNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
           discriminator:
             propertyName: type
             mapping:
-              apl_token: '#/components/schemas/ArchAplTokenAssetIdentifierRequest'
-              native: '#/components/schemas/ArchNativeAssetIdentifierRequest'
-      type: object
-      required:
-      - type
-      - details
-      title: ArchAssetIdentifierRequest
-    AptosChainUniqueId:
-      type: string
-      enum:
-      - aptos_mainnet
-      - aptos_testnet
-      - aptos_movement_mainnet
-      - aptos_movement_testnet
-      title: AptosChainUniqueId
-    CantonAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: canton
-          title: Type
-          description: Canton asset identifier type.
-        details:
-          oneOf:
-          - $ref: '#/components/schemas/CantonNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
-          discriminator:
-            propertyName: type
-            mapping:
-              cip56_token: '#/components/schemas/CantonCip56TokenAssetIdentifierRequest'
-              native: '#/components/schemas/CantonNativeAssetIdentifierRequest'
+              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
         chain:
-          $ref: '#/components/schemas/EnrichedCantonChain'
+          $ref: '#/components/schemas/EnrichedStarknetChain'
       type: object
       required:
       - type
       - details
       - chain
-      title: CantonAssetIdentifier
-    SolanaAssetIdentifierRequest:
+      title: StarknetAssetIdentifier
+    SuiAssetIdentifier:
       properties:
         type:
           type: string
-          const: solana
+          const: sui
           title: Type
-          description: Solana asset identifier type.
+          description: Sui asset identifier type.
         details:
           oneOf:
-          - $ref: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/SuiCoinAssetIdentifierRequest'
           discriminator:
             propertyName: type
             mapping:
-              native: '#/components/schemas/SolanaNativeAssetIdentifierRequest'
-              spl_token: '#/components/schemas/SolanaSplTokenAssetIdentifierRequest'
+              coin: '#/components/schemas/SuiCoinAssetIdentifierRequest'
+              native: '#/components/schemas/SuiNativeAssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedSuiChain'
       type: object
       required:
       - type
       - details
-      title: SolanaAssetIdentifierRequest
-    StacksNativeAssetIdentifierRequest:
+      - chain
+      title: SuiAssetIdentifier
+    OwnedAsset:
+      properties:
+        priced_asset:
+          $ref: '#/components/schemas/PricedAsset'
+        balances:
+          $ref: '#/components/schemas/Balances'
+        balance:
+          title: Balance
+          deprecated: true
+          type: string
+          pattern: ^\d+$
+          example: '1000000000000000000'
+      type: object
+      required:
+      - priced_asset
+      - balances
+      title: OwnedAsset
+    StacksSip10AssetIdentifierRequest:
       properties:
         type:
           type: string
-          const: native
+          const: sip10
           title: Type
-          description: Stacks asset identifier type.
-        chain:
-          $ref: '#/components/schemas/StacksChainUniqueId'
-          description: The details of the chain of the native asset.
+          description: Sip10 asset identifier type.
+        sip10:
+          $ref: '#/components/schemas/StacksAddressRequest'
+          description: The Sip10 details.
       type: object
       required:
       - type
-      - chain
-      title: StacksNativeAssetIdentifierRequest
-    TonChainUniqueId:
-      type: string
-      enum:
-      - ton_mainnet
-      title: TonChainUniqueId
-    CosmosTokenAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: token
-          title: Type
-          description: Token asset identifier type.
-        chain:
-          $ref: '#/components/schemas/CosmosChainUniqueId'
-          description: The unique id of the chain of the asset.
-        denom:
-          type: string
-          title: Denom
-          description: The denom of the asset.
-      type: object
-      required:
-      - type
-      - chain
-      - denom
-      title: CosmosTokenAssetIdentifierRequest
-    GasType:
-      type: string
-      enum:
-      - dynamic
-      - legacy
-      title: GasType
-    StellarChainUniqueId:
-      type: string
-      enum:
-      - stellar_mainnet
-      title: StellarChainUniqueId
-    StellarNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: Stellar asset identifier type.
-        chain:
-          $ref: '#/components/schemas/StellarChainUniqueId'
-          description: The chain of the native asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: StellarNativeAssetIdentifierRequest
+      - sip10
+      title: StacksSip10AssetIdentifierRequest
     StacksAssetIdentifierRequest:
       properties:
         type:
@@ -2950,434 +3374,30 @@ components:
       - type
       - details
       title: StacksAssetIdentifierRequest
-    EnrichedStacksChain:
-      properties:
-        chain_type:
-          type: string
-          const: stacks
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/StacksChainUniqueId'
-          description: The type of the Stacks-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedStacksChain
-    AssetIdentifier:
-      oneOf:
-      - $ref: '#/components/schemas/AptosAssetIdentifier'
-      - $ref: '#/components/schemas/ArchAssetIdentifier'
-      - $ref: '#/components/schemas/CantonAssetIdentifier'
-      - $ref: '#/components/schemas/CosmosAssetIdentifier'
-      - $ref: '#/components/schemas/EvmAssetIdentifier'
-      - $ref: '#/components/schemas/ExchangeAssetIdentifier'
-      - $ref: '#/components/schemas/SolanaAssetIdentifier'
-      - $ref: '#/components/schemas/StacksAssetIdentifier'
-      - $ref: '#/components/schemas/StellarAssetIdentifier'
-      - $ref: '#/components/schemas/StarknetAssetIdentifier'
-      - $ref: '#/components/schemas/SuiAssetIdentifier'
-      - $ref: '#/components/schemas/TonAssetIdentifier'
-      - $ref: '#/components/schemas/TronAssetIdentifier'
-      - $ref: '#/components/schemas/UtxoAssetIdentifier'
-      discriminator:
-        propertyName: type
-        mapping:
-          aptos: '#/components/schemas/AptosAssetIdentifier'
-          arch: '#/components/schemas/ArchAssetIdentifier'
-          canton: '#/components/schemas/CantonAssetIdentifier'
-          cosmos: '#/components/schemas/CosmosAssetIdentifier'
-          evm: '#/components/schemas/EvmAssetIdentifier'
-          exchange: '#/components/schemas/ExchangeAssetIdentifier'
-          solana: '#/components/schemas/SolanaAssetIdentifier'
-          stacks: '#/components/schemas/StacksAssetIdentifier'
-          starknet: '#/components/schemas/StarknetAssetIdentifier'
-          stellar: '#/components/schemas/StellarAssetIdentifier'
-          sui: '#/components/schemas/SuiAssetIdentifier'
-          ton: '#/components/schemas/TonAssetIdentifier'
-          tron: '#/components/schemas/TronAssetIdentifier'
-          utxo: '#/components/schemas/UtxoAssetIdentifier'
-    ExchangeType:
-      type: string
-      enum:
-      - binance
-      - bybit
-      - coinbase_international
-      - coinbase_us
-      - okx
-      - kraken
-      title: ExchangeType
-    FiatCurrency:
-      properties:
-        currency_symbol:
-          $ref: '#/components/schemas/FiatCurrencySymbol'
-          description: The symbol of the fiat currency.
-        decimals:
-          type: integer
-          minimum: 0.0
-          title: Decimals
-          description: The number of decimals in the fiat currency.
-      type: object
-      required:
-      - currency_symbol
-      - decimals
-      title: FiatCurrency
-    UtxoAssetIdentifier:
+    TronAssetIdentifier:
       properties:
         type:
           type: string
-          const: utxo
+          const: tron
           title: Type
-          description: Utxo asset identifier type.
-        details:
-          $ref: '#/components/schemas/UtxoNativeAssetIdentifierRequest'
-        chain:
-          $ref: '#/components/schemas/EnrichedUtxoChain'
-      type: object
-      required:
-      - type
-      - details
-      - chain
-      title: UtxoAssetIdentifier
-    Balances:
-      properties:
-        total_mined:
-          type: string
-          pattern: ^\d+$
-          title: Total Mined
-          description: The value of all mined assets.
-          example: '1000000000000000000'
-        total_pending_incoming:
-          type: string
-          pattern: ^\d+$
-          title: Total Pending Incoming
-          description: The value of all pending incoming assets.
-          example: '1000000000000000000'
-        available_mined:
-          type: string
-          pattern: ^\d+$
-          title: Available Mined
-          description: The value of all available mined assets. Equals to total mined balance minus frozen mined.
-          example: '1000000000000000000'
-        available_pending_incoming:
-          type: string
-          pattern: ^\d+$
-          title: Available Pending Incoming
-          description: The value of all available pending incoming assets. Equals to total pending incoming minus frozen pending incoming.
-          example: '1000000000000000000'
-        frozen_mined:
-          type: string
-          pattern: ^\d+$
-          title: Frozen Mined
-          description: The value of all mined frozen assets.
-          example: '1000000000000000000'
-        frozen_pending_incoming:
-          type: string
-          pattern: ^\d+$
-          title: Frozen Pending Incoming
-          description: The value of all pending incoming frozen assets.
-          example: '1000000000000000000'
-        trustline_limit:
-          title: Trustline Limit
-          description: The trustline limit for Stellar assets. Nil for non-Stellar assets or assets without trustlines.
-          type: string
-          pattern: ^\d+$
-          example: '1000000000000000000'
-        is_auto_approved:
-          title: Is Auto Approved
-          description: (Canton) True if incoming transfers of this asset are auto-accepted via a pre-approval.
-          type: boolean
-      type: object
-      required:
-      - total_mined
-      - total_pending_incoming
-      - available_mined
-      - available_pending_incoming
-      - frozen_mined
-      - frozen_pending_incoming
-      title: Balances
-      description: The cryptocurrency balances of the asset.
-    AptosNativeAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: native
-          title: Type
-          description: Aptos asset identifier type.
-        chain:
-          $ref: '#/components/schemas/AptosChainUniqueId'
-          description: The details of the chain of the native asset.
-      type: object
-      required:
-      - type
-      - chain
-      title: AptosNativeAssetIdentifierRequest
-    EnrichedCantonChain:
-      properties:
-        chain_type:
-          type: string
-          const: canton
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/CantonChainUniqueId'
-          description: The type of the Canton chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedCantonChain
-    StarknetAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: starknet
-          title: Type
-          description: Starknet asset identifier type.
+          description: TRON asset identifier type.
         details:
           oneOf:
-          - $ref: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
-          - $ref: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
+          - $ref: '#/components/schemas/TronNativeAssetIdentifierRequest'
+          - $ref: '#/components/schemas/TronTrc20AssetIdentifierRequest'
           discriminator:
             propertyName: type
             mapping:
-              erc20: '#/components/schemas/StarknetErc20AssetIdentifierRequest'
-              native: '#/components/schemas/StarknetNativeAssetIdentifierRequest'
+              native: '#/components/schemas/TronNativeAssetIdentifierRequest'
+              trc20: '#/components/schemas/TronTrc20AssetIdentifierRequest'
+        chain:
+          $ref: '#/components/schemas/EnrichedTronChain'
       type: object
       required:
       - type
       - details
-      title: StarknetAssetIdentifierRequest
-    EvmHyperLiquidAssetIdentifierRequest:
-      properties:
-        type:
-          type: string
-          const: hyperliquid
-          title: Type
-          description: EVM asset identifier type.
-        chain:
-          type: string
-          minLength: 1
-          title: EvmChainUniqueId
-          description: Currently artificially set to Arbitrum.
-        token_id:
-          type: string
-          title: Token Id
-          description: The token id of the asset on Hyperliquid.
-        index:
-          type: integer
-          title: Index
-          description: The index of the asset on Hyperliquid.
-      type: object
-      required:
-      - type
       - chain
-      - token_id
-      - index
-      title: EvmHyperLiquidAssetIdentifierRequest
-    EnrichedSuiChain:
-      properties:
-        chain_type:
-          type: string
-          const: sui
-          title: Chain Type
-          description: The type of the chain.
-        unique_id:
-          $ref: '#/components/schemas/SuiChainUniqueId'
-          description: The type of the Sui-based chain.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The full blockchain name.
-        native_currency_symbol:
-          type: string
-          minLength: 1
-          title: Native Currency Symbol
-          description: The native currency symbol.
-          example: ETH
-        native_currency_name:
-          type: string
-          minLength: 1
-          title: Native Currency Name
-          description: The native currency name.
-          example: Ether
-        blockchain_explorer:
-          $ref: '#/components/schemas/BlockchainExplorer'
-        logo_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: Logo Url
-          description: The logo URL of the chain.
-        is_testnet:
-          type: boolean
-          title: Is Testnet
-          description: Whether the chain is on a testnet.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the chain is enabled.
-      type: object
-      required:
-      - chain_type
-      - unique_id
-      - name
-      - native_currency_symbol
-      - native_currency_name
-      - logo_url
-      - is_testnet
-      - is_enabled
-      title: EnrichedSuiChain
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    ExchangeAssetIdentifier:
-      properties:
-        type:
-          type: string
-          const: exchange
-          title: Type
-          description: Asset identifier type.
-        exchange_type:
-          $ref: '#/components/schemas/ExchangeType'
-          description: exchange type.
-        asset_symbol:
-          type: string
-          title: Asset Symbol
-          description: The symbol of the asset on the exchange.
-        chain:
-          $ref: '#/components/schemas/EnrichedExchangeChain'
-      type: object
-      required:
-      - type
-      - exchange_type
-      - asset_symbol
-      - chain
-      title: ExchangeAssetIdentifier
+      title: TronAssetIdentifier
   securitySchemes:
     bearerAuth:
       type: http

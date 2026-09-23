@@ -1,8 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fordefi Address Book Organizations API
+  title: Fordefi Organizations API
   version: 0.2.0
-  description: These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.
 servers:
 - url: https://api.fordefi.com/
   description: Production
@@ -245,6 +244,29 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
     PreconditionFailedError:
       properties:
         title:
@@ -272,15 +294,80 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    GetImportKeysStatusResponse:
+    KeyOriginType:
+      type: string
+      enum:
+      - native
+      - imported
+      title: KeyOriginType
+    ImportKeysStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - completed
+      title: ImportKeysStatus
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    KeyType:
+      type: string
+      enum:
+      - ecdsa_secp256k1
+      - eddsa_ed25519
+      - ecdsa_stark
+      - schnorr_secp256k1
+      title: KeyType
+    StartImportKeysRequest:
+      oneOf:
+      - $ref: '#/components/schemas/FireblocksImportPackage'
+      - $ref: '#/components/schemas/StandaloneImportPackage'
+      discriminator:
+        propertyName: type
+        mapping:
+          fireblocks: '#/components/schemas/FireblocksImportPackage'
+          standalone: '#/components/schemas/StandaloneImportPackage'
+    OrganizationMasterKey:
       properties:
-        state:
-          $ref: '#/components/schemas/ImportKeysStatus'
-          description: The state of the import keys request.
+        key_id:
+          type: string
+          format: uuid
+          title: Key Id
+          description: The ID of the imported key.
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the imported key.
+        key_type:
+          $ref: '#/components/schemas/KeyType'
+          description: The type of the imported key.
+        key_origin:
+          $ref: '#/components/schemas/KeyOriginType'
+          description: The origin of the key.
+        xpub:
+          type: string
+          title: Xpub
+          description: The xpub encoding of the key. For more details, see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+        public_key_compressed:
+          type: string
+          title: Public Key Compressed
+          description: 'The public key of the vault in its compressed form: <ul> <li>For ECDSA and Schnorr keys, the public key is represented as 33 bytes (0x02 or 0x03 followed by the x-coordinate) according to the [SEC1 standard](https://www.secg.org/SEC1-Ver-1.0.pdf). <li>For EdDSA, the public key is represented as a 32-byte value, as defined by [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032). </ul>'
+          example: SGVsbG8=
+        supports_derivation:
+          type: boolean
+          title: Supports Derivation
+          description: 'Whether the key supports BIP-32 derivation. Standalone private keys do not support derivation. '
       type: object
       required:
-      - state
-      title: GetImportKeysStatusResponse
+      - key_id
+      - key_name
+      - key_type
+      - key_origin
+      - xpub
+      - public_key_compressed
+      - supports_derivation
+      title: OrganizationMasterKey
     ResourceError:
       properties:
         title:
@@ -307,6 +394,90 @@ components:
       - title
       - detail
       title: ResourceError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    FireblocksImportPackage:
+      properties:
+        type:
+          type: string
+          const: fireblocks
+          title: Type
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the key to import.
+        backup_zip_content:
+          type: string
+          title: Backup Zip Content
+          description: The base64 encoded content of the Fireblocks backup zip file.
+          example: SGVsbG8=
+        encrypted_rsa_pem:
+          title: Encrypted Rsa Pem
+          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
+          type: string
+          example: SGVsbG8=
+        rsa_pem_password:
+          title: Rsa Pem Password
+          description: The password for RSA private key.
+          type: string
+      type: object
+      required:
+      - type
+      - key_name
+      - backup_zip_content
+      title: FireblocksImportPackage
+    ListKeysResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/OrganizationMasterKey'
+          type: array
+          title: Keys
+          description: The list of organization's active keys.
+      type: object
+      required:
+      - keys
+      title: ListKeysResponse
+    GetImportKeysStatusResponse:
+      properties:
+        state:
+          $ref: '#/components/schemas/ImportKeysStatus'
+          description: The state of the import keys request.
+      type: object
+      required:
+      - state
+      title: GetImportKeysStatusResponse
+    StartImportKeysResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/OrganizationMasterKey'
+          type: array
+          title: Keys
+          description: The list of imported keys.
+      type: object
+      required:
+      - keys
+      title: StartImportKeysResponse
     StandaloneImportPackage:
       properties:
         type:
@@ -382,178 +553,6 @@ components:
       - title
       - detail
       title: ValidationError
-    FireblocksImportPackage:
-      properties:
-        type:
-          type: string
-          const: fireblocks
-          title: Type
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the key to import.
-        backup_zip_content:
-          type: string
-          title: Backup Zip Content
-          description: The base64 encoded content of the Fireblocks backup zip file.
-          example: SGVsbG8=
-        encrypted_rsa_pem:
-          title: Encrypted Rsa Pem
-          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
-          type: string
-          example: SGVsbG8=
-        rsa_pem_password:
-          title: Rsa Pem Password
-          description: The password for RSA private key.
-          type: string
-      type: object
-      required:
-      - type
-      - key_name
-      - backup_zip_content
-      title: FireblocksImportPackage
-    OrganizationMasterKey:
-      properties:
-        key_id:
-          type: string
-          format: uuid
-          title: Key Id
-          description: The ID of the imported key.
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the imported key.
-        key_type:
-          $ref: '#/components/schemas/KeyType'
-          description: The type of the imported key.
-        key_origin:
-          $ref: '#/components/schemas/KeyOriginType'
-          description: The origin of the key.
-        xpub:
-          type: string
-          title: Xpub
-          description: The xpub encoding of the key. For more details, see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
-        public_key_compressed:
-          type: string
-          title: Public Key Compressed
-          description: 'The public key of the vault in its compressed form: <ul> <li>For ECDSA and Schnorr keys, the public key is represented as 33 bytes (0x02 or 0x03 followed by the x-coordinate) according to the [SEC1 standard](https://www.secg.org/SEC1-Ver-1.0.pdf). <li>For EdDSA, the public key is represented as a 32-byte value, as defined by [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032). </ul>'
-          example: SGVsbG8=
-        supports_derivation:
-          type: boolean
-          title: Supports Derivation
-          description: 'Whether the key supports BIP-32 derivation. Standalone private keys do not support derivation. '
-      type: object
-      required:
-      - key_id
-      - key_name
-      - key_type
-      - key_origin
-      - xpub
-      - public_key_compressed
-      - supports_derivation
-      title: OrganizationMasterKey
-    ImportKeysStatus:
-      type: string
-      enum:
-      - not_started
-      - in_progress
-      - completed
-      title: ImportKeysStatus
-    StartImportKeysRequest:
-      oneOf:
-      - $ref: '#/components/schemas/FireblocksImportPackage'
-      - $ref: '#/components/schemas/StandaloneImportPackage'
-      discriminator:
-        propertyName: type
-        mapping:
-          fireblocks: '#/components/schemas/FireblocksImportPackage'
-          standalone: '#/components/schemas/StandaloneImportPackage'
-    KeyType:
-      type: string
-      enum:
-      - ecdsa_secp256k1
-      - eddsa_ed25519
-      - ecdsa_stark
-      - schnorr_secp256k1
-      title: KeyType
-    KeyOriginType:
-      type: string
-      enum:
-      - native
-      - imported
-      title: KeyOriginType
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    StartImportKeysResponse:
-      properties:
-        keys:
-          items:
-            $ref: '#/components/schemas/OrganizationMasterKey'
-          type: array
-          title: Keys
-          description: The list of imported keys.
-      type: object
-      required:
-      - keys
-      title: StartImportKeysResponse
-    ListKeysResponse:
-      properties:
-        keys:
-          items:
-            $ref: '#/components/schemas/OrganizationMasterKey'
-          type: array
-          title: Keys
-          description: The list of organization's active keys.
-      type: object
-      required:
-      - keys
-      title: ListKeysResponse
   securitySchemes:
     bearerAuth:
       type: http
