@@ -148,60 +148,15 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
+    ExportState:
+      type: string
+      enum:
+      - created
+      - in_progress
+      - aborted
+      - ready
+      - error
+      title: ExportState
     DefinedPreconditionError_CreateTransactionErrorType_:
       properties:
         title:
@@ -231,83 +186,10 @@ components:
       - title
       - detail
       title: DefinedPreconditionError[CreateTransactionErrorType]
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
+    RateLimitError:
+      properties: {}
       type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
+      title: RateLimitError
     Export:
       properties:
         id:
@@ -379,6 +261,84 @@ components:
       - download_url
       - expiration_time
       title: Export
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
     ExportedResource:
       type: string
       enum:
@@ -386,12 +346,6 @@ components:
       - backup_snapshot
       - vault
       title: ExportedResource
-    ExportType:
-      type: string
-      enum:
-      - csv
-      - zip
-      title: ExportType
     CreateTransactionErrorType:
       type: string
       enum:
@@ -451,15 +405,35 @@ components:
       - invalid_canton_vault_registration_state
       - failed_finding_wrapped_native_token
       title: CreateTransactionErrorType
-    ExportState:
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ExportType:
       type: string
       enum:
-      - created
-      - in_progress
-      - aborted
-      - ready
-      - error
-      title: ExportState
+      - csv
+      - zip
+      title: ExportType
     ValidationError:
       properties:
         title:
@@ -484,6 +458,32 @@ components:
       - title
       - detail
       title: ValidationError
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
   securitySchemes:
     bearerAuth:
       type: http
