@@ -148,6 +148,101 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
+    ExportedResource:
+      type: string
+      enum:
+      - transaction
+      - backup_snapshot
+      - vault
+      title: ExportedResource
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ExportType:
+      type: string
+      enum:
+      - csv
+      - zip
+      title: ExportType
+    CreateTransactionErrorType:
+      type: string
+      enum:
+      - reverted_transaction
+      - partial_signed_raw_request
+      - blocked_by_policy
+      - transaction_contains_restricted_addresses
+      - vault_not_found
+      - missing_signed_raw_request
+      - redundant_signed_raw_request
+      - transaction_to_non_contract
+      - insecure_key_derivation
+      - invalid_signed_raw_request
+      - invalid_signer_type
+      - invalid_evm_message
+      - invalid_evm_transaction_data
+      - insufficient_funds
+      - vault_type_mismatch
+      - invalid_creator_type
+      - invalid_recipient
+      - dust_not_allowed
+      - invalid_gas_type
+      - insufficient_approvers
+      - funding_blocked_by_policy
+      - funder_not_allowed_for_transaction_type
+      - origin_vault_used_as_funder
+      - mixed_secure_and_non_secure_transactions
+      - invalid_push_mode
+      - chain_does_not_support_secure_node
+      - invalid_solana_secret_key
+      - invalid_solana_raw_transaction_accounts_field
+      - insufficient_gas_coins
+      - invalid_aptos_serialized_entry_point
+      - invalid_aptos_serialized_type
+      - invalid_aptos_rotate_key
+      - sui_package_address_not_found
+      - transaction_already_mined
+      - invalid_utxo_message_address_type
+      - invalid_starknet_vault_state
+      - missing_secret_key_or_recent_blockhash
+      - missing_secret_key_or_signature
+      - revoke_allowance_gas_limit_too_high
+      - chain_is_disabled
+      - priority_fee_already_set
+      - quote_not_found
+      - invalid_transaction_gas_config_field
+      - chain_is_not_supported
+      - gas_sponsor_not_enabled_for_organization
+      - chain_does_not_support_7702
+      - creating_user_operation_message_is_blocked
+      - transaction_fee_exceeds_limit
+      - transaction_not_pushable
+      - aml_not_configured
+      - transaction_not_frozen
+      - send_7702_transaction_to_self
+      - vault_is_not_smart_account
+      - invalid_canton_vault_registration_state
+      - failed_finding_wrapped_native_token
+      title: CreateTransactionErrorType
     ExportState:
       type: string
       enum:
@@ -157,6 +252,90 @@ components:
       - ready
       - error
       title: ExportState
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
     DefinedPreconditionError_CreateTransactionErrorType_:
       properties:
         title:
@@ -186,10 +365,33 @@ components:
       - title
       - detail
       title: DefinedPreconditionError[CreateTransactionErrorType]
-    RateLimitError:
-      properties: {}
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
       type: object
-      title: RateLimitError
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
     Export:
       properties:
         id:
@@ -261,36 +463,6 @@ components:
       - download_url
       - expiration_time
       title: Export
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
     ValidationErrorDetail:
       properties:
         loc:
@@ -312,178 +484,6 @@ components:
       - msg
       - type
       title: ValidationErrorDetail
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    ExportedResource:
-      type: string
-      enum:
-      - transaction
-      - backup_snapshot
-      - vault
-      title: ExportedResource
-    CreateTransactionErrorType:
-      type: string
-      enum:
-      - reverted_transaction
-      - partial_signed_raw_request
-      - blocked_by_policy
-      - transaction_contains_restricted_addresses
-      - vault_not_found
-      - missing_signed_raw_request
-      - redundant_signed_raw_request
-      - transaction_to_non_contract
-      - insecure_key_derivation
-      - invalid_signed_raw_request
-      - invalid_signer_type
-      - invalid_evm_message
-      - invalid_evm_transaction_data
-      - insufficient_funds
-      - vault_type_mismatch
-      - invalid_creator_type
-      - invalid_recipient
-      - dust_not_allowed
-      - invalid_gas_type
-      - insufficient_approvers
-      - funding_blocked_by_policy
-      - funder_not_allowed_for_transaction_type
-      - origin_vault_used_as_funder
-      - mixed_secure_and_non_secure_transactions
-      - invalid_push_mode
-      - chain_does_not_support_secure_node
-      - invalid_solana_secret_key
-      - invalid_solana_raw_transaction_accounts_field
-      - insufficient_gas_coins
-      - invalid_aptos_serialized_entry_point
-      - invalid_aptos_serialized_type
-      - invalid_aptos_rotate_key
-      - sui_package_address_not_found
-      - transaction_already_mined
-      - invalid_utxo_message_address_type
-      - invalid_starknet_vault_state
-      - missing_secret_key_or_recent_blockhash
-      - missing_secret_key_or_signature
-      - revoke_allowance_gas_limit_too_high
-      - chain_is_disabled
-      - priority_fee_already_set
-      - quote_not_found
-      - invalid_transaction_gas_config_field
-      - chain_is_not_supported
-      - gas_sponsor_not_enabled_for_organization
-      - chain_does_not_support_7702
-      - creating_user_operation_message_is_blocked
-      - transaction_fee_exceeds_limit
-      - transaction_not_pushable
-      - aml_not_configured
-      - transaction_not_frozen
-      - send_7702_transaction_to_self
-      - vault_is_not_smart_account
-      - invalid_canton_vault_registration_state
-      - failed_finding_wrapped_native_token
-      title: CreateTransactionErrorType
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ExportType:
-      type: string
-      enum:
-      - csv
-      - zip
-      title: ExportType
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
   securitySchemes:
     bearerAuth:
       type: http

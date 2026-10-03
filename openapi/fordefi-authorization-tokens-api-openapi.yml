@@ -270,6 +270,50 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
+    AuthToken:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user the authorization token is issued for.
+        expired_at:
+          type: string
+          format: date-time
+          title: Expired At
+          description: Token expiration time.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: Type of the user the authorization token is issued for.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - user_id
+      - expired_at
+      - user_type
+      title: AuthToken
+    IssueAuthTokenResponse:
+      $ref: '#/components/schemas/IssueEndUserAuthTokenResponse'
+      title: IssueAuthTokenResponse
     IssueAuthTokenRequest:
       oneOf:
       - $ref: '#/components/schemas/IssueEndUserAuthTokenRequest'
@@ -277,6 +321,222 @@ components:
         propertyName: user_type
         mapping:
           end_user: '#/components/schemas/IssueEndUserAuthTokenRequest'
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    IssueEndUserAuthTokenErrorType:
+      type: string
+      enum:
+      - cannot_issue_token_for_user_type
+      title: IssueEndUserAuthTokenErrorType
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    ListAuthTokensResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        auth_tokens:
+          items:
+            $ref: '#/components/schemas/AuthToken'
+          type: array
+          title: Auth Tokens
+          description: Authorization tokens list.
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - auth_tokens
+      title: ListAuthTokensResponse
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    DefinedPreconditionError_IssueEndUserAuthTokenErrorType_:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+        error_type:
+          $ref: '#/components/schemas/IssueEndUserAuthTokenErrorType'
+      type: object
+      required:
+      - title
+      - detail
+      title: DefinedPreconditionError[IssueEndUserAuthTokenErrorType]
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
+    IssueEndUserAuthTokenRequest:
+      properties:
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+          description: ID of the end user to issue the authorization token for.
+        expiration:
+          type: integer
+          maximum: 315360000.0
+          minimum: 1.0
+          title: Expiration
+          description: 'Token expiration in seconds (default: 1 day).'
+          default: 86400
+      type: object
+      required:
+      - user_type
+      - user_id
+      title: IssueEndUserAuthTokenRequest
     IssueEndUserAuthTokenResponse:
       properties:
         id:
@@ -323,40 +583,6 @@ components:
       - user_type
       - access_token
       title: IssueEndUserAuthTokenResponse
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
     ValidationErrorDetail:
       properties:
         loc:
@@ -378,232 +604,6 @@ components:
       - msg
       - type
       title: ValidationErrorDetail
-    AuthToken:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the object in the Fordefi platform.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The date and time when the object was created.
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-          description: ID of the end user the authorization token is issued for.
-        expired_at:
-          type: string
-          format: date-time
-          title: Expired At
-          description: Token expiration time.
-        user_type:
-          type: string
-          const: end_user
-          title: User Type
-          description: Type of the user the authorization token is issued for.
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - user_id
-      - expired_at
-      - user_type
-      title: AuthToken
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    IssueEndUserAuthTokenErrorType:
-      type: string
-      enum:
-      - cannot_issue_token_for_user_type
-      title: IssueEndUserAuthTokenErrorType
-    IssueAuthTokenResponse:
-      $ref: '#/components/schemas/IssueEndUserAuthTokenResponse'
-      title: IssueAuthTokenResponse
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    IssueEndUserAuthTokenRequest:
-      properties:
-        user_type:
-          type: string
-          const: end_user
-          title: User Type
-          description: The type of the user.
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-          description: ID of the end user to issue the authorization token for.
-        expiration:
-          type: integer
-          maximum: 315360000.0
-          minimum: 1.0
-          title: Expiration
-          description: 'Token expiration in seconds (default: 1 day).'
-          default: 86400
-      type: object
-      required:
-      - user_type
-      - user_id
-      title: IssueEndUserAuthTokenRequest
-    DefinedPreconditionError_IssueEndUserAuthTokenErrorType_:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-        error_type:
-          $ref: '#/components/schemas/IssueEndUserAuthTokenErrorType'
-      type: object
-      required:
-      - title
-      - detail
-      title: DefinedPreconditionError[IssueEndUserAuthTokenErrorType]
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    ListAuthTokensResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        auth_tokens:
-          items:
-            $ref: '#/components/schemas/AuthToken'
-          type: array
-          title: Auth Tokens
-          description: Authorization tokens list.
-      type: object
-      required:
-      - total
-      - page
-      - size
-      - auth_tokens
-      title: ListAuthTokensResponse
   securitySchemes:
     bearerAuth:
       type: http

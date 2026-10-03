@@ -301,549 +301,6 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
-    ApprovalRequest:
-      properties:
-        state:
-          $ref: '#/components/schemas/ApprovalRequestState'
-          description: The state of the approval request.
-        required_groups:
-          type: integer
-          title: Required Groups
-          description: The number of required approval groups.
-        approval_groups:
-          items:
-            $ref: '#/components/schemas/ApprovalRequestGroup'
-          type: array
-          title: Approval Groups
-          description: A list of the possible approvers from different groups.
-        error_message:
-          title: Error Message
-          description: The error message if the request failed.
-          type: string
-      type: object
-      required:
-      - state
-      - required_groups
-      - approval_groups
-      title: ApprovalRequest
-      description: Represents an approval request for an action in the Fordefi platform
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
-    DeviceBackupInfoExt:
-      properties:
-        device_backup_info:
-          $ref: '#/components/schemas/DeviceBackupInfo'
-          description: The device backup information.
-        backup_created_at:
-          type: string
-          format: date-time
-          title: Backup Created At
-          description: The time when the backup was created.
-        backup_last_verified_at:
-          type: string
-          format: date-time
-          title: Backup Last Verified At
-          description: The time when the backup was last verified.
-      type: object
-      required:
-      - device_backup_info
-      - backup_created_at
-      - backup_last_verified_at
-      title: DeviceBackupInfoExt
-    SystemUserRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: system
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name is Fordefi CARE
-      type: object
-      required:
-      - id
-      - user_type
-      - name
-      title: SystemUserRef
-    ApiUserRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: api_user
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name of the user.
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          title: State
-          description: The state of the user.
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - name
-      - state
-      - role
-      title: ApiUserRef
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ListUsersResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        users:
-          items:
-            $ref: '#/components/schemas/User'
-          type: array
-          title: Users
-      type: object
-      required:
-      - total
-      - page
-      - size
-      - users
-      title: ListUsersResponse
-    ApiUser:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the object in the Fordefi platform.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The date and time when the object was created.
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
-        user_type:
-          type: string
-          const: api_user
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name of the user.
-          example: John Doe
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          title: State
-          description: 'The state of the user. Is one of: <ul><li>`active`: The user can perform all actions in the Fordefi platform.<li>`deleted`: The user has been deleted.</ul>'
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
-        user_groups:
-          title: User Groups
-          description: The groups the user belongs to.
-          items:
-            $ref: '#/components/schemas/UserGroupRef'
-          type: array
-        pending_addition_to_user_groups:
-          title: Pending Addition To User Groups
-          description: The groups the user is pending to be added to.
-          items:
-            $ref: '#/components/schemas/UserGroupRef'
-          type: array
-        pending_removal_from_user_groups:
-          title: Pending Removal From User Groups
-          description: The groups the user is pending to be removed from.
-          items:
-            $ref: '#/components/schemas/UserGroupRef'
-          type: array
-        allowed_ip_settings:
-          $ref: '#/components/schemas/UserAllowedIpSettings'
-          description: Settings that define from which IPs API calls by this user are allowed.
-        last_active_at:
-          title: Last Active At
-          description: The last date and time when the user was active.
-          type: string
-          format: date-time
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - user_type
-      - name
-      - state
-      - role
-      - allowed_ip_settings
-      title: ApiUser
-      description: Represents an API user in the Fordefi platform.
-    UserSortableFields:
-      type: string
-      enum:
-      - role_asc
-      - role_desc
-      - email_asc
-      - email_desc
-      - created_asc
-      - created_desc
-      - name_asc
-      - name_desc
-      - last_keep_alive_asc
-      - last_keep_alive_desc
-      - state_asc
-      - state_desc
-      - type_asc
-      - type_desc
-      title: UserSortableFields
-    BannerType:
-      type: string
-      enum:
-      - welcome_message
-      - new_policy_message
-      title: BannerType
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    PendingUserChangeRef:
-      properties:
-        new_role:
-          type: string
-          enum:
-          - admin
-          - trader
-          title: New Role
-          description: The new role of the user.
-        change_request_id:
-          type: string
-          format: uuid
-          title: Change Request Id
-          description: The unique identifier of the change request.
-      type: object
-      required:
-      - new_role
-      - change_request_id
-      title: PendingUserChangeRef
-    ApprovalRequestState:
-      type: string
-      enum:
-      - created
-      - approved
-      - insufficient_approvers
-      - auto_approved
-      - failed
-      title: ApprovalRequestState
-      description: Represents the whole approval request state
-    SystemUser:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the object in the Fordefi platform.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The date and time when the object was created.
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
-        user_type:
-          type: string
-          const: system
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name of the system user.
-        state:
-          type: string
-          const: active
-          title: State
-          description: The state of the system user can be only active and returned for consistency.
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - user_type
-      - name
-      - state
-      title: SystemUser
-      description: Represents a System User in the Fordefi platform.
-    UserRef:
-      oneOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - $ref: '#/components/schemas/ApiUserRef'
-      - $ref: '#/components/schemas/ApiSignerRef'
-      - $ref: '#/components/schemas/EndUserRef'
-      - $ref: '#/components/schemas/SystemUserRef'
-      description: Represents a reference to a user in the Fordefi platform
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_signer: '#/components/schemas/ApiSignerRef'
-          api_user: '#/components/schemas/ApiUserRef'
-          end_user: '#/components/schemas/EndUserRef'
-          person: '#/components/schemas/PersonRef'
-          system: '#/components/schemas/SystemUserRef'
-    EndUserRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: end_user
-          title: User Type
-          description: The type of the user.
-        external_id:
-          type: string
-          title: External Id
-          description: External id of the user.
-          example: user|1234
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          title: State
-          description: The state of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - external_id
-      - state
-      title: EndUserRef
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    ApprovalRequestGroup:
-      properties:
-        quorum_size:
-          type: integer
-          title: Quorum Size
-          description: The number of approvers required to approve the transaction.
-        approvers:
-          items:
-            $ref: '#/components/schemas/RequestApprover'
-          type: array
-          title: Approvers
-          description: A list of the possible approvers.
-      type: object
-      required:
-      - quorum_size
-      - approvers
-      title: ApprovalRequestGroup
-    User:
-      oneOf:
-      - $ref: '#/components/schemas/Person'
-      - $ref: '#/components/schemas/ApiUser'
-      - $ref: '#/components/schemas/ApiSigner'
-      - $ref: '#/components/schemas/SystemUser'
-      description: Represents a user in the Fordefi platform
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_signer: '#/components/schemas/ApiSigner'
-          api_user: '#/components/schemas/ApiUser'
-          person: '#/components/schemas/Person'
-          system: '#/components/schemas/SystemUser'
-    UserGroupRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of user group in the Fordefi platform.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The name of the user group.
-        users_count:
-          type: integer
-          minimum: 0.0
-          title: Users Count
-          description: The number of users in the group.
-        admins_count:
-          type: integer
-          minimum: 0.0
-          title: Admins Count
-          description: The number of admins in the group.
-        state:
-          $ref: '#/components/schemas/UserGroupState'
-          description: The state of the user group.
-      type: object
-      required:
-      - id
-      - name
-      - users_count
-      - admins_count
-      - state
-      title: UserGroupRef
-    ApprovalState:
-      type: string
-      enum:
-      - pending
-      - approved
-      - unauthorized
-      - not_participated
-      title: ApprovalState
-      description: Represents an approval state of a single approver
-    Cloud:
-      properties:
-        validation_hash:
-          type: string
-          title: Validation Hash
-          example: SGVsbG8=
-        type:
-          type: string
-          const: cloud
-          title: Type
-          description: Cloud backup type.
-        cloud_type:
-          $ref: '#/components/schemas/CloudType'
-        account:
-          type: string
-          title: Account
-        pin_code:
-          type: string
-          pattern: ^\d{6}$
-          title: Pin Code
-      type: object
-      required:
-      - validation_hash
-      - type
-      - cloud_type
-      - account
-      - pin_code
-      title: Cloud
     ApiSigner:
       properties:
         id:
@@ -927,6 +384,299 @@ components:
       - name
       - state
       title: ApiSignerRef
+    DeviceBackupInfo:
+      oneOf:
+      - $ref: '#/components/schemas/Cloud'
+      - $ref: '#/components/schemas/Mnemonic'
+      description: The type of the backup.
+      discriminator:
+        propertyName: type
+        mapping:
+          cloud: '#/components/schemas/Cloud'
+          mnemonic: '#/components/schemas/Mnemonic'
+    UserSortableFields:
+      type: string
+      enum:
+      - role_asc
+      - role_desc
+      - email_asc
+      - email_desc
+      - created_asc
+      - created_desc
+      - name_asc
+      - name_desc
+      - last_keep_alive_asc
+      - last_keep_alive_desc
+      - state_asc
+      - state_desc
+      - type_asc
+      - type_desc
+      title: UserSortableFields
+    ListUsersResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        users:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+          title: Users
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - users
+      title: ListUsersResponse
+    EndUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        external_id:
+          type: string
+          title: External Id
+          description: External id of the user.
+          example: user|1234
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - external_id
+      - state
+      title: EndUserRef
+    Cloud:
+      properties:
+        validation_hash:
+          type: string
+          title: Validation Hash
+          example: SGVsbG8=
+        type:
+          type: string
+          const: cloud
+          title: Type
+          description: Cloud backup type.
+        cloud_type:
+          $ref: '#/components/schemas/CloudType'
+        account:
+          type: string
+          title: Account
+        pin_code:
+          type: string
+          pattern: ^\d{6}$
+          title: Pin Code
+      type: object
+      required:
+      - validation_hash
+      - type
+      - cloud_type
+      - account
+      - pin_code
+      title: Cloud
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    CloudType:
+      type: string
+      enum:
+      - google_drive
+      - icloud
+      title: CloudType
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    ApprovalState:
+      type: string
+      enum:
+      - pending
+      - approved
+      - unauthorized
+      - not_participated
+      title: ApprovalState
+      description: Represents an approval state of a single approver
+    UserGroupState:
+      type: string
+      enum:
+      - active
+      - deleted
+      title: UserGroupState
+      description: Represents a user group state in the Fordefi platform
+    SystemUser:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the system user.
+        state:
+          type: string
+          const: active
+          title: State
+          description: The state of the system user can be only active and returned for consistency.
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - user_type
+      - name
+      - state
+      title: SystemUser
+      description: Represents a System User in the Fordefi platform.
+    GetUserResponse:
+      oneOf:
+      - $ref: '#/components/schemas/Person'
+      - $ref: '#/components/schemas/ApiUser'
+      - $ref: '#/components/schemas/ApiSigner'
+      - $ref: '#/components/schemas/SystemUser'
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSigner'
+          api_user: '#/components/schemas/ApiUser'
+          person: '#/components/schemas/Person'
+          system: '#/components/schemas/SystemUser'
+    UserGroupRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of user group in the Fordefi platform.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the user group.
+        users_count:
+          type: integer
+          minimum: 0.0
+          title: Users Count
+          description: The number of users in the group.
+        admins_count:
+          type: integer
+          minimum: 0.0
+          title: Admins Count
+          description: The number of admins in the group.
+        state:
+          $ref: '#/components/schemas/UserGroupState'
+          description: The state of the user group.
+      type: object
+      required:
+      - id
+      - name
+      - users_count
+      - admins_count
+      - state
+      title: UserGroupRef
     UserAllowedIpSettings:
       properties:
         allow_type:
@@ -942,19 +692,25 @@ components:
       required:
       - allow_type
       title: UserAllowedIpSettings
-    UserAllowedIpType:
-      type: string
-      enum:
-      - allow_all
-      - ip_list
-      title: UserAllowedIpType
-    UserStateOnGroup:
-      type: string
-      enum:
-      - active
-      - pending_addition
-      - pending_removal
-      title: UserStateOnGroup
+    PendingUserChangeRef:
+      properties:
+        new_role:
+          type: string
+          enum:
+          - admin
+          - trader
+          title: New Role
+          description: The new role of the user.
+        change_request_id:
+          type: string
+          format: uuid
+          title: Change Request Id
+          description: The unique identifier of the change request.
+      type: object
+      required:
+      - new_role
+      - change_request_id
+      title: PendingUserChangeRef
     UserType:
       type: string
       enum:
@@ -963,74 +719,27 @@ components:
       - api_user
       - system
       title: UserType
-    UserGroupState:
-      type: string
-      enum:
-      - active
-      - deleted
-      title: UserGroupState
-      description: Represents a user group state in the Fordefi platform
-    GetUserResponse:
-      oneOf:
-      - $ref: '#/components/schemas/Person'
-      - $ref: '#/components/schemas/ApiUser'
-      - $ref: '#/components/schemas/ApiSigner'
-      - $ref: '#/components/schemas/SystemUser'
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_signer: '#/components/schemas/ApiSigner'
-          api_user: '#/components/schemas/ApiUser'
-          person: '#/components/schemas/Person'
-          system: '#/components/schemas/SystemUser'
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    Mnemonic:
+    DeviceBackupInfoExt:
       properties:
-        validation_hash:
+        device_backup_info:
+          $ref: '#/components/schemas/DeviceBackupInfo'
+          description: The device backup information.
+        backup_created_at:
           type: string
-          title: Validation Hash
-          example: SGVsbG8=
-        type:
+          format: date-time
+          title: Backup Created At
+          description: The time when the backup was created.
+        backup_last_verified_at:
           type: string
-          const: mnemonic
-          title: Type
-          description: Mnemonic backup type.
+          format: date-time
+          title: Backup Last Verified At
+          description: The time when the backup was last verified.
       type: object
       required:
-      - validation_hash
-      - type
-      title: Mnemonic
-    UserRole:
-      type: string
-      enum:
-      - admin
-      - trader
-      - viewer
-      title: UserRole
-    DeviceBackupInfo:
-      oneOf:
-      - $ref: '#/components/schemas/Cloud'
-      - $ref: '#/components/schemas/Mnemonic'
-      description: The type of the backup.
-      discriminator:
-        propertyName: type
-        mapping:
-          cloud: '#/components/schemas/Cloud'
-          mnemonic: '#/components/schemas/Mnemonic'
-    UserState:
-      type: string
-      enum:
-      - active
-      - onboarding_pending_code_generation
-      - onboarding_pending_activation
-      - reset_device_pending_code_generation
-      - reset_device_pending_activation
-      - pending_approval
-      - deleted
-      title: UserState
+      - device_backup_info
+      - backup_created_at
+      - backup_last_verified_at
+      title: DeviceBackupInfoExt
     PreconditionFailedError:
       properties:
         title:
@@ -1058,6 +767,30 @@ components:
       - title
       - detail
       title: PreconditionFailedError
+    ApprovalRequestGroup:
+      properties:
+        quorum_size:
+          type: integer
+          title: Quorum Size
+          description: The number of approvers required to approve the transaction.
+        approvers:
+          items:
+            $ref: '#/components/schemas/RequestApprover'
+          type: array
+          title: Approvers
+          description: A list of the possible approvers.
+      type: object
+      required:
+      - quorum_size
+      - approvers
+      title: ApprovalRequestGroup
+    UserStateOnGroup:
+      type: string
+      enum:
+      - active
+      - pending_addition
+      - pending_removal
+      title: UserStateOnGroup
     Person:
       properties:
         id:
@@ -1151,67 +884,13 @@ components:
       - role
       title: Person
       description: Represents a human user in the Fordefi platform
-    RequestApprover:
-      properties:
-        user:
-          oneOf:
-          - $ref: '#/components/schemas/PersonRef'
-          - $ref: '#/components/schemas/ApiUserRef'
-          discriminator:
-            propertyName: user_type
-            mapping:
-              api_user: '#/components/schemas/ApiUserRef'
-              person: '#/components/schemas/PersonRef'
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when this approval was modified.
-        decision:
-          title: Decision
-          description: The decision of the approver.
-          deprecated: true
-          type: string
-        state:
-          $ref: '#/components/schemas/ApprovalState'
-          description: The state of the approval request for this approver.
-      type: object
-      required:
-      - user
-      - modified_at
-      - state
-      title: RequestApprover
-      description: Represents a single approver in an approval request
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    CloudType:
+    UserRole:
       type: string
       enum:
-      - google_drive
-      - icloud
-      title: CloudType
+      - admin
+      - trader
+      - viewer
+      title: UserRole
     PersonRef:
       properties:
         id:
@@ -1247,6 +926,327 @@ components:
       - state
       - role
       title: PersonRef
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    User:
+      oneOf:
+      - $ref: '#/components/schemas/Person'
+      - $ref: '#/components/schemas/ApiUser'
+      - $ref: '#/components/schemas/ApiSigner'
+      - $ref: '#/components/schemas/SystemUser'
+      description: Represents a user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSigner'
+          api_user: '#/components/schemas/ApiUser'
+          person: '#/components/schemas/Person'
+          system: '#/components/schemas/SystemUser'
+    UserAllowedIpType:
+      type: string
+      enum:
+      - allow_all
+      - ip_list
+      title: UserAllowedIpType
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    BannerType:
+      type: string
+      enum:
+      - welcome_message
+      - new_policy_message
+      title: BannerType
+    ApprovalRequest:
+      properties:
+        state:
+          $ref: '#/components/schemas/ApprovalRequestState'
+          description: The state of the approval request.
+        required_groups:
+          type: integer
+          title: Required Groups
+          description: The number of required approval groups.
+        approval_groups:
+          items:
+            $ref: '#/components/schemas/ApprovalRequestGroup'
+          type: array
+          title: Approval Groups
+          description: A list of the possible approvers from different groups.
+        error_message:
+          title: Error Message
+          description: The error message if the request failed.
+          type: string
+      type: object
+      required:
+      - state
+      - required_groups
+      - approval_groups
+      title: ApprovalRequest
+      description: Represents an approval request for an action in the Fordefi platform
+    SystemUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name is Fordefi CARE
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      title: SystemUserRef
+    ApprovalRequestState:
+      type: string
+      enum:
+      - created
+      - approved
+      - insufficient_approvers
+      - auto_approved
+      - failed
+      title: ApprovalRequestState
+      description: Represents the whole approval request state
+    ApiUser:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        user_type:
+          type: string
+          const: api_user
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+          example: John Doe
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: 'The state of the user. Is one of: <ul><li>`active`: The user can perform all actions in the Fordefi platform.<li>`deleted`: The user has been deleted.</ul>'
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
+        user_groups:
+          title: User Groups
+          description: The groups the user belongs to.
+          items:
+            $ref: '#/components/schemas/UserGroupRef'
+          type: array
+        pending_addition_to_user_groups:
+          title: Pending Addition To User Groups
+          description: The groups the user is pending to be added to.
+          items:
+            $ref: '#/components/schemas/UserGroupRef'
+          type: array
+        pending_removal_from_user_groups:
+          title: Pending Removal From User Groups
+          description: The groups the user is pending to be removed from.
+          items:
+            $ref: '#/components/schemas/UserGroupRef'
+          type: array
+        allowed_ip_settings:
+          $ref: '#/components/schemas/UserAllowedIpSettings'
+          description: Settings that define from which IPs API calls by this user are allowed.
+        last_active_at:
+          title: Last Active At
+          description: The last date and time when the user was active.
+          type: string
+          format: date-time
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      - user_type
+      - name
+      - state
+      - role
+      - allowed_ip_settings
+      title: ApiUser
+      description: Represents an API user in the Fordefi platform.
+    UserRef:
+      oneOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - $ref: '#/components/schemas/ApiUserRef'
+      - $ref: '#/components/schemas/ApiSignerRef'
+      - $ref: '#/components/schemas/EndUserRef'
+      - $ref: '#/components/schemas/SystemUserRef'
+      description: Represents a reference to a user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSignerRef'
+          api_user: '#/components/schemas/ApiUserRef'
+          end_user: '#/components/schemas/EndUserRef'
+          person: '#/components/schemas/PersonRef'
+          system: '#/components/schemas/SystemUserRef'
+    ApiUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: api_user
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      - state
+      - role
+      title: ApiUserRef
+    RequestApprover:
+      properties:
+        user:
+          oneOf:
+          - $ref: '#/components/schemas/PersonRef'
+          - $ref: '#/components/schemas/ApiUserRef'
+          discriminator:
+            propertyName: user_type
+            mapping:
+              api_user: '#/components/schemas/ApiUserRef'
+              person: '#/components/schemas/PersonRef'
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when this approval was modified.
+        decision:
+          title: Decision
+          description: The decision of the approver.
+          deprecated: true
+          type: string
+        state:
+          $ref: '#/components/schemas/ApprovalState'
+          description: The state of the approval request for this approver.
+      type: object
+      required:
+      - user
+      - modified_at
+      - state
+      title: RequestApprover
+      description: Represents a single approver in an approval request
+    Mnemonic:
+      properties:
+        validation_hash:
+          type: string
+          title: Validation Hash
+          example: SGVsbG8=
+        type:
+          type: string
+          const: mnemonic
+          title: Type
+          description: Mnemonic backup type.
+      type: object
+      required:
+      - validation_hash
+      - type
+      title: Mnemonic
+    UserState:
+      type: string
+      enum:
+      - active
+      - onboarding_pending_code_generation
+      - onboarding_pending_activation
+      - reset_device_pending_code_generation
+      - reset_device_pending_activation
+      - pending_approval
+      - deleted
+      title: UserState
   securitySchemes:
     bearerAuth:
       type: http

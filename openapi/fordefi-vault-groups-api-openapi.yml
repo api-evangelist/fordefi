@@ -169,7 +169,7 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    SystemUserRef:
+    ApiSignerRef:
       properties:
         id:
           type: string
@@ -178,29 +178,7 @@ components:
           description: The unique identifier of the user in the Fordefi platform.
         user_type:
           type: string
-          const: system
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name is Fordefi CARE
-      type: object
-      required:
-      - id
-      - user_type
-      - name
-      title: SystemUserRef
-    ApiUserRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: api_user
+          const: api_signer
           title: User Type
           description: The type of the user.
         name:
@@ -211,20 +189,286 @@ components:
           type: string
           enum:
           - active
+          - onboarding_pending_code_generation
+          - onboarding_pending_activation
           - deleted
           title: State
           description: The state of the user.
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
       type: object
       required:
       - id
       - user_type
       - name
       - state
-      - role
-      title: ApiUserRef
+      title: ApiSignerRef
+    VaultGroupAccessPermissionsPermitted:
+      properties:
+        access_type:
+          type: string
+          const: permitted
+          title: Access Type
+          description: access type
+        user_groups:
+          items:
+            $ref: '#/components/schemas/UserGroupRef'
+          type: array
+          title: User Groups
+          description: The list of permitted user group
+        users:
+          items:
+            $ref: '#/components/schemas/UserRef'
+          type: array
+          title: Users
+          description: The list of permitted users
+      type: object
+      required:
+      - access_type
+      - user_groups
+      - users
+      title: VaultGroupAccessPermissionsPermitted
+    EndUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        external_id:
+          type: string
+          title: External Id
+          description: External id of the user.
+          example: user|1234
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - external_id
+      - state
+      title: EndUserRef
+    ListVaultGroupsFilterByAccessLevel:
+      type: string
+      enum:
+      - view
+      - create_edit
+      - all
+      title: ListVaultGroupsFilterByAccessLevel
+    VaultGroupPermissions:
+      properties:
+        access_permissions:
+          $ref: '#/components/schemas/VaultGroupAccessPermissions'
+          description: the access permissions for this vault group
+        can_non_admins_create_or_edit_vaults:
+          type: boolean
+          title: Can Non Admins Create Or Edit Vaults
+          description: True to give create or edit permissions to the user groups. False to allow only admins
+        can_current_user_create_or_edit_vaults:
+          type: boolean
+          title: Can Current User Create Or Edit Vaults
+          description: Can the current user create or edit vaults in the group's based on the group permissions
+      type: object
+      required:
+      - access_permissions
+      - can_non_admins_create_or_edit_vaults
+      - can_current_user_create_or_edit_vaults
+      title: VaultGroupPermissions
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    ListVaultGroupsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        vault_groups:
+          items:
+            $ref: '#/components/schemas/VaultGroup'
+          type: array
+          title: Vault Groups
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - vault_groups
+      title: ListVaultGroupsResponse
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    UserGroupState:
+      type: string
+      enum:
+      - active
+      - deleted
+      title: UserGroupState
+      description: Represents a user group state in the Fordefi platform
+    BoundCount:
+      properties:
+        count:
+          type: integer
+          minimum: 0.0
+          title: Count
+          description: The number of items in the bound count.
+        has_more:
+          type: boolean
+          title: Has More
+          description: Whether there are more items in the bound count.
+      type: object
+      required:
+      - count
+      - has_more
+      title: BoundCount
+      description: BoundCount represents a bound count of items.
+    VaultGroupSortableFields:
+      type: string
+      enum:
+      - created_at_asc
+      - created_at_desc
+      - name_asc
+      - name_desc
+      - vault_count_asc
+      - vault_count_desc
+      title: VaultGroupSortableFields
+    VaultGroupAccessPermissionsAll:
+      properties:
+        access_type:
+          type: string
+          const: all
+          title: Access Type
+          description: access type
+      type: object
+      required:
+      - access_type
+      title: VaultGroupAccessPermissionsAll
+    UserGroupRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of user group in the Fordefi platform.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the user group.
+        users_count:
+          type: integer
+          minimum: 0.0
+          title: Users Count
+          description: The number of users in the group.
+        admins_count:
+          type: integer
+          minimum: 0.0
+          title: Admins Count
+          description: The number of admins in the group.
+        state:
+          $ref: '#/components/schemas/UserGroupState'
+          description: The state of the user group.
+      type: object
+      required:
+      - id
+      - name
+      - users_count
+      - admins_count
+      - state
+      title: UserGroupRef
+    VaultGroupAccessPermissions:
+      oneOf:
+      - $ref: '#/components/schemas/VaultGroupAccessPermissionsAll'
+      - $ref: '#/components/schemas/VaultGroupAccessPermissionsPermitted'
+      description: The access type of the permissions.
+      discriminator:
+        propertyName: access_type
+        mapping:
+          all: '#/components/schemas/VaultGroupAccessPermissionsAll'
+          permitted: '#/components/schemas/VaultGroupAccessPermissionsPermitted'
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
     VaultGroup:
       properties:
         id:
@@ -280,89 +524,6 @@ components:
       - state
       title: VaultGroup
       description: Represents a vault group in the Fordefi platform
-    VaultGroupAccessPermissionsAll:
-      properties:
-        access_type:
-          type: string
-          const: all
-          title: Access Type
-          description: access type
-      type: object
-      required:
-      - access_type
-      title: VaultGroupAccessPermissionsAll
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ListVaultGroupsFilterByAccessLevel:
-      type: string
-      enum:
-      - view
-      - create_edit
-      - all
-      title: ListVaultGroupsFilterByAccessLevel
-    BoundCount:
-      properties:
-        count:
-          type: integer
-          minimum: 0.0
-          title: Count
-          description: The number of items in the bound count.
-        has_more:
-          type: boolean
-          title: Has More
-          description: Whether there are more items in the bound count.
-      type: object
-      required:
-      - count
-      - has_more
-      title: BoundCount
-      description: BoundCount represents a bound count of items.
-    VaultGroupAccessPermissionsPermitted:
-      properties:
-        access_type:
-          type: string
-          const: permitted
-          title: Access Type
-          description: access type
-        user_groups:
-          items:
-            $ref: '#/components/schemas/UserGroupRef'
-          type: array
-          title: User Groups
-          description: The list of permitted user group
-        users:
-          items:
-            $ref: '#/components/schemas/UserRef'
-          type: array
-          title: Users
-          description: The list of permitted users
-      type: object
-      required:
-      - access_type
-      - user_groups
-      - users
-      title: VaultGroupAccessPermissionsPermitted
     VaultGroupPendingChangeRequestInfo:
       properties:
         id:
@@ -390,202 +551,6 @@ components:
       - created_by
       - created_at
       title: VaultGroupPendingChangeRequestInfo
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    VaultGroupAccessPermissions:
-      oneOf:
-      - $ref: '#/components/schemas/VaultGroupAccessPermissionsAll'
-      - $ref: '#/components/schemas/VaultGroupAccessPermissionsPermitted'
-      description: The access type of the permissions.
-      discriminator:
-        propertyName: access_type
-        mapping:
-          all: '#/components/schemas/VaultGroupAccessPermissionsAll'
-          permitted: '#/components/schemas/VaultGroupAccessPermissionsPermitted'
-    UserRef:
-      oneOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - $ref: '#/components/schemas/ApiUserRef'
-      - $ref: '#/components/schemas/ApiSignerRef'
-      - $ref: '#/components/schemas/EndUserRef'
-      - $ref: '#/components/schemas/SystemUserRef'
-      description: Represents a reference to a user in the Fordefi platform
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_signer: '#/components/schemas/ApiSignerRef'
-          api_user: '#/components/schemas/ApiUserRef'
-          end_user: '#/components/schemas/EndUserRef'
-          person: '#/components/schemas/PersonRef'
-          system: '#/components/schemas/SystemUserRef'
-    EndUserRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: end_user
-          title: User Type
-          description: The type of the user.
-        external_id:
-          type: string
-          title: External Id
-          description: External id of the user.
-          example: user|1234
-        state:
-          type: string
-          enum:
-          - active
-          - deleted
-          title: State
-          description: The state of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - external_id
-      - state
-      title: EndUserRef
-    VaultGroupSortableFields:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - name_asc
-      - name_desc
-      - vault_count_asc
-      - vault_count_desc
-      title: VaultGroupSortableFields
-    VaultGroupPermissions:
-      properties:
-        access_permissions:
-          $ref: '#/components/schemas/VaultGroupAccessPermissions'
-          description: the access permissions for this vault group
-        can_non_admins_create_or_edit_vaults:
-          type: boolean
-          title: Can Non Admins Create Or Edit Vaults
-          description: True to give create or edit permissions to the user groups. False to allow only admins
-        can_current_user_create_or_edit_vaults:
-          type: boolean
-          title: Can Current User Create Or Edit Vaults
-          description: Can the current user create or edit vaults in the group's based on the group permissions
-      type: object
-      required:
-      - access_permissions
-      - can_non_admins_create_or_edit_vaults
-      - can_current_user_create_or_edit_vaults
-      title: VaultGroupPermissions
-    UserGroupRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of user group in the Fordefi platform.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The name of the user group.
-        users_count:
-          type: integer
-          minimum: 0.0
-          title: Users Count
-          description: The number of users in the group.
-        admins_count:
-          type: integer
-          minimum: 0.0
-          title: Admins Count
-          description: The number of admins in the group.
-        state:
-          $ref: '#/components/schemas/UserGroupState'
-          description: The state of the user group.
-      type: object
-      required:
-      - id
-      - name
-      - users_count
-      - admins_count
-      - state
-      title: UserGroupRef
-    ApiSignerRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: api_signer
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name of the user.
-        state:
-          type: string
-          enum:
-          - active
-          - onboarding_pending_code_generation
-          - onboarding_pending_activation
-          - deleted
-          title: State
-          description: The state of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - name
-      - state
-      title: ApiSignerRef
-    VaultGroupOwner:
-      type: string
-      enum:
-      - system
-      - user
-      title: VaultGroupOwner
-    UserGroupState:
-      type: string
-      enum:
-      - active
-      - deleted
-      title: UserGroupState
-      description: Represents a user group state in the Fordefi platform
-    VaultGroupState:
-      type: string
-      enum:
-      - pending_approval
-      - active
-      - deleted
-      title: VaultGroupState
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
     UserRole:
       type: string
       enum:
@@ -593,68 +558,6 @@ components:
       - trader
       - viewer
       title: UserRole
-    UserState:
-      type: string
-      enum:
-      - active
-      - onboarding_pending_code_generation
-      - onboarding_pending_activation
-      - reset_device_pending_code_generation
-      - reset_device_pending_activation
-      - pending_approval
-      - deleted
-      title: UserState
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
     PersonRef:
       properties:
         id:
@@ -690,29 +593,126 @@ components:
       - state
       - role
       title: PersonRef
-    ListVaultGroupsResponse:
+    VaultGroupOwner:
+      type: string
+      enum:
+      - system
+      - user
+      title: VaultGroupOwner
+    ValidationError:
       properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        vault_groups:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
           items:
-            $ref: '#/components/schemas/VaultGroup'
+            $ref: '#/components/schemas/ValidationErrorDetail'
           type: array
-          title: Vault Groups
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
       type: object
       required:
-      - total
-      - page
-      - size
-      - vault_groups
-      title: ListVaultGroupsResponse
+      - title
+      - detail
+      title: ValidationError
+    SystemUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name is Fordefi CARE
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      title: SystemUserRef
+    UserRef:
+      oneOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - $ref: '#/components/schemas/ApiUserRef'
+      - $ref: '#/components/schemas/ApiSignerRef'
+      - $ref: '#/components/schemas/EndUserRef'
+      - $ref: '#/components/schemas/SystemUserRef'
+      description: Represents a reference to a user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSignerRef'
+          api_user: '#/components/schemas/ApiUserRef'
+          end_user: '#/components/schemas/EndUserRef'
+          person: '#/components/schemas/PersonRef'
+          system: '#/components/schemas/SystemUserRef'
+    ApiUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: api_user
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      - state
+      - role
+      title: ApiUserRef
+    UserState:
+      type: string
+      enum:
+      - active
+      - onboarding_pending_code_generation
+      - onboarding_pending_activation
+      - reset_device_pending_code_generation
+      - reset_device_pending_activation
+      - pending_approval
+      - deleted
+      title: UserState
+    VaultGroupState:
+      type: string
+      enum:
+      - pending_approval
+      - active
+      - deleted
+      title: VaultGroupState
   securitySchemes:
     bearerAuth:
       type: http

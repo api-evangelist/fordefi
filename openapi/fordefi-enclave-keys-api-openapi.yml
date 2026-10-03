@@ -68,10 +68,45 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    RateLimitError:
-      properties: {}
+    Attestation:
+      properties:
+        attestation:
+          type: string
+          title: Attestation
+          example: SGVsbG8=
+        certificate:
+          type: string
+          title: Certificate
+          example: SGVsbG8=
       type: object
-      title: RateLimitError
+      required:
+      - attestation
+      - certificate
+      title: Attestation
+      description: Attestation of a public key.
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
     ListEnclaveKeysResponse:
       properties:
         sign_key:
@@ -86,27 +121,6 @@ components:
       - encryption_key
       - intent_signing_key
       title: ListEnclaveKeysResponse
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
     TimestampedSignature:
       properties:
         signature:
@@ -137,6 +151,56 @@ components:
       - attestation
       title: AttestedSigningKey
       description: Signing key attested by the enclave.
+    SignedEncryptionKey:
+      properties:
+        public_key:
+          type: string
+          title: Public Key
+          description: Public key used for encryption.
+          example: SGVsbG8=
+        timestamped_signature:
+          $ref: '#/components/schemas/TimestampedSignature'
+          description: Signature of the public key.
+        certificate:
+          type: string
+          title: Certificate
+          description: Short-lived ECDSA-signed certificate for the encryption public key.
+          example: SGVsbG8=
+      type: object
+      required:
+      - public_key
+      - timestamped_signature
+      - certificate
+      title: SignedEncryptionKey
+      description: Encryption key signed by the enclave.
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
     PreconditionFailedError:
       properties:
         title:
@@ -164,91 +228,27 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    SignedEncryptionKey:
+    ValidationErrorDetail:
       properties:
-        public_key:
-          type: string
-          title: Public Key
-          description: Public key used for encryption.
-          example: SGVsbG8=
-        timestamped_signature:
-          $ref: '#/components/schemas/TimestampedSignature'
-          description: Signature of the public key.
-        certificate:
-          type: string
-          title: Certificate
-          description: Short-lived ECDSA-signed certificate for the encryption public key.
-          example: SGVsbG8=
-      type: object
-      required:
-      - public_key
-      - timestamped_signature
-      - certificate
-      title: SignedEncryptionKey
-      description: Encryption key signed by the enclave.
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    Attestation:
-      properties:
-        attestation:
-          type: string
-          title: Attestation
-          example: SGVsbG8=
-        certificate:
-          type: string
-          title: Certificate
-          example: SGVsbG8=
-      type: object
-      required:
-      - attestation
-      - certificate
-      title: Attestation
-      description: Attestation of a public key.
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
+            anyOf:
+            - type: integer
+            - type: string
           type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
+          title: Location
+        msg:
           type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
+          title: Message
+        type:
           type: string
+          title: Error Type
       type: object
       required:
-      - title
-      - detail
-      title: ValidationError
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
   securitySchemes:
     bearerAuth:
       type: http

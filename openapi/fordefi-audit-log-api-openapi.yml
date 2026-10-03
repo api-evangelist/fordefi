@@ -226,6 +226,60 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
+    ApiSignerRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: api_signer
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name of the user.
+        state:
+          type: string
+          enum:
+          - active
+          - onboarding_pending_code_generation
+          - onboarding_pending_activation
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      - state
+      title: ApiSignerRef
+    SystemUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name is Fordefi CARE
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      title: SystemUserRef
     EndUserRef:
       properties:
         id:
@@ -257,31 +311,22 @@ components:
       - external_id
       - state
       title: EndUserRef
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
+    UserRef:
+      oneOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - $ref: '#/components/schemas/ApiUserRef'
+      - $ref: '#/components/schemas/ApiSignerRef'
+      - $ref: '#/components/schemas/EndUserRef'
+      - $ref: '#/components/schemas/SystemUserRef'
+      description: Represents a reference to a user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_signer: '#/components/schemas/ApiSignerRef'
+          api_user: '#/components/schemas/ApiUserRef'
+          end_user: '#/components/schemas/EndUserRef'
+          person: '#/components/schemas/PersonRef'
+          system: '#/components/schemas/SystemUserRef'
     UserRole:
       type: string
       enum:
@@ -289,7 +334,7 @@ components:
       - trader
       - viewer
       title: UserRole
-    SystemUserRef:
+    PersonRef:
       properties:
         id:
           type: string
@@ -298,19 +343,52 @@ components:
           description: The unique identifier of the user in the Fordefi platform.
         user_type:
           type: string
-          const: system
+          const: person
           title: User Type
-          description: The type of the user.
+          description: The type of user. Can be a person, or (in programmatic scenarios) an API user or API Signer.
         name:
-          type: string
           title: Name
-          description: The name is Fordefi CARE
+          description: The name of the user.
+          example: John Doe
+          type: string
+        email:
+          type: string
+          title: Email
+          description: The email of the user.
+        state:
+          $ref: '#/components/schemas/UserState'
+          description: The state of the user in the organization.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
       type: object
       required:
       - id
       - user_type
-      - name
-      title: SystemUserRef
+      - email
+      - state
+      - role
+      title: PersonRef
+    AuditLogCategory:
+      type: string
+      enum:
+      - policy
+      - quorum_threshold
+      - user_management
+      - vaults
+      - address_book
+      - address_group
+      - backup
+      - webhook
+      - vault_group
+      - user_group
+      - aml_policy
+      - chains
+      - device_backup
+      - import_keys
+      - authentication
+      - dapp_group
+      title: AuditLogCategory
     UserState:
       type: string
       enum:
@@ -322,6 +400,33 @@ components:
       - pending_approval
       - deleted
       title: UserState
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ListAuditLogRecordsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        audit_log_records:
+          items:
+            $ref: '#/components/schemas/AuditLogRecord'
+          type: array
+          title: Audit Log Records
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - audit_log_records
+      title: ListAuditLogRecordsResponse
     ApiUserRef:
       properties:
         id:
@@ -356,26 +461,6 @@ components:
       - state
       - role
       title: ApiUserRef
-    AuditLogCategory:
-      type: string
-      enum:
-      - policy
-      - quorum_threshold
-      - user_management
-      - vaults
-      - address_book
-      - address_group
-      - backup
-      - webhook
-      - vault_group
-      - user_group
-      - aml_policy
-      - chains
-      - device_backup
-      - import_keys
-      - authentication
-      - dapp_group
-      title: AuditLogCategory
     BaseError:
       properties:
         title:
@@ -399,29 +484,30 @@ components:
       - title
       - detail
       title: BaseError
-    ListAuditLogRecordsResponse:
+    ValidationError:
       properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        audit_log_records:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
           items:
-            $ref: '#/components/schemas/AuditLogRecord'
+            $ref: '#/components/schemas/ValidationErrorDetail'
           type: array
-          title: Audit Log Records
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
       type: object
       required:
-      - total
-      - page
-      - size
-      - audit_log_records
-      title: ListAuditLogRecordsResponse
+      - title
+      - detail
+      title: ValidationError
     PreconditionFailedError:
       properties:
         title:
@@ -449,54 +535,6 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    UserRef:
-      oneOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - $ref: '#/components/schemas/ApiUserRef'
-      - $ref: '#/components/schemas/ApiSignerRef'
-      - $ref: '#/components/schemas/EndUserRef'
-      - $ref: '#/components/schemas/SystemUserRef'
-      description: Represents a reference to a user in the Fordefi platform
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_signer: '#/components/schemas/ApiSignerRef'
-          api_user: '#/components/schemas/ApiUserRef'
-          end_user: '#/components/schemas/EndUserRef'
-          person: '#/components/schemas/PersonRef'
-          system: '#/components/schemas/SystemUserRef'
-    ApiSignerRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: api_signer
-          title: User Type
-          description: The type of the user.
-        name:
-          type: string
-          title: Name
-          description: The name of the user.
-        state:
-          type: string
-          enum:
-          - active
-          - onboarding_pending_code_generation
-          - onboarding_pending_activation
-          - deleted
-          title: State
-          description: The state of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - name
-      - state
-      title: ApiSignerRef
     AuditLogRecord:
       properties:
         id:
@@ -542,65 +580,27 @@ components:
       - description
       - client_ip
       title: AuditLogRecord
-    ValidationError:
+    ValidationErrorDetail:
       properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
+            anyOf:
+            - type: integer
+            - type: string
           type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
+          title: Location
+        msg:
           type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
+          title: Message
+        type:
           type: string
+          title: Error Type
       type: object
       required:
-      - title
-      - detail
-      title: ValidationError
-    PersonRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: person
-          title: User Type
-          description: The type of user. Can be a person, or (in programmatic scenarios) an API user or API Signer.
-        name:
-          title: Name
-          description: The name of the user.
-          example: John Doe
-          type: string
-        email:
-          type: string
-          title: Email
-          description: The email of the user.
-        state:
-          $ref: '#/components/schemas/UserState'
-          description: The state of the user in the organization.
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - email
-      - state
-      - role
-      title: PersonRef
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
   securitySchemes:
     bearerAuth:
       type: http
