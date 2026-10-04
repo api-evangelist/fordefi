@@ -148,6 +148,33 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
+    PreconditionFailedError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        system_error_code:
+          title: System Error Code
+          description: An additional system error code in Fordefi.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: PreconditionFailedError
     ExportedResource:
       type: string
       enum:
@@ -155,6 +182,38 @@ components:
       - backup_snapshot
       - vault
       title: ExportedResource
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    ExportType:
+      type: string
+      enum:
+      - csv
+      - zip
+      title: ExportType
     BaseError:
       properties:
         title:
@@ -178,12 +237,6 @@ components:
       - title
       - detail
       title: BaseError
-    ExportType:
-      type: string
-      enum:
-      - csv
-      - zip
-      title: ExportType
     CreateTransactionErrorType:
       type: string
       enum:
@@ -243,25 +296,17 @@ components:
       - invalid_canton_vault_registration_state
       - failed_finding_wrapped_native_token
       title: CreateTransactionErrorType
-    ExportState:
-      type: string
-      enum:
-      - created
-      - in_progress
-      - aborted
-      - ready
-      - error
-      title: ExportState
-    ResourceError:
+    ValidationError:
       properties:
         title:
           type: string
           title: Title
           description: Human-readable error message.
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
           title: Detail
-          description: Detailed error message.
         full_detail:
           title: Full Detail
           description: Full error message with additional details, if available.
@@ -270,14 +315,36 @@ components:
           title: Request Id
           description: Request ID - for debugging purposes.
           type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
       type: object
       required:
       - title
       - detail
-      title: ResourceError
+      title: ValidationError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
     Resource:
       type: string
       enum:
@@ -308,34 +375,6 @@ components:
       - safe_address
       - audit_log
       title: Resource
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
     DefinedPreconditionError_CreateTransactionErrorType_:
       properties:
         title:
@@ -365,33 +404,15 @@ components:
       - title
       - detail
       title: DefinedPreconditionError[CreateTransactionErrorType]
-    PreconditionFailedError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        system_error_code:
-          title: System Error Code
-          description: An additional system error code in Fordefi.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: PreconditionFailedError
+    ExportState:
+      type: string
+      enum:
+      - created
+      - in_progress
+      - aborted
+      - ready
+      - error
+      title: ExportState
     Export:
       properties:
         id:
@@ -463,27 +484,6 @@ components:
       - download_url
       - expiration_time
       title: Export
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
   securitySchemes:
     bearerAuth:
       type: http

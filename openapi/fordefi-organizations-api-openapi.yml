@@ -265,69 +265,6 @@ components:
       - key_name
       - backup_zip_content
       title: StandaloneImportPackage
-    KeyOriginType:
-      type: string
-      enum:
-      - native
-      - imported
-      title: KeyOriginType
-    GetImportKeysStatusResponse:
-      properties:
-        state:
-          $ref: '#/components/schemas/ImportKeysStatus'
-          description: The state of the import keys request.
-      type: object
-      required:
-      - state
-      title: GetImportKeysStatusResponse
-    KeyType:
-      type: string
-      enum:
-      - ecdsa_secp256k1
-      - eddsa_ed25519
-      - ecdsa_stark
-      - schnorr_secp256k1
-      title: KeyType
-    OrganizationMasterKey:
-      properties:
-        key_id:
-          type: string
-          format: uuid
-          title: Key Id
-          description: The ID of the imported key.
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the imported key.
-        key_type:
-          $ref: '#/components/schemas/KeyType'
-          description: The type of the imported key.
-        key_origin:
-          $ref: '#/components/schemas/KeyOriginType'
-          description: The origin of the key.
-        xpub:
-          type: string
-          title: Xpub
-          description: The xpub encoding of the key. For more details, see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
-        public_key_compressed:
-          type: string
-          title: Public Key Compressed
-          description: 'The public key of the vault in its compressed form: <ul> <li>For ECDSA and Schnorr keys, the public key is represented as 33 bytes (0x02 or 0x03 followed by the x-coordinate) according to the [SEC1 standard](https://www.secg.org/SEC1-Ver-1.0.pdf). <li>For EdDSA, the public key is represented as a 32-byte value, as defined by [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032). </ul>'
-          example: SGVsbG8=
-        supports_derivation:
-          type: boolean
-          title: Supports Derivation
-          description: 'Whether the key supports BIP-32 derivation. Standalone private keys do not support derivation. '
-      type: object
-      required:
-      - key_id
-      - key_name
-      - key_type
-      - key_origin
-      - xpub
-      - public_key_compressed
-      - supports_derivation
-      title: OrganizationMasterKey
     ListKeysResponse:
       properties:
         keys:
@@ -340,15 +277,6 @@ components:
       required:
       - keys
       title: ListKeysResponse
-    StartImportKeysRequest:
-      oneOf:
-      - $ref: '#/components/schemas/FireblocksImportPackage'
-      - $ref: '#/components/schemas/StandaloneImportPackage'
-      discriminator:
-        propertyName: type
-        mapping:
-          fireblocks: '#/components/schemas/FireblocksImportPackage'
-          standalone: '#/components/schemas/StandaloneImportPackage'
     ResourceError:
       properties:
         title:
@@ -375,91 +303,6 @@ components:
       - title
       - detail
       title: ResourceError
-    Resource:
-      type: string
-      enum:
-      - user
-      - user_change_proposals
-      - user_group
-      - user_group_change_proposal
-      - vault
-      - vault_address
-      - vault_group
-      - address_group
-      - transaction
-      - batch_transaction
-      - path
-      - keyset
-      - auth_token
-      - access_token
-      - asset
-      - asset_info
-      - vault_derivation_path
-      - blockchain
-      - export
-      - quote
-      - import_keys_request
-      - vault_address_account
-      - exchange_asset_mapping
-      - dapp_group
-      - safe_address
-      - audit_log
-      title: Resource
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    FireblocksImportPackage:
-      properties:
-        type:
-          type: string
-          const: fireblocks
-          title: Type
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the key to import.
-        backup_zip_content:
-          type: string
-          title: Backup Zip Content
-          description: The base64 encoded content of the Fireblocks backup zip file.
-          example: SGVsbG8=
-        encrypted_rsa_pem:
-          title: Encrypted Rsa Pem
-          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
-          type: string
-          example: SGVsbG8=
-        rsa_pem_password:
-          title: Rsa Pem Password
-          description: The password for RSA private key.
-          type: string
-      type: object
-      required:
-      - type
-      - key_name
-      - backup_zip_content
-      title: FireblocksImportPackage
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
     BaseError:
       properties:
         title:
@@ -507,6 +350,36 @@ components:
       - title
       - detail
       title: ValidationError
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    StartImportKeysRequest:
+      oneOf:
+      - $ref: '#/components/schemas/FireblocksImportPackage'
+      - $ref: '#/components/schemas/StandaloneImportPackage'
+      discriminator:
+        propertyName: type
+        mapping:
+          fireblocks: '#/components/schemas/FireblocksImportPackage'
+          standalone: '#/components/schemas/StandaloneImportPackage'
     ImportKeysStatus:
       type: string
       enum:
@@ -514,6 +387,145 @@ components:
       - in_progress
       - completed
       title: ImportKeysStatus
+    FireblocksImportPackage:
+      properties:
+        type:
+          type: string
+          const: fireblocks
+          title: Type
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the key to import.
+        backup_zip_content:
+          type: string
+          title: Backup Zip Content
+          description: The base64 encoded content of the Fireblocks backup zip file.
+          example: SGVsbG8=
+        encrypted_rsa_pem:
+          title: Encrypted Rsa Pem
+          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
+          type: string
+          example: SGVsbG8=
+        rsa_pem_password:
+          title: Rsa Pem Password
+          description: The password for RSA private key.
+          type: string
+      type: object
+      required:
+      - type
+      - key_name
+      - backup_zip_content
+      title: FireblocksImportPackage
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    StartImportKeysResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/OrganizationMasterKey'
+          type: array
+          title: Keys
+          description: The list of imported keys.
+      type: object
+      required:
+      - keys
+      title: StartImportKeysResponse
+    Resource:
+      type: string
+      enum:
+      - user
+      - user_change_proposals
+      - user_group
+      - user_group_change_proposal
+      - vault
+      - vault_address
+      - vault_group
+      - address_group
+      - transaction
+      - batch_transaction
+      - path
+      - keyset
+      - auth_token
+      - access_token
+      - asset
+      - asset_info
+      - vault_derivation_path
+      - blockchain
+      - export
+      - quote
+      - import_keys_request
+      - vault_address_account
+      - exchange_asset_mapping
+      - dapp_group
+      - safe_address
+      - audit_log
+      title: Resource
+    KeyOriginType:
+      type: string
+      enum:
+      - native
+      - imported
+      title: KeyOriginType
+    OrganizationMasterKey:
+      properties:
+        key_id:
+          type: string
+          format: uuid
+          title: Key Id
+          description: The ID of the imported key.
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the imported key.
+        key_type:
+          $ref: '#/components/schemas/KeyType'
+          description: The type of the imported key.
+        key_origin:
+          $ref: '#/components/schemas/KeyOriginType'
+          description: The origin of the key.
+        xpub:
+          type: string
+          title: Xpub
+          description: The xpub encoding of the key. For more details, see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+        public_key_compressed:
+          type: string
+          title: Public Key Compressed
+          description: 'The public key of the vault in its compressed form: <ul> <li>For ECDSA and Schnorr keys, the public key is represented as 33 bytes (0x02 or 0x03 followed by the x-coordinate) according to the [SEC1 standard](https://www.secg.org/SEC1-Ver-1.0.pdf). <li>For EdDSA, the public key is represented as a 32-byte value, as defined by [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032). </ul>'
+          example: SGVsbG8=
+        supports_derivation:
+          type: boolean
+          title: Supports Derivation
+          description: 'Whether the key supports BIP-32 derivation. Standalone private keys do not support derivation. '
+      type: object
+      required:
+      - key_id
+      - key_name
+      - key_type
+      - key_origin
+      - xpub
+      - public_key_compressed
+      - supports_derivation
+      title: OrganizationMasterKey
+    KeyType:
+      type: string
+      enum:
+      - ecdsa_secp256k1
+      - eddsa_ed25519
+      - ecdsa_stark
+      - schnorr_secp256k1
+      title: KeyType
+    GetImportKeysStatusResponse:
+      properties:
+        state:
+          $ref: '#/components/schemas/ImportKeysStatus'
+          description: The state of the import keys request.
+      type: object
+      required:
+      - state
+      title: GetImportKeysStatusResponse
     PreconditionFailedError:
       properties:
         title:
@@ -541,18 +553,6 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    StartImportKeysResponse:
-      properties:
-        keys:
-          items:
-            $ref: '#/components/schemas/OrganizationMasterKey'
-          type: array
-          title: Keys
-          description: The list of imported keys.
-      type: object
-      required:
-      - keys
-      title: StartImportKeysResponse
   securitySchemes:
     bearerAuth:
       type: http

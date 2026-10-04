@@ -257,38 +257,32 @@ paths:
                 $ref: '#/components/schemas/ResourceError'
 components:
   schemas:
-    ApiSignerRef:
+    ResourceError:
       properties:
-        id:
+        title:
           type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
+          title: Title
+          description: Human-readable error message.
+        detail:
           type: string
-          const: api_signer
-          title: User Type
-          description: The type of the user.
-        name:
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
           type: string
-          title: Name
-          description: The name of the user.
-        state:
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
           type: string
-          enum:
-          - active
-          - onboarding_pending_code_generation
-          - onboarding_pending_activation
-          - deleted
-          title: State
-          description: The state of the user.
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
       type: object
       required:
-      - id
-      - user_type
-      - name
-      - state
-      title: ApiSignerRef
+      - title
+      - detail
+      title: ResourceError
     UserGroupChangeRequest:
       properties:
         id:
@@ -327,30 +321,7 @@ components:
       - created_by
       title: UserGroupChangeRequest
       description: Represents a user group change proposal in the Fordefi platform
-    ListUserGroupsResponse:
-      properties:
-        total:
-          type: integer
-          title: Total
-        page:
-          type: integer
-          title: Page
-        size:
-          type: integer
-          title: Size
-        user_groups:
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          type: array
-          title: User Groups
-      type: object
-      required:
-      - total
-      - page
-      - size
-      - user_groups
-      title: ListUserGroupsResponse
-    EndUserRef:
+    ApiUserRef:
       properties:
         id:
           type: string
@@ -359,14 +330,13 @@ components:
           description: The unique identifier of the user in the Fordefi platform.
         user_type:
           type: string
-          const: end_user
+          const: api_user
           title: User Type
           description: The type of the user.
-        external_id:
+        name:
           type: string
-          title: External Id
-          description: External id of the user.
-          example: user|1234
+          title: Name
+          description: The name of the user.
         state:
           type: string
           enum:
@@ -374,94 +344,58 @@ components:
           - deleted
           title: State
           description: The state of the user.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
       type: object
       required:
       - id
       - user_type
-      - external_id
+      - name
       - state
-      title: EndUserRef
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    UserGroupState:
+      - role
+      title: ApiUserRef
+    UserGroupSortableFields:
       type: string
       enum:
-      - active
-      - deleted
-      title: UserGroupState
-      description: Represents a user group state in the Fordefi platform
+      - created_at_asc
+      - created_at_desc
+      - modified_at_asc
+      - modified_at_desc
+      - name_asc
+      - name_desc
+      - users_count_asc
+      - users_count_desc
+      title: UserGroupSortableFields
+    UserRole:
+      type: string
+      enum:
+      - admin
+      - trader
+      - viewer
+      title: UserRole
+    SystemUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: system
+          title: User Type
+          description: The type of the user.
+        name:
+          type: string
+          title: Name
+          description: The name is Fordefi CARE
+      type: object
+      required:
+      - id
+      - user_type
+      - name
+      title: SystemUserRef
     PreconditionFailedError:
       properties:
         title:
@@ -489,110 +423,6 @@ components:
       - title
       - detail
       title: PreconditionFailedError
-    GroupUserRef:
-      oneOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - $ref: '#/components/schemas/ApiUserRef'
-      description: Represents a reference to a group user in the Fordefi platform
-      discriminator:
-        propertyName: user_type
-        mapping:
-          api_user: '#/components/schemas/ApiUserRef'
-          person: '#/components/schemas/PersonRef'
-    GetUserGroupResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the object in the Fordefi platform.
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-          description: The date and time when the object was created.
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
-        name:
-          type: string
-          minLength: 1
-          title: Name
-          description: The name of the user group.
-        users_count:
-          type: integer
-          minimum: 0.0
-          title: Users Count
-          description: The number of users in the group.
-        admins_count:
-          type: integer
-          minimum: 0.0
-          title: Admins Count
-          description: The number of admins in the group.
-        state:
-          $ref: '#/components/schemas/UserGroupState'
-          description: The state of the user group.
-        modified_by:
-          $ref: '#/components/schemas/UserRef'
-          description: Group last modifier.
-        proposed_change:
-          description: The change proposal for the group.
-          $ref: '#/components/schemas/UserGroupChangeRequest'
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - name
-      - users_count
-      - admins_count
-      - state
-      - modified_by
-      title: GetUserGroupResponse
-    UserRole:
-      type: string
-      enum:
-      - admin
-      - trader
-      - viewer
-      title: UserRole
-    PersonRef:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The unique identifier of the user in the Fordefi platform.
-        user_type:
-          type: string
-          const: person
-          title: User Type
-          description: The type of user. Can be a person, or (in programmatic scenarios) an API user or API Signer.
-        name:
-          title: Name
-          description: The name of the user.
-          example: John Doe
-          type: string
-        email:
-          type: string
-          title: Email
-          description: The email of the user.
-        state:
-          $ref: '#/components/schemas/UserState'
-          description: The state of the user in the organization.
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
-      type: object
-      required:
-      - id
-      - user_type
-      - email
-      - state
-      - role
-      title: PersonRef
     UserGroup:
       properties:
         id:
@@ -646,6 +476,17 @@ components:
       - modified_by
       title: UserGroup
       description: Represents a user group in the Fordefi platform
+    UserState:
+      type: string
+      enum:
+      - active
+      - onboarding_pending_code_generation
+      - onboarding_pending_activation
+      - reset_device_pending_code_generation
+      - reset_device_pending_activation
+      - pending_approval
+      - deleted
+      title: UserState
     Resource:
       type: string
       enum:
@@ -676,6 +517,58 @@ components:
       - safe_address
       - audit_log
       title: Resource
+    EndUserRef:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the user in the Fordefi platform.
+        user_type:
+          type: string
+          const: end_user
+          title: User Type
+          description: The type of the user.
+        external_id:
+          type: string
+          title: External Id
+          description: External id of the user.
+          example: user|1234
+        state:
+          type: string
+          enum:
+          - active
+          - deleted
+          title: State
+          description: The state of the user.
+      type: object
+      required:
+      - id
+      - user_type
+      - external_id
+      - state
+      title: EndUserRef
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
     ValidationError:
       properties:
         title:
@@ -700,19 +593,30 @@ components:
       - title
       - detail
       title: ValidationError
-    UserGroupSortableFields:
-      type: string
-      enum:
-      - created_at_asc
-      - created_at_desc
-      - modified_at_asc
-      - modified_at_desc
-      - name_asc
-      - name_desc
-      - users_count_asc
-      - users_count_desc
-      title: UserGroupSortableFields
-    SystemUserRef:
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    PersonRef:
       properties:
         id:
           type: string
@@ -721,19 +625,91 @@ components:
           description: The unique identifier of the user in the Fordefi platform.
         user_type:
           type: string
-          const: system
+          const: person
           title: User Type
-          description: The type of the user.
+          description: The type of user. Can be a person, or (in programmatic scenarios) an API user or API Signer.
         name:
-          type: string
           title: Name
-          description: The name is Fordefi CARE
+          description: The name of the user.
+          example: John Doe
+          type: string
+        email:
+          type: string
+          title: Email
+          description: The email of the user.
+        state:
+          $ref: '#/components/schemas/UserState'
+          description: The state of the user in the organization.
+        role:
+          $ref: '#/components/schemas/UserRole'
+          description: The role of the user.
       type: object
       required:
       - id
       - user_type
+      - email
+      - state
+      - role
+      title: PersonRef
+    GetUserGroupResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The unique identifier of the object in the Fordefi platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: The date and time when the object was created.
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: The date and time when the object was last modified. Any change to any field of the resource is considered a modification.
+        name:
+          type: string
+          minLength: 1
+          title: Name
+          description: The name of the user group.
+        users_count:
+          type: integer
+          minimum: 0.0
+          title: Users Count
+          description: The number of users in the group.
+        admins_count:
+          type: integer
+          minimum: 0.0
+          title: Admins Count
+          description: The number of admins in the group.
+        state:
+          $ref: '#/components/schemas/UserGroupState'
+          description: The state of the user group.
+        modified_by:
+          $ref: '#/components/schemas/UserRef'
+          description: Group last modifier.
+        proposed_change:
+          description: The change proposal for the group.
+          $ref: '#/components/schemas/UserGroupChangeRequest'
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
       - name
-      title: SystemUserRef
+      - users_count
+      - admins_count
+      - state
+      - modified_by
+      title: GetUserGroupResponse
+    UserGroupState:
+      type: string
+      enum:
+      - active
+      - deleted
+      title: UserGroupState
+      description: Represents a user group state in the Fordefi platform
     UserRef:
       oneOf:
       - $ref: '#/components/schemas/PersonRef'
@@ -750,7 +726,34 @@ components:
           end_user: '#/components/schemas/EndUserRef'
           person: '#/components/schemas/PersonRef'
           system: '#/components/schemas/SystemUserRef'
-    ApiUserRef:
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    ListUserGroupsResponse:
+      properties:
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        size:
+          type: integer
+          title: Size
+        user_groups:
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          type: array
+          title: User Groups
+      type: object
+      required:
+      - total
+      - page
+      - size
+      - user_groups
+      title: ListUserGroupsResponse
+    ApiSignerRef:
       properties:
         id:
           type: string
@@ -759,7 +762,7 @@ components:
           description: The unique identifier of the user in the Fordefi platform.
         user_type:
           type: string
-          const: api_user
+          const: api_signer
           title: User Type
           description: The type of the user.
         name:
@@ -770,31 +773,28 @@ components:
           type: string
           enum:
           - active
+          - onboarding_pending_code_generation
+          - onboarding_pending_activation
           - deleted
           title: State
           description: The state of the user.
-        role:
-          $ref: '#/components/schemas/UserRole'
-          description: The role of the user.
       type: object
       required:
       - id
       - user_type
       - name
       - state
-      - role
-      title: ApiUserRef
-    UserState:
-      type: string
-      enum:
-      - active
-      - onboarding_pending_code_generation
-      - onboarding_pending_activation
-      - reset_device_pending_code_generation
-      - reset_device_pending_activation
-      - pending_approval
-      - deleted
-      title: UserState
+      title: ApiSignerRef
+    GroupUserRef:
+      oneOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - $ref: '#/components/schemas/ApiUserRef'
+      description: Represents a reference to a group user in the Fordefi platform
+      discriminator:
+        propertyName: user_type
+        mapping:
+          api_user: '#/components/schemas/ApiUserRef'
+          person: '#/components/schemas/PersonRef'
   securitySchemes:
     bearerAuth:
       type: http
