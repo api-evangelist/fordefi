@@ -48,7 +48,7 @@ accessModel:
 image: https://cdn.prod.website-files.com/634ff29071ccb50e6fb7f68e/6368e19b2728473fafde3adb_fordefi.jpeg
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-10-06'
 x-docs-platform: redocly
 x-docs-platform-confidence: high
 x-docs-platform-checked: 2026-10-03
@@ -388,6 +388,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://medium.com/fordefi
+  type: Blog
+- url: https://medium.com/feed/fordefi
+  type: BlogRSS
 - type: Website
   url: https://fordefi.com/
 - type: DeveloperPortal
