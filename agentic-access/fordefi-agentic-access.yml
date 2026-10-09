@@ -1,93 +1,29 @@
-generated: '2026-07-19'
+generated: '2026-09-23'
 method: generated
-source: openapi/fordefi-openapi-original.json
+source: openapi/fordefi-address-book-api-openapi.yml, openapi/fordefi-assets-api-openapi.yml,
+  openapi/fordefi-audit-log-api-openapi.yml, openapi/fordefi-authorization-tokens-api-openapi.yml,
+  openapi/fordefi-batch-transactions-api-openapi.yml, openapi/fordefi-blockchains-api-openapi.yml,
+  openapi/fordefi-enclave-keys-api-openapi.yml, openapi/fordefi-end-users-api-openapi.yml, openapi/fordefi-exports-api-openapi.yml,
+  openapi/fordefi-organizations-api-openapi.yml, openapi/fordefi-swaps-api-openapi.yml, openapi/fordefi-transactions-api-openapi.yml,
+  openapi/fordefi-user-groups-api-openapi.yml, openapi/fordefi-users-api-openapi.yml, openapi/fordefi-vault-groups-api-openapi.yml,
+  openapi/fordefi-vaults-api-openapi.yml, openapi/fordefi-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 75
   by_action_class:
-    connected: 30
-    acting: 45
+    acting: 43
+    connected: 32
   by_consequence:
-    read: 30
-    write: 44
+    write: 42
+    read: 32
     physical: 1
   human_in_the_loop_required: 0
 operations:
-- path: /api/v1/blockchains
-  method: get
-  operationId: list_chains_api_v1_blockchains_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/blockchains/suggested-fees
-  method: get
-  operationId: get_suggested_fees_api_v1_blockchains_suggested_fees_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/users
-  method: get
-  operationId: list_users_api_v1_users_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/users/{id}
-  method: get
-  operationId: get_user_api_v1_users__id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/user-groups
-  method: get
-  operationId: list_user_groups_api_v1_user_groups_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/user-groups/{id}
-  method: get
-  operationId: get_user_group_api_v1_user_groups__id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults
-  method: get
-  operationId: list_vaults_api_v1_vaults_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults
+- path: /api/v1/addressbook/contacts
   method: post
-  operationId: create_vault_api_v1_vaults_post
+  operationId: create_contact_api_v1_addressbook_contacts_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -101,9 +37,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/vaults/export_async
+- path: /api/v1/addressbook/contacts
   method: get
-  operationId: export_vaults_with_assets_async_api_v1_vaults_export_async_get
+  operationId: list_contacts_api_v1_addressbook_contacts_get
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -111,39 +47,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/v1/vaults/{id}
-  method: get
-  operationId: get_vault_api_v1_vaults__id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults/{id}/assets/{asset_id}
-  method: get
-  operationId: get_vault_asset_api_v1_vaults__id__assets__asset_id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults/{id}/assets
-  method: get
-  operationId: get_vault_assets_api_v1_vaults__id__assets_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults/{id}/proposals
+- path: /api/v1/addressbook/contacts/batch
   method: post
-  operationId: submit_update_vault_change_proposal_api_v1_vaults__id__proposals_post
+  operationId: create_batch_contacts_api_v1_addressbook_contacts_batch_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -157,9 +63,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/vaults/{id}/archive
+- path: /api/v1/addressbook/contacts/proposals/{proposal_id}/abort
   method: post
-  operationId: archive_vault_api_v1_vaults__id__archive_post
+  operationId: abort_contact_change_proposal_api_v1_addressbook_contacts_proposals__proposal_id__abort_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -173,9 +79,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/vaults/{id}/restore
+- path: /api/v1/addressbook/contacts/{id}/proposals
   method: post
-  operationId: restore_vault_api_v1_vaults__id__restore_post
+  operationId: edit_contact_api_v1_addressbook_contacts__id__proposals_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -189,74 +95,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/vaults/{id}/name
-  method: put
-  operationId: rename_vault_api_v1_vaults__id__name_put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/vaults/{id}/addresses
-  method: post
-  operationId: create_address_api_v1_vaults__id__addresses_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/vaults/{id}/addresses
-  method: get
-  operationId: list_vault_addresses_api_v1_vaults__id__addresses_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/vaults/addresses/{id}/name
-  method: put
-  operationId: rename_vault_address_api_v1_vaults_addresses__id__name_put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/vault-groups
-  method: get
-  operationId: list_vault_groups_api_v1_vault_groups_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /api/v1/assets/owned-assets/{id}
   method: get
   operationId: get_owned_asset_api_v1_assets_owned_assets__id__get
@@ -297,6 +135,16 @@ operations:
   method: post
   operationId: fetch_asset_prices_api_v1_assets_prices_post
   x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/assets/asset-infos
+  method: post
+  operationId: create_asset_info_api_v1_assets_asset_infos_post
+  x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
@@ -309,9 +157,357 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/assets/asset-infos
+- path: /api/v1/audit-log
+  method: get
+  operationId: list_audit_log_records_api_v1_audit_log_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/audit-log/export
+  method: get
+  operationId: export_audit_log_api_v1_audit_log_export_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/authorization-tokens
   method: post
-  operationId: create_asset_info_api_v1_assets_asset_infos_post
+  operationId: issue_authorization_token_api_v1_authorization_tokens_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/authorization-tokens
+  method: get
+  operationId: list_authorization_tokens_api_v1_authorization_tokens_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/authorization-tokens/{id}
+  method: delete
+  operationId: delete_authorization_token_api_v1_authorization_tokens__id__delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/batch-transactions
+  method: post
+  operationId: create_batch_transaction_api_v1_batch_transactions_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/batch-transactions/predict
+  method: post
+  operationId: predict_batch_transaction_api_v1_batch_transactions_predict_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/batch-transactions/{batch_id}/abort
+  method: post
+  operationId: abort_batch_transaction_api_v1_batch_transactions__batch_id__abort_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/batch-transactions/{batch_id}/approve
+  method: post
+  operationId: approve_batch_transaction_api_v1_batch_transactions__batch_id__approve_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/blockchains
+  method: get
+  operationId: list_chains_api_v1_blockchains_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/blockchains/suggested-fees
+  method: get
+  operationId: get_suggested_fees_api_v1_blockchains_suggested_fees_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/enclave-keys
+  method: get
+  operationId: list_enclave_keys_api_v1_enclave_keys_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/end-users
+  method: get
+  operationId: list_end_users_api_v1_end_users_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/end-users
+  method: post
+  operationId: create_end_user_api_v1_end_users_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/end-users/current
+  method: get
+  operationId: get_current_end_user_api_v1_end_users_current_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/end-users/{id}
+  method: get
+  operationId: get_end_user_api_v1_end_users__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/end-users/{id}
+  method: delete
+  operationId: delete_end_user_api_v1_end_users__id__delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/end-users/{id}/set-export-end-user-keys-permissions
+  method: put
+  operationId: set_export_end_user_keys_permissions_api_v1_end_users__id__set_export_end_user_keys_permissions_put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/exports/{id}
+  method: get
+  operationId: get_export_api_v1_exports__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/exports/{id}/abort
+  method: post
+  operationId: abort_export_api_v1_exports__id__abort_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/organizations/import-keys
+  method: post
+  operationId: import_keys_api_v1_organizations_import_keys_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/organizations/abort-import-keys
+  method: post
+  operationId: abort_import_keys_api_v1_organizations_abort_import_keys_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/organizations/import-keys-status
+  method: get
+  operationId: get_import_keys_status_api_v1_organizations_import_keys_status_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/organizations/list-keys
+  method: get
+  operationId: list_keys_api_v1_organizations_list_keys_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/swaps/providers/{chain_type}
+  method: get
+  operationId: get_providers_api_v1_swaps_providers__chain_type__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/swaps/quotes
+  method: post
+  operationId: get_quotes_api_v1_swaps_quotes_post
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/swaps
+  method: post
+  operationId: create_transaction_api_v1_swaps_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/swaps/predict
+  method: post
+  operationId: predict_transaction_api_v1_swaps_predict_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -565,89 +761,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/batch-transactions
-  method: post
-  operationId: create_batch_transaction_api_v1_batch_transactions_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/batch-transactions/predict
-  method: post
-  operationId: predict_batch_transaction_api_v1_batch_transactions_predict_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/batch-transactions/{batch_id}/abort
-  method: post
-  operationId: abort_batch_transaction_api_v1_batch_transactions__batch_id__abort_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/batch-transactions/{batch_id}/approve
-  method: post
-  operationId: approve_batch_transaction_api_v1_batch_transactions__batch_id__approve_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/addressbook/contacts
-  method: post
-  operationId: create_contact_api_v1_addressbook_contacts_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/addressbook/contacts
+- path: /api/v1/user-groups
   method: get
-  operationId: list_contacts_api_v1_addressbook_contacts_get
+  operationId: list_user_groups_api_v1_user_groups_get
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -655,9 +771,59 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/v1/addressbook/contacts/batch
+- path: /api/v1/user-groups/{id}
+  method: get
+  operationId: get_user_group_api_v1_user_groups__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users
+  method: get
+  operationId: list_users_api_v1_users_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/users/{id}
+  method: get
+  operationId: get_user_api_v1_users__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vault-groups
+  method: get
+  operationId: list_vault_groups_api_v1_vault_groups_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults
+  method: get
+  operationId: list_vaults_api_v1_vaults_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults
   method: post
-  operationId: create_batch_contacts_api_v1_addressbook_contacts_batch_post
+  operationId: create_vault_api_v1_vaults_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -671,9 +837,49 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/addressbook/contacts/proposals/{proposal_id}/abort
+- path: /api/v1/vaults/export_async
+  method: get
+  operationId: export_vaults_with_assets_async_api_v1_vaults_export_async_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults/{id}
+  method: get
+  operationId: get_vault_api_v1_vaults__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults/{id}/assets/{asset_id}
+  method: get
+  operationId: get_vault_asset_api_v1_vaults__id__assets__asset_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults/{id}/assets
+  method: get
+  operationId: get_vault_assets_api_v1_vaults__id__assets_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults/{id}/proposals
   method: post
-  operationId: abort_contact_change_proposal_api_v1_addressbook_contacts_proposals__proposal_id__abort_post
+  operationId: submit_update_vault_change_proposal_api_v1_vaults__id__proposals_post
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -687,9 +893,83 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/addressbook/contacts/{id}/proposals
+- path: /api/v1/vaults/{id}/archive
   method: post
-  operationId: edit_contact_api_v1_addressbook_contacts__id__proposals_post
+  operationId: archive_vault_api_v1_vaults__id__archive_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/vaults/{id}/restore
+  method: post
+  operationId: restore_vault_api_v1_vaults__id__restore_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/vaults/{id}/name
+  method: put
+  operationId: rename_vault_api_v1_vaults__id__name_put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/vaults/{id}/addresses
+  method: post
+  operationId: create_address_api_v1_vaults__id__addresses_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/vaults/{id}/addresses
+  method: get
+  operationId: list_vault_addresses_api_v1_vaults__id__addresses_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/vaults/addresses/{id}/name
+  method: put
+  operationId: rename_vault_address_api_v1_vaults_addresses__id__name_put
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -751,289 +1031,3 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/v1/organizations/import-keys
-  method: post
-  operationId: import_keys_api_v1_organizations_import_keys_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/organizations/abort-import-keys
-  method: post
-  operationId: abort_import_keys_api_v1_organizations_abort_import_keys_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/organizations/import-keys-status
-  method: get
-  operationId: get_import_keys_status_api_v1_organizations_import_keys_status_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/organizations/list-keys
-  method: get
-  operationId: list_keys_api_v1_organizations_list_keys_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/end-users
-  method: get
-  operationId: list_end_users_api_v1_end_users_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/end-users
-  method: post
-  operationId: create_end_user_api_v1_end_users_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/end-users/current
-  method: get
-  operationId: get_current_end_user_api_v1_end_users_current_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/end-users/{id}
-  method: get
-  operationId: get_end_user_api_v1_end_users__id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/end-users/{id}
-  method: delete
-  operationId: delete_end_user_api_v1_end_users__id__delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/end-users/{id}/set-export-end-user-keys-permissions
-  method: put
-  operationId: set_export_end_user_keys_permissions_api_v1_end_users__id__set_export_end_user_keys_permissions_put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/authorization-tokens
-  method: post
-  operationId: issue_authorization_token_api_v1_authorization_tokens_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/authorization-tokens
-  method: get
-  operationId: list_authorization_tokens_api_v1_authorization_tokens_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/authorization-tokens/{id}
-  method: delete
-  operationId: delete_authorization_token_api_v1_authorization_tokens__id__delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/audit-log
-  method: get
-  operationId: list_audit_log_records_api_v1_audit_log_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/audit-log/export
-  method: get
-  operationId: export_audit_log_api_v1_audit_log_export_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/exports/{id}
-  method: get
-  operationId: get_export_api_v1_exports__id__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/exports/{id}/abort
-  method: post
-  operationId: abort_export_api_v1_exports__id__abort_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/swaps/providers/{chain_type}
-  method: get
-  operationId: get_providers_api_v1_swaps_providers__chain_type__get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/v1/swaps/quotes
-  method: post
-  operationId: get_quotes_api_v1_swaps_quotes_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/swaps
-  method: post
-  operationId: create_transaction_api_v1_swaps_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/swaps/predict
-  method: post
-  operationId: predict_transaction_api_v1_swaps_predict_post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/v1/enclave-keys
-  method: get
-  operationId: list_enclave_keys_api_v1_enclave_keys_get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
