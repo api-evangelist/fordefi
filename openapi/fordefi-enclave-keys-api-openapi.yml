@@ -68,27 +68,6 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
     ValidationError:
       properties:
         title:
@@ -113,6 +92,34 @@ components:
       - title
       - detail
       title: ValidationError
+    ListEnclaveKeysResponse:
+      properties:
+        sign_key:
+          deprecated: true
+          $ref: '#/components/schemas/AttestedSigningKey'
+        encryption_key:
+          $ref: '#/components/schemas/SignedEncryptionKey'
+        intent_signing_key:
+          $ref: '#/components/schemas/AttestedSigningKey'
+      type: object
+      required:
+      - encryption_key
+      - intent_signing_key
+      title: ListEnclaveKeysResponse
+    TimestampedSignature:
+      properties:
+        signature:
+          type: string
+          title: Signature
+          example: SGVsbG8=
+        timestamp:
+          type: integer
+          title: Timestamp
+      type: object
+      required:
+      - signature
+      - timestamp
+      title: TimestampedSignature
     BaseError:
       properties:
         title:
@@ -136,6 +143,22 @@ components:
       - title
       - detail
       title: BaseError
+    Attestation:
+      properties:
+        attestation:
+          type: string
+          title: Attestation
+          example: SGVsbG8=
+        certificate:
+          type: string
+          title: Certificate
+          example: SGVsbG8=
+      type: object
+      required:
+      - attestation
+      - certificate
+      title: Attestation
+      description: Attestation of a public key.
     RateLimitError:
       properties: {}
       type: object
@@ -162,20 +185,27 @@ components:
       - certificate
       title: SignedEncryptionKey
       description: Encryption key signed by the enclave.
-    ListEnclaveKeysResponse:
+    ValidationErrorDetail:
       properties:
-        sign_key:
-          deprecated: true
-          $ref: '#/components/schemas/AttestedSigningKey'
-        encryption_key:
-          $ref: '#/components/schemas/SignedEncryptionKey'
-        intent_signing_key:
-          $ref: '#/components/schemas/AttestedSigningKey'
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - encryption_key
-      - intent_signing_key
-      title: ListEnclaveKeysResponse
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
     AttestedSigningKey:
       properties:
         public_key:
@@ -192,36 +222,6 @@ components:
       - attestation
       title: AttestedSigningKey
       description: Signing key attested by the enclave.
-    TimestampedSignature:
-      properties:
-        signature:
-          type: string
-          title: Signature
-          example: SGVsbG8=
-        timestamp:
-          type: integer
-          title: Timestamp
-      type: object
-      required:
-      - signature
-      - timestamp
-      title: TimestampedSignature
-    Attestation:
-      properties:
-        attestation:
-          type: string
-          title: Attestation
-          example: SGVsbG8=
-        certificate:
-          type: string
-          title: Certificate
-          example: SGVsbG8=
-      type: object
-      required:
-      - attestation
-      - certificate
-      title: Attestation
-      description: Attestation of a public key.
     PreconditionFailedError:
       properties:
         title:

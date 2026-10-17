@@ -244,195 +244,6 @@ paths:
                 $ref: '#/components/schemas/RateLimitError'
 components:
   schemas:
-    StandaloneImportPackage:
-      properties:
-        type:
-          type: string
-          const: standalone
-          title: Type
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the key to import.
-        backup_zip_content:
-          type: string
-          title: Backup Zip Content
-          description: The base64 encoded content of the Fireblocks backup zip file.
-          example: SGVsbG8=
-      type: object
-      required:
-      - type
-      - key_name
-      - backup_zip_content
-      title: StandaloneImportPackage
-    ListKeysResponse:
-      properties:
-        keys:
-          items:
-            $ref: '#/components/schemas/OrganizationMasterKey'
-          type: array
-          title: Keys
-          description: The list of organization's active keys.
-      type: object
-      required:
-      - keys
-      title: ListKeysResponse
-    ResourceError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-        resource:
-          description: The type of resource.
-          $ref: '#/components/schemas/Resource'
-      type: object
-      required:
-      - title
-      - detail
-      title: ResourceError
-    BaseError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          type: string
-          title: Detail
-          description: Detailed error message.
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: BaseError
-    ValidationError:
-      properties:
-        title:
-          type: string
-          title: Title
-          description: Human-readable error message.
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-          type: array
-          title: Detail
-        full_detail:
-          title: Full Detail
-          description: Full error message with additional details, if available.
-          type: string
-        request_id:
-          title: Request Id
-          description: Request ID - for debugging purposes.
-          type: string
-      type: object
-      required:
-      - title
-      - detail
-      title: ValidationError
-    ValidationErrorDetail:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: integer
-            - type: string
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationErrorDetail
-    StartImportKeysRequest:
-      oneOf:
-      - $ref: '#/components/schemas/FireblocksImportPackage'
-      - $ref: '#/components/schemas/StandaloneImportPackage'
-      discriminator:
-        propertyName: type
-        mapping:
-          fireblocks: '#/components/schemas/FireblocksImportPackage'
-          standalone: '#/components/schemas/StandaloneImportPackage'
-    ImportKeysStatus:
-      type: string
-      enum:
-      - not_started
-      - in_progress
-      - completed
-      title: ImportKeysStatus
-    FireblocksImportPackage:
-      properties:
-        type:
-          type: string
-          const: fireblocks
-          title: Type
-        key_name:
-          type: string
-          title: Key Name
-          description: The name of the key to import.
-        backup_zip_content:
-          type: string
-          title: Backup Zip Content
-          description: The base64 encoded content of the Fireblocks backup zip file.
-          example: SGVsbG8=
-        encrypted_rsa_pem:
-          title: Encrypted Rsa Pem
-          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
-          type: string
-          example: SGVsbG8=
-        rsa_pem_password:
-          title: Rsa Pem Password
-          description: The password for RSA private key.
-          type: string
-      type: object
-      required:
-      - type
-      - key_name
-      - backup_zip_content
-      title: FireblocksImportPackage
-    RateLimitError:
-      properties: {}
-      type: object
-      title: RateLimitError
-    StartImportKeysResponse:
-      properties:
-        keys:
-          items:
-            $ref: '#/components/schemas/OrganizationMasterKey'
-          type: array
-          title: Keys
-          description: The list of imported keys.
-      type: object
-      required:
-      - keys
-      title: StartImportKeysResponse
     Resource:
       type: string
       enum:
@@ -463,12 +274,6 @@ components:
       - safe_address
       - audit_log
       title: Resource
-    KeyOriginType:
-      type: string
-      enum:
-      - native
-      - imported
-      title: KeyOriginType
     OrganizationMasterKey:
       properties:
         key_id:
@@ -509,6 +314,141 @@ components:
       - public_key_compressed
       - supports_derivation
       title: OrganizationMasterKey
+    ValidationError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          type: array
+          title: Detail
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: ValidationError
+    ResourceError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+        resource:
+          description: The type of resource.
+          $ref: '#/components/schemas/Resource'
+      type: object
+      required:
+      - title
+      - detail
+      title: ResourceError
+    ImportKeysStatus:
+      type: string
+      enum:
+      - not_started
+      - in_progress
+      - completed
+      title: ImportKeysStatus
+    FireblocksImportPackage:
+      properties:
+        type:
+          type: string
+          const: fireblocks
+          title: Type
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the key to import.
+        backup_zip_content:
+          type: string
+          title: Backup Zip Content
+          description: The base64 encoded content of the Fireblocks backup zip file.
+          example: SGVsbG8=
+        encrypted_rsa_pem:
+          title: Encrypted Rsa Pem
+          description: Encrypted RSA private key used to encrypt the cosigner shares in PEM format.The encryption is done using `openssl cms -encrypt` command using the enclave's public certificate.If not provided, the default RSA key will be used.For more information, see https://docs.fordefi.com/user-guide/import-keys-fireblocks
+          type: string
+          example: SGVsbG8=
+        rsa_pem_password:
+          title: Rsa Pem Password
+          description: The password for RSA private key.
+          type: string
+      type: object
+      required:
+      - type
+      - key_name
+      - backup_zip_content
+      title: FireblocksImportPackage
+    BaseError:
+      properties:
+        title:
+          type: string
+          title: Title
+          description: Human-readable error message.
+        detail:
+          type: string
+          title: Detail
+          description: Detailed error message.
+        full_detail:
+          title: Full Detail
+          description: Full error message with additional details, if available.
+          type: string
+        request_id:
+          title: Request Id
+          description: Request ID - for debugging purposes.
+          type: string
+      type: object
+      required:
+      - title
+      - detail
+      title: BaseError
+    RateLimitError:
+      properties: {}
+      type: object
+      title: RateLimitError
+    StartImportKeysResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/OrganizationMasterKey'
+          type: array
+          title: Keys
+          description: The list of imported keys.
+      type: object
+      required:
+      - keys
+      title: StartImportKeysResponse
+    StartImportKeysRequest:
+      oneOf:
+      - $ref: '#/components/schemas/FireblocksImportPackage'
+      - $ref: '#/components/schemas/StandaloneImportPackage'
+      discriminator:
+        propertyName: type
+        mapping:
+          fireblocks: '#/components/schemas/FireblocksImportPackage'
+          standalone: '#/components/schemas/StandaloneImportPackage'
     KeyType:
       type: string
       enum:
@@ -517,6 +457,39 @@ components:
       - ecdsa_stark
       - schnorr_secp256k1
       title: KeyType
+    ValidationErrorDetail:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: integer
+            - type: string
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationErrorDetail
+    ListKeysResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/OrganizationMasterKey'
+          type: array
+          title: Keys
+          description: The list of organization's active keys.
+      type: object
+      required:
+      - keys
+      title: ListKeysResponse
     GetImportKeysStatusResponse:
       properties:
         state:
@@ -526,6 +499,33 @@ components:
       required:
       - state
       title: GetImportKeysStatusResponse
+    KeyOriginType:
+      type: string
+      enum:
+      - native
+      - imported
+      title: KeyOriginType
+    StandaloneImportPackage:
+      properties:
+        type:
+          type: string
+          const: standalone
+          title: Type
+        key_name:
+          type: string
+          title: Key Name
+          description: The name of the key to import.
+        backup_zip_content:
+          type: string
+          title: Backup Zip Content
+          description: The base64 encoded content of the Fireblocks backup zip file.
+          example: SGVsbG8=
+      type: object
+      required:
+      - type
+      - key_name
+      - backup_zip_content
+      title: StandaloneImportPackage
     PreconditionFailedError:
       properties:
         title:
