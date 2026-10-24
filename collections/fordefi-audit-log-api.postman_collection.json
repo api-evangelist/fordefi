@@ -1,1402 +1,1304 @@
 {
+  "info": {
+    "_postman_id": "1affc714-abad-49f2-801f-d1b8f439af8a",
+    "name": "Fordefi Audit Log API",
+    "description": "These endpoints allow you to manage audit logs.\n\nAudit logs are used to track the actions of users in your organization.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:02:40.000Z",
+    "updatedAt": "2026-10-21T21:02:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1affc714-abad-49f2-801f-d1b8f439af8a"
+  },
   "item": [
     {
-      "id": "020524c6-f0a1-4479-8d61-c6f7e41a9bea",
-      "name": "Audit Log",
-      "description": {
-        "content": "These endpoints allow you to manage audit logs.\n        <br><br>\n        Audit logs are used to track the actions of users in your organization.\n        ",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "9be43c3c-f8b2-4d09-bfbb-cd6034e55984",
-          "name": "List Audit Log Records",
-          "request": {
-            "name": "List Audit Log Records",
-            "description": {
-              "content": "Get a list of audit log records.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "audit-log"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1",
-                  "description": "The page number to fetch."
-                },
-                {
-                  "disabled": false,
-                  "key": "size",
-                  "value": "50",
-                  "description": "The number of items per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "skip_count",
-                  "value": "false",
-                  "description": "Whether to skip counting the total number of items."
-                },
-                {
-                  "disabled": false,
-                  "key": "created_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_before",
-                  "value": "<dateTime>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_after",
-                  "value": "<dateTime>"
-                },
-                {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "9ea5139e-d9ee-4016-9116-7a18e5b4bd94",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "audit-log",
+              "item": [
+                {
+                  "name": "export",
+                  "item": [
                     {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
+                      "name": "Export Audit Log",
+                      "id": "6e34be7e-ce5f-4667-bf29-98502612fdce",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/csv"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=chains&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log",
+                            "export"
+                          ],
+                          "query": [
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "chains"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        },
+                        "description": "Get a CSV-format list of audit log records."
+                      },
+                      "response": [
+                        {
+                          "id": "306e60a7-437b-4d21-bff5-eb4e62658c39",
+                          "name": "Exported audit log in CSV format",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/csv"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/csv"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-306e60a7-437b-4d21-bff5-eb4e62658c39"
+                        },
+                        {
+                          "id": "fd894b02-9306-42b9-9aa6-8408109339e7",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"system_error_code\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-fd894b02-9306-42b9-9aa6-8408109339e7"
+                        },
+                        {
+                          "id": "cad3f834-d1c5-4532-9174-2d75320a14ae",
+                          "name": "Unauthorized User",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-cad3f834-d1c5-4532-9174-2d75320a14ae"
+                        },
+                        {
+                          "id": "08788826-8bc3-414b-91a1-2c509cd75873",
+                          "name": "Forbidden User",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-08788826-8bc3-414b-91a1-2c509cd75873"
+                        },
+                        {
+                          "id": "183c5e47-c97e-49f1-a47b-59a2b2996b3a",
+                          "name": "Request Timeout",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Request Timeout",
+                          "code": 408,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-183c5e47-c97e-49f1-a47b-59a2b2996b3a"
+                        },
+                        {
+                          "id": "77a79977-f200-4ad8-b5fc-ddf54e606455",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-77a79977-f200-4ad8-b5fc-ddf54e606455"
+                        },
+                        {
+                          "id": "868a74bb-2bbe-4aa4-88b6-278cda02e45e",
+                          "name": "Rate Limit Exceeded",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-868a74bb-2bbe-4aa4-88b6-278cda02e45e"
+                        },
+                        {
+                          "id": "7aaf93da-90c8-4061-bd0d-5bb8d6c9343c",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/audit-log/export?created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "audit-log",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "key": "created_by",
+                                  "value": "<uuid>"
+                                },
+                                {
+                                  "key": "created_before",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "created_after",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "key": "category",
+                                  "value": "user_group"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:02:40.000Z",
+                          "updatedAt": "2026-10-21T21:02:40.000Z",
+                          "uid": "35240-7aaf93da-90c8-4061-bd0d-5bb8d6c9343c"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-6e34be7e-ce5f-4667-bf29-98502612fdce"
                     }
                   ],
-                  "variable": []
+                  "id": "68990220-18be-4cd7-93a8-8d0ccefb133c",
+                  "createdAt": "2026-10-21T21:02:40.000Z",
+                  "updatedAt": "2026-10-21T21:02:40.000Z",
+                  "uid": "35240-68990220-18be-4cd7-93a8-8d0ccefb133c"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"total\": 4016,\n  \"page\": 4974,\n  \"size\": 3647,\n  \"audit_log_records\": [\n    {\n      \"id\": \"1d96edff-a336-385e-9e5a-495e29fa240a\",\n      \"timestamp\": \"1967-06-25T11:09:45.727Z\",\n      \"request_id\": \"string\",\n      \"category\": \"chains\",\n      \"action\": \"string\",\n      \"created_by\": {\n        \"id\": \"48cb5012-3205-2b2e-d969-342ca0ef6bdc\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"onboarding_pending_code_generation\",\n        \"role\": \"trader\",\n        \"name\": \"John Doe\"\n      },\n      \"description\": \"string\",\n      \"client_ip\": \"string\"\n    },\n    {\n      \"id\": \"e3e2d3df-5695-3354-4501-f7213cc25837\",\n      \"timestamp\": \"1999-06-10T09:15:42.149Z\",\n      \"request_id\": \"string\",\n      \"category\": \"user_group\",\n      \"action\": \"string\",\n      \"created_by\": {\n        \"id\": \"f8a808ce-fc13-785a-ade2-5e8aa53cf33e\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"pending_approval\",\n        \"role\": \"viewer\",\n        \"name\": \"John Doe\"\n      },\n      \"description\": \"string\",\n      \"client_ip\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "76e0210d-13e4-4bf8-8c44-d5d195fe3fb8",
-              "name": "Bad Request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "List Audit Log Records",
+                  "id": "827b88ac-4e68-4612-9d75-9a5c370e7855",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=chains&category=user_group",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "audit-log"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to fetch.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Whether to skip counting the total number of items.",
+                          "key": "skip_count",
+                          "value": "false"
+                        },
+                        {
+                          "key": "created_by",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "created_by",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "created_before",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "key": "created_after",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "key": "category",
+                          "value": "chains"
+                        },
+                        {
+                          "key": "category",
+                          "value": "user_group"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of audit log records."
+                  },
+                  "response": [
                     {
-                      "key": "page",
-                      "value": "1"
+                      "id": "a17f079b-de93-4695-8d92-3127f22349f5",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"audit_log_records\": [\n    {\n      \"id\": \"<uuid>\",\n      \"timestamp\": \"<dateTime>\",\n      \"request_id\": \"<string>\",\n      \"category\": \"address_book\",\n      \"action\": \"<string>\",\n      \"created_by\": {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"deleted\",\n        \"role\": \"viewer\",\n        \"name\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"client_ip\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"timestamp\": \"<dateTime>\",\n      \"request_id\": \"<string>\",\n      \"category\": \"webhook\",\n      \"action\": \"<string>\",\n      \"created_by\": {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"reset_device_pending_code_generation\",\n        \"role\": \"trader\",\n        \"name\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"client_ip\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-a17f079b-de93-4695-8d92-3127f22349f5"
                     },
                     {
-                      "key": "size",
-                      "value": "50"
+                      "id": "838a6a30-959c-45af-afa6-41b70b9ec389",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"system_error_code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-838a6a30-959c-45af-afa6-41b70b9ec389"
                     },
                     {
-                      "key": "skip_count",
-                      "value": "false"
+                      "id": "1d79e3ac-1990-43bd-9865-82f07e3189e4",
+                      "name": "Unauthorized User",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-1d79e3ac-1990-43bd-9865-82f07e3189e4"
                     },
                     {
-                      "key": "created_by",
-                      "value": "<uuid>"
+                      "id": "a1722ece-4713-4c55-a268-486062924234",
+                      "name": "Forbidden User",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-a1722ece-4713-4c55-a268-486062924234"
                     },
                     {
-                      "key": "created_by",
-                      "value": "<uuid>"
+                      "id": "c93bcdad-f334-483a-a90a-83b0b583695f",
+                      "name": "Request Timeout",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Request Timeout",
+                      "code": 408,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-c93bcdad-f334-483a-a90a-83b0b583695f"
                     },
                     {
-                      "key": "created_before",
-                      "value": "<dateTime>"
+                      "id": "ceaeed5b-dffd-4a48-abc0-fecb82b247c7",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-ceaeed5b-dffd-4a48-abc0-fecb82b247c7"
                     },
                     {
-                      "key": "created_after",
-                      "value": "<dateTime>"
+                      "id": "a02c26ad-ccd2-4a2d-b18d-6e7500f94d2d",
+                      "name": "Rate Limit Exceeded",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-a02c26ad-ccd2-4a2d-b18d-6e7500f94d2d"
                     },
                     {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
+                      "id": "ac0cd20c-e5bb-4007-8a81-2c22fe3614f3",
+                      "name": "Unexpected Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/audit-log?page=1&size=50&skip_count=false&created_by=<uuid>&created_before=<dateTime>&created_after=<dateTime>&category=user_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "created_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "created_before",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "created_after",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "key": "category",
+                              "value": "user_group"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:02:40.000Z",
+                      "updatedAt": "2026-10-21T21:02:40.000Z",
+                      "uid": "35240-ac0cd20c-e5bb-4007-8a81-2c22fe3614f3"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T21:02:40.000Z",
+                  "updatedAt": "2026-10-21T21:02:40.000Z",
+                  "uid": "35240-827b88ac-4e68-4612-9d75-9a5c370e7855"
                 }
               ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3b3b5732-2b55-4b35-98c4-497a6353ffce",
-              "name": "Unauthorized User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "06991575-1880-4939-a656-a78f7f97ba57",
-              "name": "Forbidden User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d3776b5d-134f-4d0a-b7a4-20478d3a1813",
-              "name": "Request Timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "48a5c8cf-cdbc-4cc6-9ac8-65bc9ee6bfb6",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        9620,\n        6383\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        2284,\n        4263\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "08a41a0b-43c8-4e95-9622-3795ecb2badf",
-              "name": "Rate Limit Exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "799e2a86-c25f-4878-81b2-e49215b14758",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "e78c3ce5-17a8-4c8e-a704-5e02363dccc6",
+              "createdAt": "2026-10-21T21:02:40.000Z",
+              "updatedAt": "2026-10-21T21:02:40.000Z",
+              "uid": "35240-e78c3ce5-17a8-4c8e-a704-5e02363dccc6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b79f9819-77dd-47bc-8ba3-b94969d9c0aa",
-          "name": "Export Audit Log",
-          "request": {
-            "name": "Export Audit Log",
-            "description": {
-              "content": "Get a CSV-format list of audit log records.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "audit-log",
-                "export"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "created_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_before",
-                  "value": "<dateTime>"
-                },
-                {
-                  "disabled": false,
-                  "key": "created_after",
-                  "value": "<dateTime>"
-                },
-                {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "text/csv"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ff1c8633-7693-4380-90a0-3d5b0532f3c7",
-              "name": "Exported audit log in CSV format",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/csv"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/csv"
-                }
-              ],
-              "body": "string",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "691cd6bf-309d-4744-9178-4c53cfc3f416",
-              "name": "Bad Request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "222f0da2-de31-46ce-b20f-a94bb2b5bb2a",
-              "name": "Unauthorized User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "876023fb-f83d-4923-8640-438a38206fb4",
-              "name": "Forbidden User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "df875896-a409-49a7-abfb-7825d4e3c335",
-              "name": "Request Timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7dcf9801-f417-4445-9011-9a3317295e0b",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        9620,\n        6383\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        2284,\n        4263\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d3786255-3432-45cc-b71b-d8b5e03e2c42",
-              "name": "Rate Limit Exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "96a01464-9a6b-4c0a-9de0-4100f9996ce5",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "audit-log",
-                    "export"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "created_before",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "created_after",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    },
-                    {
-                      "key": "category",
-                      "value": "quorum_threshold"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "4dc14534-1d62-48a5-b8ef-8df2ccb2614a",
+          "createdAt": "2026-10-21T21:02:40.000Z",
+          "updatedAt": "2026-10-21T21:02:40.000Z",
+          "uid": "35240-4dc14534-1d62-48a5-b8ef-8df2ccb2614a"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.fordefi.com/",
-      "key": "baseUrl"
+      "id": "eed432ca-704f-41bf-b801-e1ac3617b625",
+      "createdAt": "2026-10-21T21:02:40.000Z",
+      "updatedAt": "2026-10-21T21:02:40.000Z",
+      "uid": "35240-eed432ca-704f-41bf-b801-e1ac3617b625"
     }
   ],
   "auth": {
@@ -1404,17 +1306,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "566ae670-f2a9-44c4-acb7-1da3fba14173",
-    "name": "Fordefi Address Book Audit Log API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fordefi.com/"
     }
-  }
+  ]
 }

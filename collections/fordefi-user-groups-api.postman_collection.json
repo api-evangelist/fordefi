@@ -1,1595 +1,1402 @@
 {
+  "info": {
+    "_postman_id": "532fe256-89ce-4b70-88aa-c2563f2766f8",
+    "name": "Fordefi User Groups API",
+    "description": "These endpoints allow you to view your user groups.\n\nUser Groups are used to collectively manage policies and view permissions for a group of users.\n\nThe API is read-only. To manage user groups, visit the Fordefi web console. See more info in the\nuser guide.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:03:29.000Z",
+    "updatedAt": "2026-10-21T21:03:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-532fe256-89ce-4b70-88aa-c2563f2766f8"
+  },
   "item": [
     {
-      "id": "9d890c17-cab7-48ba-aed3-4ddb7aeb9cf9",
-      "name": "User Groups",
-      "description": {
-        "content": "These endpoints allow you to view your user groups.\n        <br><br>\n        User Groups are used to collectively manage policies and view permissions for a group of users.\n       <br><br>\n       The API is read-only. To manage user groups, visit the Fordefi web console. See more info in the\n       <a href='https://docs.fordefi.com/user-guide/organization-management/manage-user-groups'>user</a> guide.",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "a7145641-73d8-4ef9-a619-201547009d3b",
-          "name": "List User Groups",
-          "request": {
-            "name": "List User Groups",
-            "description": {
-              "content": "Get a list of user groups",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "user-groups"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1",
-                  "description": "The page number to fetch."
-                },
-                {
-                  "disabled": false,
-                  "key": "size",
-                  "value": "50",
-                  "description": "The number of items per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "skip_count",
-                  "value": "false",
-                  "description": "Whether to skip counting the total number of items."
-                },
-                {
-                  "disabled": false,
-                  "key": "states",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "states",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "user_group_ids",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "user_group_ids",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "user_ids",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "user_ids",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "modified_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "modified_by",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "exclude_user_group_ids",
-                  "value": "<uuid>",
-                  "description": "The group IDs to exclude."
-                },
-                {
-                  "disabled": false,
-                  "key": "exclude_user_group_ids",
-                  "value": "<uuid>",
-                  "description": "The group IDs to exclude."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "e2db2743-916b-4bcc-a0bc-7f619f85fe81",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "user-groups",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
                     {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
+                      "name": "Get User Group",
+                      "id": "d31b0a6c-87d4-4221-af94-932064496110",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a2a76c0a-bd37-4875-ab65-a2f097072bf3",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) ID of the user group to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve user group details"
+                      },
+                      "response": [
+                        {
+                          "id": "decb9647-ecf0-4f24-8b69-5a12335c4699",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"modified_at\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"users_count\": \"<integer>\",\n  \"admins_count\": \"<integer>\",\n  \"state\": \"active\",\n  \"modified_by\": {\n    \"id\": \"<uuid>\",\n    \"user_type\": \"<string>\",\n    \"email\": \"<string>\",\n    \"state\": \"active\",\n    \"role\": \"admin\",\n    \"name\": \"<string>\"\n  },\n  \"proposed_change\": {\n    \"id\": \"<uuid>\",\n    \"created_at\": \"<dateTime>\",\n    \"created_by\": {\n      \"id\": \"<uuid>\",\n      \"user_type\": \"<string>\",\n      \"email\": \"<string>\",\n      \"state\": \"deleted\",\n      \"role\": \"admin\",\n      \"name\": \"<string>\"\n    },\n    \"new_name\": \"<string>\",\n    \"added_users\": [\n      {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"reset_device_pending_code_generation\",\n        \"role\": \"trader\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"deleted\",\n        \"role\": \"viewer\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"removed_users\": [\n      {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"onboarding_pending_activation\",\n        \"role\": \"admin\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"reset_device_pending_code_generation\",\n        \"role\": \"trader\",\n        \"name\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-decb9647-ecf0-4f24-8b69-5a12335c4699"
+                        },
+                        {
+                          "id": "9c213842-e2ad-4077-b6da-8b265e54bb2e",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"system_error_code\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-9c213842-e2ad-4077-b6da-8b265e54bb2e"
+                        },
+                        {
+                          "id": "adea0416-df0f-4fab-83ad-4b1d0ed1de2d",
+                          "name": "Unauthorized User",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-adea0416-df0f-4fab-83ad-4b1d0ed1de2d"
+                        },
+                        {
+                          "id": "bd76a006-1267-41a9-b0db-ad85ddf06ea4",
+                          "name": "Forbidden User",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-bd76a006-1267-41a9-b0db-ad85ddf06ea4"
+                        },
+                        {
+                          "id": "95314588-416c-4d48-ad2e-9cd9250439f7",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"resource\": \"batch_transaction\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-95314588-416c-4d48-ad2e-9cd9250439f7"
+                        },
+                        {
+                          "id": "0874f992-7b5d-4385-8b9c-bc0c9dc055fa",
+                          "name": "Request Timeout",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Request Timeout",
+                          "code": 408,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-0874f992-7b5d-4385-8b9c-bc0c9dc055fa"
+                        },
+                        {
+                          "id": "7348e169-49a5-49d8-9910-40abd9467d5f",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-7348e169-49a5-49d8-9910-40abd9467d5f"
+                        },
+                        {
+                          "id": "77ceb012-93dc-4398-9033-a999846469aa",
+                          "name": "Rate Limit Exceeded",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-77ceb012-93dc-4398-9033-a999846469aa"
+                        },
+                        {
+                          "id": "0b7aecdd-374f-4564-a606-cd3ba3629e5f",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/user-groups/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "user-groups",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T21:03:29.000Z",
+                          "updatedAt": "2026-10-21T21:03:29.000Z",
+                          "uid": "35240-0b7aecdd-374f-4564-a606-cd3ba3629e5f"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-d31b0a6c-87d4-4221-af94-932064496110"
                     }
                   ],
-                  "variable": []
+                  "id": "6649a772-e9be-4be8-b06b-fe58f780a616",
+                  "createdAt": "2026-10-21T21:03:29.000Z",
+                  "updatedAt": "2026-10-21T21:03:29.000Z",
+                  "uid": "35240-6649a772-e9be-4be8-b06b-fe58f780a616"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"total\": 9124,\n  \"page\": 7565,\n  \"size\": 8769,\n  \"user_groups\": [\n    {\n      \"id\": \"c4480021-b1ab-84f8-f7ff-d181fc4b6764\",\n      \"created_at\": \"1994-01-19T08:33:26.953Z\",\n      \"modified_at\": \"1995-05-04T10:59:22.544Z\",\n      \"name\": \"string\",\n      \"users_count\": 1937,\n      \"admins_count\": 3560,\n      \"state\": \"active\",\n      \"modified_by\": {\n        \"id\": \"0c3e621a-5757-b1e2-56f1-29e7988e3c6e\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"pending_approval\",\n        \"role\": \"viewer\",\n        \"name\": \"John Doe\"\n      },\n      \"proposed_change\": {\n        \"id\": \"4b45a9d1-003e-4fa3-bc92-41f868c883da\",\n        \"created_at\": \"1969-06-03T13:44:40.161Z\",\n        \"created_by\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"role\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"new_name\": \"string\",\n        \"added_users\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"removed_users\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"c039193f-d19e-f8e0-2ec9-edcd5af82e0e\",\n      \"created_at\": \"1991-08-30T02:33:35.506Z\",\n      \"modified_at\": \"1955-12-31T15:37:21.508Z\",\n      \"name\": \"string\",\n      \"users_count\": 4338,\n      \"admins_count\": 1638,\n      \"state\": \"active\",\n      \"modified_by\": {\n        \"id\": \"e789ef22-0eed-ba69-b12c-b407a5bdf453\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"pending_approval\",\n        \"role\": \"admin\",\n        \"name\": \"John Doe\"\n      },\n      \"proposed_change\": {\n        \"id\": \"9399b846-7ee3-6ed1-5e64-49acf8676566\",\n        \"created_at\": \"2000-08-29T21:20:31.281Z\",\n        \"created_by\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"state\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"role\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"new_name\": \"string\",\n        \"added_users\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"removed_users\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e08b8e0e-e1f0-4d5d-b736-74b7599f5a23",
-              "name": "Bad Request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "List User Groups",
+                  "id": "71675066-fc35-4a39-ab15-0fcb8ffee8a1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&states=active&user_group_ids=<uuid>&user_group_ids=<uuid>&user_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&exclude_user_group_ids=<uuid>&sort_by=users_count_asc&sort_by=name_asc",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "user-groups"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to fetch.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "The number of items per page.",
+                          "key": "size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Whether to skip counting the total number of items.",
+                          "key": "skip_count",
+                          "value": "false"
+                        },
+                        {
+                          "key": "states",
+                          "value": "active"
+                        },
+                        {
+                          "key": "states",
+                          "value": "active"
+                        },
+                        {
+                          "key": "user_group_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "user_group_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "user_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "user_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "modified_by",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "modified_by",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The group IDs to exclude.",
+                          "key": "exclude_user_group_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "The group IDs to exclude.",
+                          "key": "exclude_user_group_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "sort_by",
+                          "value": "users_count_asc"
+                        },
+                        {
+                          "key": "sort_by",
+                          "value": "name_asc"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of user groups"
+                  },
+                  "response": [
                     {
-                      "key": "page",
-                      "value": "1"
+                      "id": "a8473196-a578-4e57-9e4b-2f1d3e2597ff",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"size\": \"<integer>\",\n  \"user_groups\": [\n    {\n      \"id\": \"<uuid>\",\n      \"created_at\": \"<dateTime>\",\n      \"modified_at\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"users_count\": \"<integer>\",\n      \"admins_count\": \"<integer>\",\n      \"state\": \"deleted\",\n      \"modified_by\": {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"deleted\",\n        \"role\": \"admin\",\n        \"name\": \"<string>\"\n      },\n      \"proposed_change\": {\n        \"id\": \"<uuid>\",\n        \"created_at\": \"<dateTime>\",\n        \"created_by\": {\n          \"id\": \"<uuid>\",\n          \"user_type\": \"<string>\",\n          \"email\": \"<string>\",\n          \"state\": \"reset_device_pending_code_generation\",\n          \"role\": \"admin\",\n          \"name\": \"<string>\"\n        },\n        \"new_name\": \"<string>\",\n        \"added_users\": [\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"pending_approval\",\n            \"role\": \"admin\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"active\",\n            \"role\": \"admin\",\n            \"name\": \"<string>\"\n          }\n        ],\n        \"removed_users\": [\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"pending_approval\",\n            \"role\": \"admin\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"reset_device_pending_activation\",\n            \"role\": \"trader\",\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"created_at\": \"<dateTime>\",\n      \"modified_at\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"users_count\": \"<integer>\",\n      \"admins_count\": \"<integer>\",\n      \"state\": \"active\",\n      \"modified_by\": {\n        \"id\": \"<uuid>\",\n        \"user_type\": \"<string>\",\n        \"email\": \"<string>\",\n        \"state\": \"onboarding_pending_activation\",\n        \"role\": \"trader\",\n        \"name\": \"<string>\"\n      },\n      \"proposed_change\": {\n        \"id\": \"<uuid>\",\n        \"created_at\": \"<dateTime>\",\n        \"created_by\": {\n          \"id\": \"<uuid>\",\n          \"user_type\": \"<string>\",\n          \"email\": \"<string>\",\n          \"state\": \"active\",\n          \"role\": \"admin\",\n          \"name\": \"<string>\"\n        },\n        \"new_name\": \"<string>\",\n        \"added_users\": [\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"deleted\",\n            \"role\": \"admin\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"reset_device_pending_activation\",\n            \"role\": \"admin\",\n            \"name\": \"<string>\"\n          }\n        ],\n        \"removed_users\": [\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"onboarding_pending_activation\",\n            \"role\": \"viewer\",\n            \"name\": \"<string>\"\n          },\n          {\n            \"id\": \"<uuid>\",\n            \"user_type\": \"<string>\",\n            \"email\": \"<string>\",\n            \"state\": \"reset_device_pending_activation\",\n            \"role\": \"viewer\",\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-a8473196-a578-4e57-9e4b-2f1d3e2597ff"
                     },
                     {
-                      "key": "size",
-                      "value": "50"
+                      "id": "a6a99a28-2bbf-4b5a-a5e2-76fce0535e80",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\",\n  \"system_error_code\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-a6a99a28-2bbf-4b5a-a5e2-76fce0535e80"
                     },
                     {
-                      "key": "skip_count",
-                      "value": "false"
+                      "id": "6e925293-5f79-4f81-a503-8da3074c7ede",
+                      "name": "Unauthorized User",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-6e925293-5f79-4f81-a503-8da3074c7ede"
                     },
                     {
-                      "key": "states",
-                      "value": "active"
+                      "id": "01aacc55-db3b-4202-9a2e-b1bbbac9c197",
+                      "name": "Forbidden User",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-01aacc55-db3b-4202-9a2e-b1bbbac9c197"
                     },
                     {
-                      "key": "states",
-                      "value": "deleted"
+                      "id": "4b57fbad-283d-4f94-ad57-c1523ba3dacf",
+                      "name": "Request Timeout",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Request Timeout",
+                      "code": 408,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-4b57fbad-283d-4f94-ad57-c1523ba3dacf"
                     },
                     {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
+                      "id": "29088c2e-68e2-4a2d-a208-8d6a2e337063",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-29088c2e-68e2-4a2d-a208-8d6a2e337063"
                     },
                     {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
+                      "id": "82951b04-f483-4047-9bbc-b9b19f4f0b7c",
+                      "name": "Rate Limit Exceeded",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-82951b04-f483-4047-9bbc-b9b19f4f0b7c"
                     },
                     {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
+                      "id": "8e1f50b5-7bb9-4a80-945e-fb2cb25685bf",
+                      "name": "Unexpected Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/user-groups?page=1&size=50&skip_count=false&states=active&user_group_ids=<uuid>&user_ids=<uuid>&modified_by=<uuid>&name=<string>&search=<string>&exclude_user_group_ids=<uuid>&sort_by=name_asc",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "user-groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "The page number to fetch.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "The number of items per page.",
+                              "key": "size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Whether to skip counting the total number of items.",
+                              "key": "skip_count",
+                              "value": "false"
+                            },
+                            {
+                              "key": "states",
+                              "value": "active"
+                            },
+                            {
+                              "key": "user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "user_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "modified_by",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "name",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The group IDs to exclude.",
+                              "key": "exclude_user_group_ids",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "sort_by",
+                              "value": "name_asc"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"full_detail\": \"<string>\",\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T21:03:29.000Z",
+                      "updatedAt": "2026-10-21T21:03:29.000Z",
+                      "uid": "35240-8e1f50b5-7bb9-4a80-945e-fb2cb25685bf"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T21:03:29.000Z",
+                  "updatedAt": "2026-10-21T21:03:29.000Z",
+                  "uid": "35240-71675066-fc35-4a39-ab15-0fcb8ffee8a1"
                 }
               ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b6ac5b83-9e33-425a-9b64-ee2eb076b00d",
-              "name": "Unauthorized User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fb09dbd7-8a20-4f45-a535-0bd06a5a3543",
-              "name": "Forbidden User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2af2eee9-5c1f-4c5e-ae71-31d395547e6e",
-              "name": "Request Timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "09f62394-78d1-42b5-9b5e-c72807a6a1ae",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        7352,\n        7528\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8188,\n        9112\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c9305991-1547-4c78-b0a0-a4ff49336f95",
-              "name": "Rate Limit Exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "20a1bc8e-0d7f-48dc-aedb-e9844384b348",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "skip_count",
-                      "value": "false"
-                    },
-                    {
-                      "key": "states",
-                      "value": "active"
-                    },
-                    {
-                      "key": "states",
-                      "value": "deleted"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "modified_by",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "exclude_user_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_asc"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "created_at_desc"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "0cae0460-c228-4592-aee5-0eb3b2cec0b7",
+              "createdAt": "2026-10-21T21:03:29.000Z",
+              "updatedAt": "2026-10-21T21:03:29.000Z",
+              "uid": "35240-0cae0460-c228-4592-aee5-0eb3b2cec0b7"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b1cf9065-129a-4442-851c-6f3ab73b6a9a",
-          "name": "Get User Group",
-          "request": {
-            "name": "Get User Group",
-            "description": {
-              "content": "Retrieve user group details",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "user-groups",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) ID of the user group to retrieve."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5ac2041b-4565-4382-90d5-1e0d7484d043",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"8b08fc84-3acd-ed32-0e72-7fd858b0fbff\",\n  \"created_at\": \"2012-03-04T02:39:33.258Z\",\n  \"modified_at\": \"1963-12-03T01:36:46.341Z\",\n  \"name\": \"string\",\n  \"users_count\": 4217,\n  \"admins_count\": 9877,\n  \"state\": \"deleted\",\n  \"modified_by\": {\n    \"id\": \"bd16c1a3-a9e0-f55e-fde0-95c6bd1330c4\",\n    \"user_type\": \"string\",\n    \"email\": \"string\",\n    \"state\": \"onboarding_pending_code_generation\",\n    \"role\": \"admin\",\n    \"name\": \"John Doe\"\n  },\n  \"proposed_change\": {\n    \"id\": \"eb6c276b-2059-fd84-f1f9-9d5b52addf53\",\n    \"created_at\": \"1994-08-26T11:36:14.600Z\",\n    \"created_by\": {\n      \"id\": \"a073cba7-ffae-cb94-4e12-068faa9ccf9c\",\n      \"user_type\": \"string\",\n      \"email\": \"string\",\n      \"state\": \"reset_device_pending_code_generation\",\n      \"role\": \"viewer\",\n      \"name\": \"John Doe\"\n    },\n    \"new_name\": \"string\",\n    \"added_users\": [\n      {\n        \"id\": \"d1e0ff79-f18b-1d7c-103d-5b00888d966c\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"reset_device_pending_activation\",\n        \"role\": \"admin\",\n        \"name\": \"John Doe\"\n      },\n      {\n        \"id\": \"c68dd29e-213a-13c3-3a92-ca7331edb347\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"reset_device_pending_code_generation\",\n        \"role\": \"viewer\",\n        \"name\": \"John Doe\"\n      }\n    ],\n    \"removed_users\": [\n      {\n        \"id\": \"e372e66f-b480-724d-44f6-3ca260ad8f17\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"active\",\n        \"role\": \"viewer\",\n        \"name\": \"John Doe\"\n      },\n      {\n        \"id\": \"45280571-9180-373a-c928-70e56ea47f42\",\n        \"user_type\": \"string\",\n        \"email\": \"string\",\n        \"state\": \"pending_approval\",\n        \"role\": \"trader\",\n        \"name\": \"John Doe\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3f02ccda-7bec-40ca-96e4-1deabb5fccf1",
-              "name": "Bad Request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"system_error_code\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c4f2ba1c-c1e6-426a-b57e-58e0aa004734",
-              "name": "Unauthorized User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "37680bf4-3d6d-4448-b711-fdde24401ce9",
-              "name": "Forbidden User",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "dcd13467-215c-4e67-bec6-8e13e413d79b",
-              "name": "Not Found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\",\n  \"resource\": \"keyset\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e1ea10ed-e743-46ae-b01b-591694891639",
-              "name": "Request Timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bb8db43e-046b-4f6c-8c0f-346417b50ae4",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": [\n    {\n      \"loc\": [\n        7352,\n        7528\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        8188,\n        9112\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0df78888-29ed-43f8-8688-0aee1cabab38",
-              "name": "Rate Limit Exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bdf50b4d-aa8f-4847-a5ab-7699bfd407d8",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "user-groups",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) ID of the user group to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"full_detail\": \"string\",\n  \"request_id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "c6e2b560-a0f0-4b79-9eda-e74630d79900",
+          "createdAt": "2026-10-21T21:03:29.000Z",
+          "updatedAt": "2026-10-21T21:03:29.000Z",
+          "uid": "35240-c6e2b560-a0f0-4b79-9eda-e74630d79900"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.fordefi.com/",
-      "key": "baseUrl"
+      "id": "bd0f36ba-050b-4b85-8441-67d3c4ed9660",
+      "createdAt": "2026-10-21T21:03:29.000Z",
+      "updatedAt": "2026-10-21T21:03:29.000Z",
+      "uid": "35240-bd0f36ba-050b-4b85-8441-67d3c4ed9660"
     }
   ],
   "auth": {
@@ -1597,17 +1404,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "cc5dba39-b1f2-4f42-a613-693a1178e77c",
-    "name": "Fordefi Address Book User Groups API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "These endpoints allow you to list the contacts in your address book.<br><br>To add/remove contacts, visit the Fordefi web console. See the <a href='https://docs.fordefi.com/user-guide/address-book'>user guide</a> for more info.",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.fordefi.com/"
     }
-  }
+  ]
 }
